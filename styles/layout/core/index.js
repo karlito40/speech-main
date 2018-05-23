@@ -4,6 +4,9 @@ import base from './base';
 import helpers from './helpers';
 import sidebar from './sidebar';
 import form from './form';
+import header from './header';
+import sprites from './sprites';
+import main from './main';
 
 const core = css`
   @import 'fonts/lato';
@@ -15,6 +18,9 @@ export {
   normalize,
   base,
   helpers,
+  main,
   sidebar,
-  form
+  form,
+  header,
+  sprites
 };

@@ -1,16 +1,22 @@
+import React from 'react';
 import Link from 'next/link';
 import FormConnexion from '../components/forms/FormConnexion';
 import BaseLayout from '../components/layouts/BaseLayout';
+import FacadeHeader from '../components/headers/FacadeHeader';
 import * as layoutCSS from '../styles/layout/facade';
-import React from 'react';
 
 export default class extends BaseLayout {
-  renderHeader() {
 
+  handleConnexionLink() {
+    this.setState({ showSidebar: !this.state.showSidebar });
+  }
+
+  renderHeader() {
+    return <FacadeHeader onConnexionLink={ this.handleConnexionLink.bind(this) }/>;
   }
 
   renderBody() {
-    return <Link href="/contact"><a>Contact</a></Link>;
+    // return <Link href="/contact"><a>Contact</a></Link>;
   }
 
   renderSidebar() {

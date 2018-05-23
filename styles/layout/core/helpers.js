@@ -5,5 +5,8 @@ export default css`
   .txt-left { text-align: left; }
   .txt-right { text-align: right; }
 
-  .disappear { opacity: 0; transform: translateX(25px); }
+  .full-width { width: 100%; }
+  .block { display: block; }
+
+  .horiz-center { display: flex; justify-content: center; }
 `;

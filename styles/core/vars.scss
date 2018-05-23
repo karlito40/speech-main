@@ -13,6 +13,21 @@ $colorBlue: #0684bd;
 $colorDeepBlue: #262a30;
 $colorHighlight: #fa4f55;
 
+$colors: (
+  white-smoke: $colorWhiteSmoke,
+  lighter-grey: $colorLightGrey,
+  light-grey: $colorLightGrey,
+  grey: $colorGrey,
+  dark-grey: $colorDarkGrey,
+  dim-grey: $colorDimGrey,
+  light-black: $colorLightBlack,
+  deep-black: $colorDeepBlack,
+  red: $colorRed,
+  blue: $colorBlue,
+  deep-blue: $colorDeepBlue,
+  highlight: $colorHighlight,
+);
+
 $baseTextColor: $colorLightBlack;
 $baseLinkColor: $colorDeepBlack;
 $baseLinkHoverColor: $colorDeepBlack;

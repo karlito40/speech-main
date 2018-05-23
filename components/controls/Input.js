@@ -13,10 +13,14 @@ export default class extends Component {
     if(this.value) {
       this.setState({ isEmpty: false });
     }
-    
+
     if(this.props.onChange) {
       this.props.onChange(value, name);
     }
+  }
+
+  handleFocus() {
+    this.setState({isEmpty: false});
   }
 
   handleBlur() {
@@ -39,7 +43,7 @@ export default class extends Component {
             type={ type || 'text' }
             name={ name }
             onChange={ this.handleChange.bind(this) }
-            onFocus={ () => this.setState({isEmpty: false}) }
+            onFocus={ this.handleFocus.bind(this) }
             onBlur={ this.handleBlur.bind(this) }
           />
           { ico && (
