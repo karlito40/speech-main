@@ -1,0 +1,9 @@
+@mixin my-padding-mixin($some-number) {
+  padding: $some-number;
+}
+
+@mixin touch() {
+   @media (max-width: $desktopMainWidth) {
+     @content;
+   }
+}

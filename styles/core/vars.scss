@@ -1,0 +1,54 @@
+// Colors:==================================================================
+$colorWhiteSmoke: #f5f5f5;
+$colorGainsboro: #eee;
+$colorLighterGrey: #ddd;
+$colorLightGrey: #ccc;
+$colorGrey: #bbb;
+$colorDarkGrey: #999;
+$colorDimGrey: #666;
+$colorLightBlack: #555;
+$colorDeepBlack: #222;
+$colorRed: #ff2a2a;
+$colorBlue: #0684bd;
+$colorDeepBlue: #262a30;
+$colorHighlight: #fa4f55;
+
+$baseTextColor: $colorLightBlack;
+$baseLinkColor: $colorDeepBlack;
+$baseLinkHoverColor: $colorDeepBlack;
+$baseLinkDecorationColor: $colorLightGrey;
+$baseLinkHoverDecorationColor: $colorDeepBlack;
+$baseBorderColor: $colorLightGrey;
+$bodyBackgroundColor: white;
+$contentBackgroundColor: white;
+$sidebarBackgroundColor: white;
+$sidebarHighlightBlue: #87daff;
+
+// Fonts ==================================================================
+$fontFamilySans: "Avenir Next", Avenir, "Tahoma", "Vendana", sans-serif;
+$fontFamilySerif: "PT Serif", "Cambria", Georgia, "Times New Roman", serif;
+$fontFamilyMono: "PT Mono", consolas, Monaco, Menlo, monospace;
+$fontFamilyHeadline: "PT Serif", "Cambria", Georgia, "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", "Times New Roman", serif;
+$fontFamilyPost: "Lato", "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+$fontFamilyBase: $fontFamilyPost;
+$fontSizeBase: 16px;
+$fontLineHeightBase: 1.8;
+$fontSizeHeadlineBase: 28px;
+$fontSizeHeadlineStep: 2px;
+$headlineFontFamily: $fontFamilyHeadline;
+
+// Layout:=================================================================
+$desktopMainWidth: 960px;
+$desktopContentWidth: 700px;
+$desktopSidebarWidth: 240px;
+
+// Layout:=================================================================
+$brandTextColor: white;
+$brandBackground: $colorDeepBlack;
+
+// Theme:==================================================================
+$brandWidth: 60px;
+$logoWidth: 12px;
+$logoHeight: 20px;
+$logoBackgroundColor: white;
+$menuItemRightMargin: 10px;
