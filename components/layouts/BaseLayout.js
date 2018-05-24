@@ -16,13 +16,24 @@ export default class extends React.Component {
   renderFooter() {}
   renderMeta() {}
 
+  handleBlurSidebar(e) {
+    if(!this.sidebarNode || !this.sidebarNode.contains(e.relatedTarget)) {
+      this.setState({ showSidebar: false });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.showSidebar && this.sidebarNode) {
+      this.sidebarNode.focus();
+    }
+  }
+
   render() {
     const { showSidebar } = this.state;
 
     return (
       <React.Fragment>
         <Head>
-          <link href="https://fonts.googleapis.com/css?family=Delius+Unicase" rel="stylesheet"/>
           <script src="/static/js/modernizr/modernizr-custom.js"></script>
         </Head>
 
@@ -38,7 +49,12 @@ export default class extends React.Component {
           </footer>
         </main>
 
-        <div className={`sidebar-app ${showSidebar ? 'show' : ''}`}>
+        <div
+          className={`sidebar-app ${showSidebar ? 'show' : ''}`}
+          tabIndex="-1"
+          onBlur={ this.handleBlurSidebar.bind(this) }
+          ref={ (node) => this.sidebarNode = node }
+        >
           { this.renderSidebar() }
         </div>
 

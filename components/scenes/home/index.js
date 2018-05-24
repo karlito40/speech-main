@@ -1,5 +1,5 @@
-import Scene1 from './Scene1'
+import PresentationalScene from './PresentationalScene'
 
 export {
-  Scene1
+  PresentationalScene
 };
