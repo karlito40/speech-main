@@ -76,6 +76,7 @@ export default css`
       &:before { border: 0; right: 0; width: 100%; left: auto; background-color: $colorDeepBlack;}
       &:after { border: 0; }
       &:hover {
+        & { transition: 0.35s background; }
         ${'' /* & { box-shadow: none; } */}
         ${'' /* &:before { border-top-color: transparent; border-right-color: transparent; transition: none; } */}
         &:before { border-top-color: transparent; border-right-color: transparent; transition: 0.35s width ease-out; width: 0; }
