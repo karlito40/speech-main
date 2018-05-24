@@ -23,7 +23,7 @@ export default class extends BaseLayout {
 
 
   renderSidebar() {
-    return <ConnexionForm className="motion m-rtl"/>;
+    return <ConnexionForm/>;
   }
 
   renderFooter() {

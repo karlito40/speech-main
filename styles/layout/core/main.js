@@ -37,6 +37,11 @@ export default css`
 
   .sidebar-app {
     & { background-color: $colorDeepBlack; color: $colorDarkGrey; position: fixed; top: 0; right: -320px; bottom: 0; width: 320px; font-size: $font18pt; transition: 0.38s all ease-out; outline: 0; }
-    &.show { transform: translateX(-320px); }
+    > * { opacity: 0; transform: translateX(35px); transition: 0.6s all 0.22s; }
+    &.show {
+      & { transform: translateX(-320px); }
+      > * { opacity: 1; transform: translateX(0); }
+    }
+
   }
 `;

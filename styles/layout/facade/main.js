@@ -28,7 +28,6 @@ export default css`
 
     }
 
-    .m-rtl { opacity: 0; transform: translateX(35px); transition: 0.6s all 0.22s; }
-    &.show .m-rtl { opacity: 1; transform: translateX(0); }
+    
   }
 `;
