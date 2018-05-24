@@ -72,11 +72,18 @@ export default css`
     }
 
     @include createButtonColor($colorDeepBlack, $colorDeepBlack);
-    &.primary:hover {
-      & { box-shadow: none; }
-      &:before { border-top-color: transparent; border-right-color: transparent; transition: none; }
-      &:after { left: 0; border-bottom-color: $colorDeepBlack; border-left-color: transparent; transition: border-color 0s ease-out, width 0.4s ease-out; }
+    &.primary {
+      &:before { border: 0; right: 0; width: 100%; left: auto; background-color: $colorDeepBlack;}
+      &:after { border: 0; }
+      &:hover {
+        ${'' /* & { box-shadow: none; } */}
+        ${'' /* &:before { border-top-color: transparent; border-right-color: transparent; transition: none; } */}
+        &:before { border-top-color: transparent; border-right-color: transparent; transition: 0.35s width ease-out; width: 0; }
+        ${'' /* &:after { left: 0; border-bottom-color: $colorDeepBlack; border-left-color: transparent; transition: border-color 0s ease-out, width 0.4s ease-out; } */}
+        ${'' /* &:after { border: 0 } */}
+      }
     }
+
 
 
     @each $name, $value in $colors {
