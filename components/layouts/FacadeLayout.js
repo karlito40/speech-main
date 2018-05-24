@@ -9,7 +9,7 @@ import BaseLayout from './BaseLayout';
 
 export default class extends BaseLayout {
   handleConnexionLink(e) {
-    if(this.state.showSidebar) {
+    if(!this.state.showSidebar) {
       this.setState({ showSidebar: true });
     }
   }
