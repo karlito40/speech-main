@@ -1,8 +1,34 @@
 import css from 'styled-jsx/css';
 
 export default css`
+  @import 'core/index';
+
   .main-app {
-    & { transition: 0.38s all ease-out; }
-    &.has-sidebar { padding-right: 320px; }
+    & { transition: 0.38s all ease-out; position: relative; }
+    &.has-sidebar {
+      & { padding-right: 320px; }
+    }
+  }
+
+  .header-app {
+    & { padding: 5px 10px; padding-right: 30px; border-top: 3px solid $colorDeepBlack; }
+
+    .navbar {
+      & { display: flex; align-items: center; font-size: $font20pt; }
+      .navbar-nav {
+        & { margin: 0; margin-left: auto; display: flex; }
+        a {
+          & { border: 0; display: block; margin-left: 25px; position: relative; }
+          &:after { content: ''; display: block; position: absolute; bottom: -2px; height: 2px; background: $colorDeepBlack; width: 0; transition: 0.2s all; }
+          &:hover:after { width: 100%; }
+        }
+      }
+    }
+
+  }
+
+  .sidebar-app {
+    & { background-color: $colorDeepBlack; color: $colorDarkGrey; position: fixed; top: 0; right: -320px; bottom: 0; width: 320px; font-size: $font18pt; transition: 0.38s all ease-out; }
+    &.show { transform: translateX(-320px); }
   }
 `;

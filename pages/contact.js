@@ -1,17 +1,10 @@
 import Link from 'next/link';
-import FormConnexion from '../components/forms/FormConnexion';
-import BaseLayout from '../components/layouts/BaseLayout';
-// import layoutCSS from '../styles/layout/facade';
+import BaseLayout from '../components/layouts/FacadeLayout';
 
-export default class extends BaseLayout {
+export default class extends FacadeLayout {
 
   renderBody() {
-    return <h1>Toto</h1> 
+    return <h1>Toto</h1>
   }
 
-
-
-  // renderMeta() {
-  //   return (<style jsx global>{ layoutCSS }</style>);
-  // }
 }

@@ -1,40 +1,18 @@
 import React from 'react';
-import Link from 'next/link';
-import FormConnexion from '../components/forms/FormConnexion';
-import BaseLayout from '../components/layouts/BaseLayout';
-import FacadeHeader from '../components/headers/FacadeHeader';
-import * as layoutCSS from '../styles/layout/facade';
+import FacadeLayout from '../components/layouts/FacadeLayout';
+import * as scenes from '../components/scenes/home';
 
-export default class extends BaseLayout {
-
-  handleConnexionLink() {
-    this.setState({ showSidebar: !this.state.showSidebar });
-  }
-
-  renderHeader() {
-    return <FacadeHeader onConnexionLink={ this.handleConnexionLink.bind(this) }/>;
-  }
-
+export default class extends FacadeLayout {
   renderBody() {
-    // return <Link href="/contact"><a>Contact</a></Link>;
+    return (
+      <React.Fragment>
+        {Object.values(scenes).map((Scene, i) => {
+          return (<section className={`scene scene-${(i+1)}`} key={i}>
+            <Scene/>
+          </section>)
+        })}
+      </React.Fragment>
+    );
   }
 
-  renderSidebar() {
-    return <FormConnexion/>;
-  }
-
-  renderFooter() {
-
-  }
-
-
-  renderMeta() {
-    return (<React.Fragment>
-      {Object.values(layoutCSS).map((cssItem, i) => {
-        return (<React.Fragment key={i}>
-          <style jsx global>{ cssItem }</style>
-        </React.Fragment>)
-      })}
-    </React.Fragment>);
-  }
 }

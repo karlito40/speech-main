@@ -11,7 +11,8 @@ $colorDeepBlack: #222;
 $colorRed: #ff2a2a;
 $colorBlue: #0684bd;
 $colorDeepBlue: #262a30;
-$colorHighlight: #fa4f55;
+$colorHighlight: #e313a1;
+$colorNotif: #fa4f55;
 
 $colors: (
   white-smoke: $colorWhiteSmoke,
@@ -47,7 +48,10 @@ $fontFamilyHeadline: "PT Serif", "Cambria", Georgia, "Microsoft Jhenghei", "Hira
 $fontFamilyPost: "Lato", "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 $fontFamilyBase: $fontFamilyPost;
 $fontSizeBase: 16px;
-$fontLineHeightBase: 1.8;
+$font24pt: 17px;
+$font20pt: 15px;
+$font18pt: 14px;
+$fontLineHeightBase: 1.5;
 $fontSizeHeadlineBase: 28px;
 $fontSizeHeadlineStep: 2px;
 $headlineFontFamily: $fontFamilyHeadline;
@@ -56,6 +60,8 @@ $headlineFontFamily: $fontFamilyHeadline;
 $desktopMainWidth: 960px;
 $desktopContentWidth: 700px;
 $desktopSidebarWidth: 240px;
+$tabletBreakpoint: 991px;
+$mobileBreakpoint: 767px;
 
 // Layout:=================================================================
 $brandTextColor: white;

@@ -5,7 +5,7 @@ export default class extends Component {
     const { children, className, onClick } = this.props;
 
     return (
-      <button className={ className } onClick={ onClick }>
+      <button className={ `btn-sp ${className}` } onClick={ onClick }>
         { children }
       </button>
     );

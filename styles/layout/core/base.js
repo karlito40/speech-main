@@ -9,7 +9,6 @@ export default css`
   }
 
   body {
-    border-top: 3px solid $colorDeepBlack;
     color: $baseTextColor;
     background: $bodyBackgroundColor;
     font: #{$fontSizeBase}/#{$fontLineHeightBase} $fontFamilyBase;
@@ -28,7 +27,7 @@ export default css`
     h#{$i} {
       font-size: $fontSizeHeadlineBase - $fontSizeHeadlineStep * $i;
 
-      @include touch() {
+      @include tablet() {
         font-size: $fontSizeHeadlineBase - $fontSizeHeadlineStep * $i - 4px;
       }
     }

@@ -13,7 +13,6 @@ export default class extends React.Component {
   render() {
     return (
       <nav className="navbar">
-        <Logo dim="min"/>
         <ul className="navbar-nav">
           <li className="nav-item">
             <a className="nav-link"

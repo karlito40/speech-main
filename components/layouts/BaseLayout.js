@@ -17,13 +17,13 @@ export default class extends React.Component {
   renderMeta() {}
 
   render() {
-    console.log('this.state', this.state);
     const { showSidebar } = this.state;
 
     return (
       <React.Fragment>
         <Head>
           <link href="https://fonts.googleapis.com/css?family=Delius+Unicase" rel="stylesheet"/>
+          <script src="/static/js/modernizr/modernizr-custom.js"></script>
         </Head>
 
         <main className={`main-app ${showSidebar ? 'has-sidebar' : ''}`}>
