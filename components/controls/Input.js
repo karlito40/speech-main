@@ -64,11 +64,14 @@ export default class extends Component {
   }
 
   generateDatePickerFallback() {
-    return <DatePicker
-      selected={ this.value }
-      onChange={ this.handleDate }
-      onBlur={ this.handleBlur }
-    />
+    return <>
+      <DatePicker
+        selected={ this.value }
+        onChange={ this.handleDate }
+        onBlur={ this.handleBlur }
+      />
+      <style jsx global>{datePickerCSS}</style>
+    </>
   }
 
   componentDidMount() {
@@ -99,7 +102,7 @@ export default class extends Component {
           .not-empty :global(input[type="date"] + .ico) { display: none; }
         `}</style>
 
-          <style jsx global>{datePickerCSS}</style>
+
 
       </div>
     );
