@@ -2,6 +2,10 @@ import css from 'styled-jsx/css';
 
 export default css`
   @import 'core/index';
+  @import 'core/animations/opacity';
+
+  .header-app {
+  }
 
   .sidebar-app {
 
@@ -9,7 +13,7 @@ export default css`
       & { margin-left: 55px; margin-right: 55px; margin-top: 55px; }
       form { margin-bottom: 13px; }
       .form-group { margin-bottom: 19px; }
-      
+
       button { color: $colorWhiteSmoke; padding: 3px 0; }
       .link {
         & { color: #555; cursor: pointer; transition: 0.2s all; display: block; position: relative; }

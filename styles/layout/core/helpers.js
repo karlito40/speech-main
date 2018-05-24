@@ -9,4 +9,6 @@ export default css`
   .block { display: block; }
 
   .horiz-center { display: flex; justify-content: center; }
+  .ico-close { width: 22px; height: 22px; background: url('/static/img/ico/multiply.svg'); }
+  .pointer { cursor: pointer; }
 `;

@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import sidebar from './sidebar';
+import main from './main';
 
 
 export {
-  sidebar,
+  main,
 };

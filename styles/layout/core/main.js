@@ -18,9 +18,13 @@ export default css`
       .navbar-nav {
         & { margin: 0; margin-left: auto; display: flex; }
         a {
-          & { border: 0; display: block; margin-left: 25px; position: relative; }
-          &:after { content: ''; display: block; position: absolute; bottom: -2px; height: 2px; background: $colorDeepBlack; width: 0; transition: 0.2s all; }
-          &:hover:after { width: 100%; }
+          & { border: 0; display: block; margin-left: 25px; display: inline-flex; }
+          .nav-label {
+            & { display: block; position: relative; }
+            &:after { content: ''; display: block; position: absolute; bottom: -2px; height: 2px; background: $colorDeepBlack; width: 0; transition: 0.2s all; }
+          }
+          &:hover .nav-label:after { width: 100%; }
+          .ico { margin-left: 10px; }
         }
       }
     }

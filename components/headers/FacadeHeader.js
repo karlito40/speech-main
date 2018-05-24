@@ -11,13 +11,16 @@ export default class extends React.Component {
   }
 
   render() {
+    const { showCloseConnexion } = this.props;
+
     return (
       <nav className="navbar">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <a className="nav-link"
-              href="/connexion"
-              onClick={ this.handleConnexionLink.bind(this) }>Connexion</a>
+            <a className="nav-link" href="/connexion" onClick={ this.handleConnexionLink.bind(this) }>
+              <div className="nav-label">Connexion</div>
+              {showCloseConnexion && <div className="ico ico-close"></div>}
+            </a>
           </li>
         </ul>
       </nav>

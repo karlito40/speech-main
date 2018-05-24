@@ -13,7 +13,10 @@ export default class extends BaseLayout {
   }
 
   renderHeader() {
-    return <FacadeHeader onConnexionLink={ this.handleConnexionLink.bind(this) }/>;
+    return <FacadeHeader
+      onConnexionLink={ this.handleConnexionLink.bind(this) }
+      showCloseConnexion={ this.state.showSidebar }
+    />;
   }
 
 
