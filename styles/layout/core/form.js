@@ -27,7 +27,7 @@ export default css`
 
   .form-group {
     & { position: relative; font-size: $font18pt; }
-    &:after { content: ''; display: block; width: 0; height: 1px; position: absolute; bottom: 0; transition: 0.25s all ease; }
+    &:after { content: ''; display: block; width: 0; height: 2px; position: absolute; bottom: 0; transition: 0.25s all ease; }
     label { position: absolute; bottom: 2px; pointer-events: none; transition: 0.25s all; }
     .ico { position: absolute; right: 0; bottom: 2px; pointer-events: none; transition: 0.1s color 0.15s;}
     input { padding-bottom: 4px; }
@@ -41,7 +41,7 @@ export default css`
       input { width: 100%; }
     }
 
-    @include createInputColor($colorDeepBlack, $colorHighlight);
+    @include createInputColor($colorDeepBlack, black);
 
     @each $name, $value in $colors {
       &.c-#{$name} {

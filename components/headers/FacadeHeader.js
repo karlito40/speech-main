@@ -5,9 +5,7 @@ export default class extends React.Component {
 
   handleConnexionLink(e) {
     e.preventDefault();
-    if(this.props.onConnexionLink) {
-      this.props.onConnexionLink()
-    }
+    this.props.onConnexionLink(e)
   }
 
   render() {

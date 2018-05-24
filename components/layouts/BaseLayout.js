@@ -17,8 +17,13 @@ export default class extends React.Component {
   renderMeta() {}
 
   handleBlurSidebar(e) {
-    if(!this.sidebarNode || !this.sidebarNode.contains(e.relatedTarget)) {
-      this.setState({ showSidebar: false });
+    e.stopPropagation();
+    if(
+      (!this.sidebarNode || !this.sidebarNode.contains(e.relatedTarget))
+      && document.activeElement != this.sidebarNode
+    ) {
+      // Need to be handle after the connexionLink action
+      setTimeout(() => this.setState({ showSidebar: false }), 20);
     }
   }
 
@@ -34,6 +39,7 @@ export default class extends React.Component {
     return (
       <React.Fragment>
         <Head>
+          <meta name="viewport" content="width=device-width,initial-scale=1"/>
           <script src="/static/js/modernizr/modernizr-custom.js"></script>
         </Head>
 

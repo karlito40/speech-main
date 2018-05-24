@@ -25,12 +25,12 @@ export default () => (
       @import 'core/animations/opacity';
 
       .presentation {
-        & { font-size: $font20pt; width: 370px; margin: 0 auto; text-align: center; padding-top: 70px; }
+        & { font-size: $font20pt; max-width: 400px; padding:0 20px; margin: 0 auto; text-align: center; padding-top: 70px; }
         .onboarding-container { animation: 0.3s ease-out motion 0.4s forwards; opacity: 0; transform: translateY(-15px); }
         :global(.brand) {
           & { margin-bottom: 60px; animation: 0.1s ease-out 0.3s opacity forwards; opacity: 0; }
-          :global(.brand-logo) { animation: 0.31s ease 0.65s motion forwards; transform: translateY(-10px); opacity: 0; }
-          :global(.brand-title) { animation: 0.35s ease 0.95s motion forwards; transform: translateY(-10px); opacity: 0; }
+          :global(.brand-logo) { animation: 0.31s ease 0.55s motion forwards; transform: translateY(-10px); opacity: 0; }
+          :global(.brand-title) { animation: 0.35s ease 0.85s motion forwards; transform: translateY(-10px); opacity: 0; }
         }
         h1 { font-size: $font24pt; padding-bottom: 5px; }
         p { color: $colorDarkGrey; margin-bottom: 40px; }

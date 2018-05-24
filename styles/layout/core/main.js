@@ -29,6 +29,10 @@ export default css`
       }
     }
 
+    @include mobile {
+      & { padding-right: 15px; }
+    }
+
   }
 
   .sidebar-app {

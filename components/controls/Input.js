@@ -85,6 +85,7 @@ export default class extends Component {
   render() {
     const { name, label, type, error, className, ico } = this.props;
     const { isEmpty, datepickerFallback } = this.state;
+    
     return (
       <div className={`form-group ${className} ${(!isEmpty) ? 'not-empty' : ''}`}>
         <label htmlFor={ name }>{ label }</label>

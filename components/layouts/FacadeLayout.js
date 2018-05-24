@@ -8,8 +8,10 @@ import BaseLayout from './BaseLayout';
 
 
 export default class extends BaseLayout {
-  handleConnexionLink() {
-    this.setState({ showSidebar: !this.state.showSidebar });
+  handleConnexionLink(e) {
+    if(this.state.showSidebar) {
+      this.setState({ showSidebar: true });
+    }
   }
 
   renderHeader() {
