@@ -4,11 +4,7 @@ export default css`
   @import 'core/index';
   @import 'core/animations/opacity';
 
-  .header-app {
-  }
-
   .sidebar-app {
-
     .form-connexion-container {
       & { margin-left: 55px; margin-right: 55px; margin-top: 55px; }
       form { margin-bottom: 13px; }
@@ -27,7 +23,19 @@ export default css`
       }
 
     }
+  }
 
-    
+  .footer-app {
+    & { font-size: $font20pt; padding: 11px 20px; }
+    @include mobile { text-align: center; }
+    a, span {
+      & { margin-right: 15px; border: 0; }
+      &:last-child { margin-right: 0; }
+    }
+    span { color: $colorLightBlack; }
+    a {
+      & { text-decoration: none; color: $colorDarkGrey }
+      &:hover { text-decoration: underline; }
+    }
   }
 `;

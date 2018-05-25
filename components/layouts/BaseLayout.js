@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import * as layoutCSS from '../../styles/layout/core';
+import * as layoutCSS from '../../styles/layouts/core';
 
 export default class extends React.Component {
   constructor(props) {

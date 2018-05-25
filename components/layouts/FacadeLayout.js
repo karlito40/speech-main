@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import * as layoutCSS from '../../styles/layout/facade';
+import * as layoutCSS from '../../styles/layouts/facade';
 import ConnexionForm from '../forms/ConnexionForm';
 import FacadeHeader from '../headers/FacadeHeader';
 import BaseLayout from './BaseLayout';
@@ -27,7 +27,11 @@ export default class extends BaseLayout {
   }
 
   renderFooter() {
-    return <Link href="/contact"><a>Contact</a></Link>;
+    return (<React.Fragment>
+      <span>© 2018</span>
+      <Link href="/contact"><a>Contact</a></Link>
+      <Link href="/privacy"><a>Confidentialité</a></Link>
+    </React.Fragment>);
   }
 
   renderMeta() {

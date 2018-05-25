@@ -27,13 +27,13 @@ export default css`
     h#{$i} {
       font-size: $fontSizeHeadlineBase - $fontSizeHeadlineStep * $i;
 
-      @include tablet() {
+      ${'' /* @include tablet() {
         font-size: $fontSizeHeadlineBase - $fontSizeHeadlineStep * $i - 4px;
-      }
+      } */}
     }
   }
 
-  p { margin: 20px 0; }
+  p { margin: 10px 0; }
 
   a {
     & { color: $baseLinkColor; text-decoration: none; border-bottom: 1px solid $colorDarkGrey; }

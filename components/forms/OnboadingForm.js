@@ -1,23 +1,8 @@
 import { Component } from 'react';
 import Input from '../controls/Input';
 import Button from '../controls/Button';
-// import moment from 'moment';
 
 export default class extends Component {
-  constructor (props) {
-    super(props)
-    // this.state = {
-    //   startDate: moment()
-    // };
-    // this.handleChange = this.handleChange.bind(this);
-  }
-
-  // handleChange(date) {
-    // this.setState({
-    //   startDate: date
-    // });
-  // }
-
   submit() {
 
   }
@@ -26,7 +11,6 @@ export default class extends Component {
   render() {
     return (
       <form className="form-onboarding" method="post">
-
         <Input
           className="full-width"
           label="Je suis"
@@ -57,7 +41,7 @@ export default class extends Component {
             & { text-align: left; width: 75%; margin: 0 auto; }
             :global(input[type="date"]) { color: white; }
             :global(.not-empty input[type="date"]) { color: $colorDeepBlack; }
-            :global(button) { font-size: $font20pt; text-transform: uppercase; padding: 5px 0; }
+            :global(button) { font-size: $font20pt; text-transform: uppercase; padding: 9px 0; }
             :global(.form-group) {
               & { margin-bottom: 20px; }
               :global(.ico) { font-size: 12px; }
