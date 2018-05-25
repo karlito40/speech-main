@@ -9,7 +9,7 @@ export default () => (
         <h1>Séduction par les mots</h1>
         <p>
           Serez vous capable de trouver votre âme soeur
-          uniquement à l’aide votre prose ? Prenez votre temps
+          uniquement à l’aide de votre prose ? Prenez votre temps
           et révélez vous l’un l’autre au bon moment.
         </p>
       </div>

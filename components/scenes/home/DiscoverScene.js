@@ -5,9 +5,9 @@ export default () => (
       <div className="info">
         <h2>Découvrez vous</h2>
         <p>
-          Vous avez discuté, le courant passe entre vous ?
-          Alors n’attendez plus, dévoilez vous  et voyez
-          si l’osmose est parfaite.
+          Vos conversations annoncent le parfait amour ?
+          Alors n’attendez plus, dévoilez vous et voyez
+          si l’osmose continue.
         </p>
       </div>
       <div className="screen">

@@ -7,8 +7,7 @@ export default () => (
         <h2>L'amour est aveugle</h2>
         <p>
           Le concept de Speech est simple. Basé avant tout sur la personnalité,
-          Speech privilégie des rencontres basées
-          sur le feeling plutôt que sur le superficiel.
+          Speech privilégie les vrais rencontres au superficiel.
         </p>
       </div>
       <div className="screen">
