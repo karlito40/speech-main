@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import BaseLayout from '../components/layouts/FacadeLayout';
+import FacadeLayout from '../components/layouts/FacadeLayout';
 
 export default class extends FacadeLayout {
 

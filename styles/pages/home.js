@@ -31,7 +31,7 @@ export default css`
       .brand-title { animation: 0.35s ease 0.85s motion forwards; transform: translateY(-10px); opacity: 0; }
     }
     h1 { font-size: $font24pt; padding-bottom: 5px; }
-    p { color: $colorDarkGrey; margin-bottom: 40px; margin-top: 20px; }
+    p { font-size: $font20pt; color: $colorDarkGrey; margin-bottom: 40px; margin-top: 20px; }
   }
 
   .profile-scene {
