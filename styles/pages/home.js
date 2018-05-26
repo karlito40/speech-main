@@ -49,6 +49,7 @@ export default css`
   .discover-scene {
     .screen { order: 1; margin-left: -27px; margin-right: 70px; }
     .info { order: 2; }
+    .wrapper { padding-bottom: 0; }
 
     @include mobile {
       .screen { margin: auto; }
@@ -56,7 +57,7 @@ export default css`
   }
 
   .scene-4 {
-    & { min-height: 300px; display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; }
+    & { min-height: 450px; display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; }
     .ico { font-size: 30px; }
   }
 `;
