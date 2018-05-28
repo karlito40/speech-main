@@ -1,15 +1,14 @@
 import passportLocal from "passport-local";
-import passport from "passport";
 import passportJWT from "passport-jwt";
 import { getRepository } from "typeorm";
-import { User } from "./entity/User";
-import { PassportStatic } from "passport";
+import { User } from "../entity/User";
+import passport  from "passport";
 
 const LocalStrategy = passportLocal.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 const JWTStrategy = passportJWT.Strategy;
 
-export default (passport: PassportStatic) => {
+export default () => {
   passport.use(new LocalStrategy({
     usernameField: "email",
     passwordField: "password"
@@ -39,4 +38,8 @@ export default (passport: PassportStatic) => {
       return done(err);
     }
   }));
+
+  return {
+    initialize: () => passport.initialize()
+  };
 };

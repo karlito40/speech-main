@@ -6,7 +6,7 @@ import { createConnection } from "typeorm";
 import { AppRoutes } from "./routes";
 import dotenv from "dotenv";
 import passport from "passport";
-import bootStrategy from "./auth";
+import bootstrapAuth from "./auth/passport";
 import "reflect-metadata";
 
 dotenv.config({ path: ".env" });
@@ -14,14 +14,14 @@ dotenv.config({ path: ".env" });
 createConnection().then(connection => {
   const app = express();
 
-  bootStrategy(passport);
+  const auth = bootstrapAuth();
 
   app.set("port", process.env.PORT || 3100);
   app.use(errorHandler());
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(passport.initialize());
+  app.use(auth.initialize());
 
   AppRoutes.forEach(route => {
     const middlewares = (route.middlewares) ? route.middlewares : (req, res, next) => { next(); };

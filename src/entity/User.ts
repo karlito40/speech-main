@@ -16,6 +16,18 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  scopes: string;
+
+  getScopes(): Array<string> {
+    return this.scopes ? this.scopes.split(",") : [];
+  }
+
+  hasScope(scopesRef: Array<string>) {
+    return this.getScopes()
+      .some(scope => scopesRef.includes(scope));
+  }
+
   async setPassword(password: string) {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(password, salt) as string;
