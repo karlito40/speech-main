@@ -1,33 +1,33 @@
 import errorHandler from "errorhandler";
 import logger from "./util/logger";
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
 import { createConnection } from "typeorm";
 import { AppRoutes } from "./routes";
 import dotenv from "dotenv";
+import passport from "passport";
+import bootStrategy from "./auth";
 import "reflect-metadata";
 
 dotenv.config({ path: ".env" });
 
-createConnection().then(async connection => {
+createConnection().then(connection => {
   const app = express();
+
+  bootStrategy(passport);
 
   app.set("port", process.env.PORT || 3100);
   app.use(errorHandler());
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(passport.initialize());
 
   AppRoutes.forEach(route => {
-      app[route.method](route.path, (request: Request, response: Response, next: Function) => {
-          route.action(request, response)
-              .then(() => next())
-              .catch(err => next(err));
-      });
-  });
-
-  app.use(() => {
-    console.log("tata next");
+    const middlewares = (route.middlewares) ? route.middlewares : (req, res, next) => { next(); };
+    app[route.method](route.path, middlewares, (request: Request, response: Response, next: NextFunction) => {
+      route.action(request, response, next);
+    });
   });
 
   app.listen(app.get("port"), () => {
