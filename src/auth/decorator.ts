@@ -1,8 +1,11 @@
 import passport from "passport";
 import { User } from "../entity/User";
 import { replace } from "../util/string";
+import GateManager from "../common/gate/GateManager";
+import { isScopeAuthorized } from "../policies";
 
 export function isAuthenticated(...originalScopes) {
+  originalScopes = [...originalScopes, "super-admin"];
   return function(target, propertyKey: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
     descriptor.value = function (...originalArgs) {
@@ -18,7 +21,7 @@ export function isAuthenticated(...originalScopes) {
         const placeholderMap = {...self.req.query, ...{ me: user.id }};
         const scopesRef = originalScopes.map(scope => replace(scope, placeholderMap));
 
-        if (scopesRef.length && !user.hasScope(scopesRef)) {
+        if (! await isScopeAuthorized(scopesRef, self.req, user)) {
           return self.res.status(400).json({
             message: "Invalid scope",
           });

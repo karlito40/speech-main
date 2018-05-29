@@ -52,7 +52,12 @@ export default class Controller {
 
   }
 
-  @isAuthenticated("conversations", "user-:me-conversation", "conversation-:fromId-:toId")
+  @isAuthenticated(
+    "conversations",
+    "user-:me-conversation",
+    "conversation-:id",
+    "show-conversation-friend"
+  )
   async getUsers() {
     const userRepository = getRepository(User);
     try {
