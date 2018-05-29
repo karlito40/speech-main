@@ -1,11 +1,9 @@
-import { action } from "./common/route";
+import { Facade as Route, RouteManager } from "./common/route";
 
-type Route = { path: string, method: string, action: any, middlewares?: Array<any> };
-
-export const AppRoutes: Array<Route> = [
-  { path: "/api", method: "get", action: action("Api@getApi") },
-  { path: "/login", method: "post", action: action("Api@postLogin") },
-  { path: "/:user_id/conversation/", method: "get", action: action("Api@getConversation") },
-  { path: "/user", method: "post", action: action("Api@postUser") },
-  { path: "/users", method: "get", action: action("Api@getUsers")},
-];
+export default new RouteManager([
+  Route.get("/api", "Api@getApi"),
+  Route.post("/login", "Api@postLogin"),
+  Route.get("/conversation/:id", "Api@getConversation"),
+  Route.post("/user", "Api@postUser"),
+  Route.get("/users", "Api@getUsers"),
+]);

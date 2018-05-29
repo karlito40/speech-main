@@ -4,9 +4,9 @@ import { Request } from "express";
 import { User } from "./entity/user";
 import { replace } from "./util/string";
 
-export const policies = [{
-  scope: "show-conversation-friend", gate: ShowConversationFriendGate
-}];
+export const policies = [
+  { scope: "show-conversation-friend", gate: ShowConversationFriendGate }
+];
 
 export function getPolicy(scope: string) {
   return policies.find(policy => policy.scope == scope);

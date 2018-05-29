@@ -3,7 +3,7 @@ import logger from "./util/logger";
 import express, { Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
 import { createConnection } from "typeorm";
-import { AppRoutes } from "./routes";
+import routes from "./routes";
 import dotenv from "dotenv";
 import passport from "passport";
 import bootstrapAuth from "./auth/passport";
@@ -23,12 +23,7 @@ createConnection().then(connection => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(auth.initialize());
 
-  AppRoutes.forEach(route => {
-    const middlewares = (route.middlewares) ? route.middlewares : (req, res, next) => { next(); };
-    app[route.method](route.path, middlewares, (request: Request, response: Response, next: NextFunction) => {
-      route.action(request, response, next);
-    });
-  });
+  routes.initialize(app);
 
   app.listen(app.get("port"), () => {
     console.log(

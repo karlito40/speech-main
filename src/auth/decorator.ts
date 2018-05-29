@@ -1,7 +1,5 @@
 import passport from "passport";
 import { User } from "../entity/User";
-
-import GateManager from "../common/gate/GateManager";
 import { isScopesAuthorized } from "../policies";
 
 export function isAuthenticated(...scopes) {
@@ -18,15 +16,24 @@ export function isAuthenticated(...scopes) {
           });
         }
 
-        if (! await isScopesAuthorized(scopes, self.req, user)) {
+        let isAuthorized = false;
+        try {
+          isAuthorized = await isScopesAuthorized(scopes, self.req, user);
+        } catch (err) {
+          return self.res.status(400).json({
+            message: "Scope error",
+          });
+        }
+
+        if (!isAuthorized) {
           return self.res.status(400).json({
             message: "Invalid scope",
           });
         }
 
-        self.req.login(user, { session: false }, (err: Error) => {
+        self.req.login(user, { session: false }, (err) => {
           if (err) {
-            return this.res.status(400).json({
+            return self.res.status(400).json({
               message: "Unable to log the user",
             });
           }
