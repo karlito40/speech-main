@@ -1,0 +1,18 @@
+☐ Token errors handler (expiration..)
+☐ Errors handlers
+☐ BDD structure (scopes table, ...)
+☐ Route group middleware
+☐ Route prefix
+☐ Entity validator (class-validator)
+
+Routes:
+  ☐ POST /login
+
+Tests:
+  ☐ Authentication
+  ☐ Routes
+  ☐ Authenticated decorator
+  ☐ Database/Entities
+
+Archive:
+  

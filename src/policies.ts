@@ -21,12 +21,12 @@ export async function isScopesAuthorized(scopes: Array<string>, req: Request, us
   scopes = scopes.map(scope => replace(scope, placeholders));
 
   return (
-    await createGateManager(scopes, req, user).isAuthorized()
+    await createGateManager(req, user, scopes).isAuthorized()
     && user.hasScope(scopes)
   );
 }
 
-export function createGateManager(scopes: Array<string>, req: Request, user: User) {
+export function createGateManager(req: Request, user: User, scopes: Array<string>, ) {
   const manager = new GateManager();
   scopes.forEach(scope => {
     const policy = getPolicy(scope);

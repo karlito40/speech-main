@@ -38,7 +38,8 @@ export default class Controller {
           });
         }
 
-        const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET_KEY);
+        const options = !user.hasScope(["super-admin"]) ? { expiresIn: "30d" } : null;
+        const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET_KEY, options);
         return this.res.json({ user, token });
       });
     })(this.req, this.res, this.next);

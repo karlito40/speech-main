@@ -13,6 +13,7 @@ export function isAuthenticated(...scopes) {
         if (err || !user) {
           return self.res.status(400).json({
             message: (info) ? info.message : "Token unauthorized",
+            info: info
           });
         }
 
