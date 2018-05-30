@@ -1,41 +1,25 @@
-import { Response, Request, NextFunction } from "express";
-import { IVerifyOptions } from "passport-local";
 import passport from "passport";
 import jwt from "jsonwebtoken";
 import { User } from "../entity/User";
 import { getRepository } from "typeorm";
 import { isAuthenticated } from "../auth/decorator";
+import BaseController from "../common/BaseController";
 
-export default class Controller {
-  req: Request;
-  res: Response;
-  next: NextFunction;
-
-  constructor(req: Request, res: Response, next: NextFunction) {
-    this.req = req;
-    this.res = res;
-    this.next = next;
-  }
+export default class Controller extends BaseController {
 
   async getApi() {
     this.res.send("api v1");
   }
 
   async postLogin() {
-    passport.authenticate("local", { session: false }, (err: Error, user: User, info: IVerifyOptions) => {
+    passport.authenticate("local", { session: false }, function(err: Error, user: User, info) {
       if (err || !user) {
-        return this.res.status(400).json({
-          message: (info) ? info.message : "Login failed",
-          user: user
-        });
+        return this.error("LOGIN_AUTH_1", err, info.message, info);
       }
 
       this.req.login(user, { session: false }, (err: Error) => {
         if (err) {
-          return this.res.status(400).json({
-            message: "Unable to log the user",
-            user: user
-          });
+          return this.error("LOGIN_AUTH_2", err);
         }
 
         const options = !user.hasScope(["super-admin"]) ? { expiresIn: "30d" } : null;
@@ -65,10 +49,7 @@ export default class Controller {
       const users = await userRepository.find();
       return this.res.json({ data: users });
     } catch (err) {
-      return this.res.status(400).json({
-        error: "An error occured",
-        data: null
-      });
+      return this.error(err, "API_USERS_FIND", "test");
     }
   }
 }

@@ -4,6 +4,7 @@
 ☐ Route group middleware
 ☐ Route prefix
 ☐ Entity validator (class-validator)
+☐ Handle default error throw in controller/route
 
 Routes:
   ☐ POST /login
@@ -15,4 +16,5 @@ Tests:
   ☐ Database/Entities
 
 Archive:
+  ✔ Setup test on server @done(18-05-30 18:34) @project(Tests)
   

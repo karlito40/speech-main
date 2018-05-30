@@ -1,7 +1,7 @@
 import bootstrap from "./bootstrap";
 import errorHandler from "errorhandler";
 import { Express } from "express";
-import logger from "./util/logger";
+import { logError } from "./util/logger";
 
 bootstrap().then((app) => {
   app.use(errorHandler());
@@ -13,4 +13,4 @@ bootstrap().then((app) => {
       app.get("env")
     );
   });
-}).catch(error => logger.error(error));
+}).catch(error => logError("BOOTSTRAP", error));

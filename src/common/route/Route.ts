@@ -18,7 +18,7 @@ export class Route {
     const ControllerClass = require(`../../controller/${controllerName}`).default;
 
     return (req, res, next) => {
-      const controller = new ControllerClass(req, res, next);
+      const controller = new ControllerClass(req, res, next, this);
       return controller[handler]();
     };
   }
