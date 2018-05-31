@@ -2,7 +2,7 @@ import ShowConversationFriendGate from "./auth/gates/ShowConversationFriendGate"
 import GateManager from "./common/gates/GateManager";
 import { Request } from "express";
 import { User } from "./entities/user";
-import { replace } from "./utils/string";
+import { replace } from "./lib/string";
 
 export const policies = [
   { scope: "show-conversation-friend", gate: ShowConversationFriendGate }
@@ -28,12 +28,13 @@ export async function isScopesAuthorized(scopes: Array<string>, req: Request, us
 
 export function createGateManager(req: Request, user: User, scopes: Array<string>, ) {
   const manager = new GateManager();
-  scopes.forEach(scope => {
+  for (const scope of scopes) {
     const policy = getPolicy(scope);
     if (policy && policy.gate) {
       manager.add(new policy.gate(req, user));
     }
-  });
+  }
+
 
   return manager;
 }

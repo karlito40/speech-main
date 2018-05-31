@@ -1,11 +1,9 @@
-☐ Token errors handler (expiration..)
-☐ Errors handlers
 ☐ BDD structure (scopes table, ...)
 ☐ Route group middleware
 ☐ Route prefix
-☐ Handle default error throw in controller/route
-☐ Hash password on model user subscriber 
-
+☐ Hash password with model user subscriber 
+☐ Create a model factory
+☐ Add unique constraint on user pseudo, mail (bdd)
 // [ ValidationError {
   //   target: User { email: 'testtest.com' },
   //   value: 'testtest.com',
@@ -18,7 +16,10 @@
   //   property: 'password',
   //   children: [],
   //    { minLength: 'password must be longer than or equal to 6 characters' } } ]
-     
+Errors:
+  ☐ Token (expiration..)
+  ☐ default throw in controller/route action   
+
 Routes:
   ☐ POST /login
   ☐ POST /user (check unicity email, and class validator)
@@ -40,6 +41,8 @@ Tests:
   ☐ Database/Entities
 
 Archive:
+  ✔ Add simple pagination @done(18-05-31 23:05)
+  ✔ Create a simple seeding system @done(18-05-31 23:04)
   ✔ Entity validation (class-validator) @done(18-05-31 19:16)
   ✔ Setup test @done(18-05-30 18:34) @project(Tests)
   

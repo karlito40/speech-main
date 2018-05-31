@@ -7,8 +7,8 @@ export class RouteManager {
   }
 
   initialize(app) {
-    this.routes.forEach(route => {
+    for (const route of this.routes) {
       app[route.method](route.path, route.middlewares, route.action);
-    });
+    }
   }
 }

@@ -1,7 +1,7 @@
 import bootstrap from "./bootstrap";
 import errorHandler from "errorhandler";
 import { Express } from "express";
-import { logError } from "./utils/logger";
+import { logError } from "./lib/logger";
 
 bootstrap().then((app) => {
   app.use(errorHandler());

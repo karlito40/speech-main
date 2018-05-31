@@ -3,6 +3,7 @@ import { User } from "../entities/User";
 import BaseController from "../common/BaseController";
 import { isAuthenticated } from "../auth/decorator";
 import { getRepository, Repository } from "typeorm";
+import { page } from "../lib/pagination";
 
 export default class UserController extends BaseController {
   protected repository: Repository<User>;
@@ -24,7 +25,8 @@ export default class UserController extends BaseController {
   @isAuthenticated("show-users")
   async list() {
     try {
-      return this.paginate(await this.repository.findAndCount());
+      // return this.paginate(await page(this.repository, this.req.query.page, { where : { pseudo: "karlito40" } }));
+      return this.paginate(await page(this.repository, this.req.query.page));
     } catch (err) {
       return this.error(err, "USER_PAGINATE");
     }
