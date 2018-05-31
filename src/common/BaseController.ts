@@ -10,13 +10,17 @@ export default class Controller {
     protected res: Response,
     protected next: NextFunction,
     protected route: Route) {
+      this.boot();
+  }
+
+  boot() {
 
   }
 
   json(data) {
     return this.res.json({
       success: true,
-      data: data
+      data: data || null
     });
   }
 
@@ -27,8 +31,7 @@ export default class Controller {
       message: message,
       error: {
         code: code,
-      },
-      data: null
+      }
     });
   }
 

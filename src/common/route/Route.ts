@@ -15,10 +15,10 @@ export class Route {
 
   private convertAction(actionString: string) {
     const [controllerName, handler] = actionString.split("@");
-    const ControllerClass = require(`../../controller/${controllerName}`).default;
+    const Controller = require(`../../controller/${controllerName}Controller`).default;
 
     return (req, res, next) => {
-      const controller = new ControllerClass(req, res, next, this);
+      const controller = new Controller(req, res, next, this);
       return controller[handler]();
     };
   }

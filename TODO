@@ -6,8 +6,26 @@
 ☐ Entity validator (class-validator)
 ☐ Handle default error throw in controller/route
 
+Token:
+  ☐ handle token error 
+    //   {
+    //     "name": "TokenExpiredError",
+    //     "message": "jwt expired",
+    //     "expiredAt": "2018-05-30T18:11:49.000Z"
+    // }
 Routes:
   ☐ POST /login
+  ☐ POST /user (check unicity email, and class validator)
+  ☐ GET  /user/:id (fields options: revealed, pics, ask)
+  ☐ UPDATE  /user/:id
+  ☐ DELETE  /user/:id
+  ☐ POST /user/:id/pics
+  ☐ POST /user/:id/ask (conversation-id scope, if corresponding ask = revealed)
+  ☐ GET  /users (paginations, geoloc)
+  ☐ POST /conversation
+  ☐ GET  /conversation/:id
+  ☐ POST /conversation/:id/message
+  ☐ 404
 
 Tests:
   ☐ Authentication
