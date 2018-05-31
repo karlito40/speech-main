@@ -1,8 +1,9 @@
 import { Response, Request, NextFunction } from "express";
 import { IVerifyOptions } from "passport-local";
-import { logError } from "../util/logger";
-import { isProduction } from "../util/env";
-import { Route } from "./route";
+import { logError } from "../utils/logger";
+import { isProduction } from "../utils/env";
+import { Route } from "./routes";
+
 export default class Controller {
 
   constructor(
@@ -15,10 +16,18 @@ export default class Controller {
 
   boot() {}
 
+  paginate([data, counter], success: boolean = true) {
+    return this.res.json({
+      success: success,
+      data: data || null,
+      meta: counter
+    });
+  }
+
   json(data, success: boolean = true) {
     return this.res.json({
       success: success,
-      data: data || null
+      data: data || null,
     });
   }
 

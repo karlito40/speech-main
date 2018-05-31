@@ -1,5 +1,5 @@
 import passport from "passport";
-import { User } from "../entity/User";
+import { User } from "../entities/User";
 import BaseController from "../common/BaseController";
 import { isAuthenticated } from "../auth/decorator";
 import { getRepository, Repository } from "typeorm";
@@ -22,9 +22,9 @@ export default class UserController extends BaseController {
   }
 
   @isAuthenticated("show-users")
-  async paginate() {
+  async list() {
     try {
-      return this.json(await this.repository.find());
+      return this.paginate(await this.repository.findAndCount());
     } catch (err) {
       return this.error(err, "USER_PAGINATE");
     }

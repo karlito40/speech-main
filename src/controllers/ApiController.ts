@@ -1,6 +1,6 @@
 import passport from "passport";
 import jwt from "jsonwebtoken";
-import { User } from "../entity/User";
+import { User } from "../entities/User";
 import { getRepository } from "typeorm";
 import { isAuthenticated } from "../auth/decorator";
 import BaseController from "../common/BaseController";

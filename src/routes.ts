@@ -1,4 +1,4 @@
-import { Facade as Route, RouteManager } from "./common/route";
+import { Facade as Route, RouteManager } from "./common/routes";
 
 export default new RouteManager([
   Route.get("/api", "Api@getApi"),
@@ -7,5 +7,5 @@ export default new RouteManager([
   // real route
   Route.post("/login", "Connexion@login"),
   Route.get("/user/:id", "User@get"),
-  Route.get("/users", "User@paginate"),
+  Route.get("/users", "User@list"),
 ]);

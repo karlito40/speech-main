@@ -5,7 +5,7 @@ import routes from "./routes";
 import dotenv from "dotenv";
 import passport from "passport";
 import bootstrapAuth from "./auth/passport";
-import { log } from "./util/logger";
+import { log } from "./utils/logger";
 import "reflect-metadata";
 
 if (process.env.NODE_ENV == "test") {

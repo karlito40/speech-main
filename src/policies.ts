@@ -1,8 +1,8 @@
-import ShowConversationFriendGate from "./auth/gate/ShowConversationFriendGate";
-import GateManager from "./common/gate/GateManager";
+import ShowConversationFriendGate from "./auth/gates/ShowConversationFriendGate";
+import GateManager from "./common/gates/GateManager";
 import { Request } from "express";
-import { User } from "./entity/user";
-import { replace } from "./util/string";
+import { User } from "./entities/user";
+import { replace } from "./utils/string";
 
 export const policies = [
   { scope: "show-conversation-friend", gate: ShowConversationFriendGate }

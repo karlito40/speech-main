@@ -1,20 +1,23 @@
 import bootstrap from "../../src/bootstrap";
 import { getRepository } from "typeorm";
-import { User } from "../../src/entity/User";
+import { User } from "../../src/entities/User";
 import uniqid from "uniqid";
 import assert from "assert";
 import faker from "faker";
 import { validate } from "class-validator";
-import { createEntity } from "../../src/util/entities";
+import { createEntity } from "../../src/utils/entities";
 
 let app, userRepository;
 beforeAll(async () => {
   app = await bootstrap();
   userRepository = getRepository(User);
+  console.log("done");
+  return;
 });
 
 describe("User", () => {
   it("should be able to create a user", async (done) => {
+    console.log("test");
     const user = new User();
     await user.setPassword("test-password");
     user.pseudo = faker.internet.userName();

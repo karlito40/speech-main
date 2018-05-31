@@ -1,4 +1,4 @@
-import { User } from "../../entity/User";
+import { User } from "../../entities/User";
 import { Request } from "express";
 
 export default abstract class BaseGate {

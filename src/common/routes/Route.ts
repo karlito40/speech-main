@@ -15,7 +15,7 @@ export class Route {
 
   private convertAction(actionString: string) {
     const [controllerName, handler] = actionString.split("@");
-    const Controller = require(`../../controller/${controllerName}Controller`).default;
+    const Controller = require(`../../controllers/${controllerName}Controller`).default;
 
     return (req, res, next) => {
       const controller = new Controller(req, res, next, this);

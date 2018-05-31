@@ -1,6 +1,6 @@
 import passport from "passport";
 import jwt from "jsonwebtoken";
-import { User } from "../entity/User";
+import { User } from "../entities/User";
 import BaseController from "../common/BaseController";
 
 export default class ConnexionController extends BaseController {

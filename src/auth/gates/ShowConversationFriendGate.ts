@@ -1,4 +1,4 @@
-import BaseGate from "../../common/gate/BaseGate";
+import BaseGate from "../../common/gates/BaseGate";
 
 export default class ShowConversationFriendGate extends BaseGate {
 
