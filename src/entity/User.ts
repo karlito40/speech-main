@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { IsString, IsEmail, MinLength, IsNotEmpty } from "class-validator";
 import bcrypt from "bcrypt";
 
 @Entity("users")
@@ -8,12 +9,15 @@ export class User {
   id: number;
 
   @Column()
+  @IsEmail()
   email: string;
 
   @Column()
+  @MinLength(3)
   pseudo: string;
 
   @Column()
+  @MinLength(6)
   password: string;
 
   @Column()
@@ -45,3 +49,4 @@ export class User {
   }
 
 }
+

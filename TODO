@@ -3,16 +3,22 @@
 ☐ BDD structure (scopes table, ...)
 ☐ Route group middleware
 ☐ Route prefix
-☐ Entity validator (class-validator)
 ☐ Handle default error throw in controller/route
+☐ Hash password on model user subscriber 
 
-Token:
-  ☐ handle token error 
-    //   {
-    //     "name": "TokenExpiredError",
-    //     "message": "jwt expired",
-    //     "expiredAt": "2018-05-30T18:11:49.000Z"
-    // }
+// [ ValidationError {
+  //   target: User { email: 'testtest.com' },
+  //   value: 'testtest.com',
+  //   property: 'email',
+  //   children: [],
+  //   constraints: { isEmail: 'email must be an email' } },
+  // ValidationError {
+  //   target: User { email: 'testtest.com' },
+  //   value: undefined,
+  //   property: 'password',
+  //   children: [],
+  //    { minLength: 'password must be longer than or equal to 6 characters' } } ]
+     
 Routes:
   ☐ POST /login
   ☐ POST /user (check unicity email, and class validator)
@@ -34,5 +40,6 @@ Tests:
   ☐ Database/Entities
 
 Archive:
-  ✔ Setup test on server @done(18-05-30 18:34) @project(Tests)
+  ✔ Entity validation (class-validator) @done(18-05-31 19:16)
+  ✔ Setup test @done(18-05-30 18:34) @project(Tests)
   

@@ -13,13 +13,11 @@ export default class Controller {
       this.boot();
   }
 
-  boot() {
+  boot() {}
 
-  }
-
-  json(data) {
+  json(data, success: boolean = true) {
     return this.res.json({
-      success: true,
+      success: success,
       data: data || null
     });
   }
@@ -36,3 +34,4 @@ export default class Controller {
   }
 
 }
+

@@ -14,9 +14,8 @@ export default class UserController extends BaseController {
   @isAuthenticated("show-users")
   async get() {
     const { id } = this.req.params;
-    const userRepository = getRepository(User);
     try {
-      return this.json(await userRepository.findOne(id));
+      return this.json(await this.repository.findOne(id));
     } catch (err) {
       return this.error(err, "USER_GET");
     }
