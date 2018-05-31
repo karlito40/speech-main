@@ -1,6 +1,6 @@
 import passport from "passport";
 import { User } from "../entities/User";
-import BaseController from "../common/BaseController";
+import BaseController from "./BaseController";
 import { isAuthenticated } from "../auth/decorator";
 import { getRepository, Repository } from "typeorm";
 import { page } from "../lib/pagination";

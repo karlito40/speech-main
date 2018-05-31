@@ -5,7 +5,7 @@ import uniqid from "uniqid";
 import assert from "assert";
 import faker from "faker";
 import { validate } from "class-validator";
-import { createEntity } from "../../src/lib/entities";
+import { createEntity } from "../../src/lib/entity";
 
 let app, userRepository;
 beforeAll(async () => {

@@ -1,6 +1,6 @@
-import BaseGate from "./BaseGate";
+import { BaseGate } from "./BaseGate";
 
-export default class GateManager {
+export class GateManager {
   gates: Array<BaseGate>;
 
   constructor() {

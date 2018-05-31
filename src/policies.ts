@@ -1,5 +1,5 @@
 import ShowConversationFriendGate from "./auth/gates/ShowConversationFriendGate";
-import GateManager from "./common/gates/GateManager";
+import { GateManager } from "./lib/gates";
 import { Request } from "express";
 import { User } from "./entities/user";
 import { replace } from "./lib/string";

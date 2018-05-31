@@ -1,7 +1,7 @@
 import { User } from "../../entities/User";
 import { Request } from "express";
 
-export default abstract class BaseGate {
+export abstract class BaseGate {
   user: User;
   req: Request;
 

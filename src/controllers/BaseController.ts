@@ -2,7 +2,7 @@ import { Response, Request, NextFunction } from "express";
 import { IVerifyOptions } from "passport-local";
 import { logError } from "../lib/logger";
 import { isProduction } from "../lib/env";
-import { Route } from "./routes";
+import { Route } from "../lib/routes";
 
 export default class Controller {
 
