@@ -1,11 +1,11 @@
 import bootstrap from "../../src/bootstrap";
 import { getRepository } from "typeorm";
 import { User } from "../../src/entities/User";
-import uniqid from "uniqid";
 import assert from "assert";
 import faker from "faker";
 import { validate } from "class-validator";
 import { createEntity } from "../../src/lib/entity";
+import { log } from "../../src/lib/logger";
 
 let app, userRepository;
 beforeAll(async () => {
@@ -15,31 +15,26 @@ beforeAll(async () => {
 });
 
 describe("User", () => {
-  it("should be able to create a user", async (done) => {
+  it("should be able to create and update a user", async (done) => {
     const user = new User();
     await user.setPassword("test-password");
     user.pseudo = faker.internet.userName();
     user.email = faker.internet.email();
-    user.scopes = "test";
+
+    const errors = await validate(user);
+    assert.ok(!errors.length);
 
     const insertedUser = await userRepository.save(user);
     assert.equal(user.email, insertedUser.email);
     assert.ok(await insertedUser.comparePassword("test-password"));
+    assert.ok(insertedUser.createdAt);
+    assert.ok(insertedUser.updatedAt);
 
-    done();
-  });
-
-  it("should validate without error", async (done) => {
-    // Everything is valid
-    const user = createEntity(User, {
-      email: "test@test.com",
-      pseudo: "pseudo",
-      password: "totototo",
-    });
-    const errors = await validate(user);
-    assert.ok(!errors.length);
-
-    done();
+    const updatedAt = insertedUser.updatedAt;
+    insertedUser.pseudo = faker.internet.userName();
+    const updatedUser = await userRepository.save(user);
+    assert.ok(updatedUser.updatedAt != updatedAt);
+      done();
   });
 
   it("should return an array of error", async (done) => {

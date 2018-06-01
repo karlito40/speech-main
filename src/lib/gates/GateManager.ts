@@ -1,7 +1,7 @@
 import { BaseGate } from "./BaseGate";
 
 export class GateManager {
-  gates: Array<BaseGate>;
+  gates: BaseGate[];
 
   constructor() {
     this.gates = [];

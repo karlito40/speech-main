@@ -2,8 +2,13 @@
 ☐ Route group middleware
 ☐ Route prefix
 ☐ Hash password with model user subscriber 
-☐ Create a model factory
+☐ Add a model factory
 ☐ Add unique constraint on user pseudo, mail (bdd)
+☐ Custom logger for typeorm
+☐ Testing proper scope bdd
+☐ Add hidden decorator entity (remove object from toJSON)
+☐ Add different visualiser/transformer by user role
+
 // [ ValidationError {
   //   target: User { email: 'testtest.com' },
   //   value: 'testtest.com',
@@ -41,8 +46,9 @@ Tests:
   ☐ Database/Entities
 
 Archive:
-  ✔ Add simple pagination @done(18-05-31 23:05)
-  ✔ Create a simple seeding system @done(18-05-31 23:04)
-  ✔ Entity validation (class-validator) @done(18-05-31 19:16)
+  ✔ Entity timesteamp created_at updated_at @done(18-06-01 11:57)
+  ✔ Add pagination @done(18-05-31 23:05)
+  ✔ Add seeding @done(18-05-31 23:04)
+  ✔ Entity validation @done(18-05-31 19:16)
   ✔ Setup test @done(18-05-30 18:34) @project(Tests)
   

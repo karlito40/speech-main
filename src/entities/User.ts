@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { IsString, IsEmail, MinLength, IsNotEmpty } from "class-validator";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { IsString, IsEmail, MinLength } from "class-validator";
+import { Scope } from "./Scope";
 import bcrypt from "bcrypt";
 
-@Entity("users")
+@Entity()
 export class User {
 
   @PrimaryGeneratedColumn()
@@ -20,16 +21,22 @@ export class User {
   @MinLength(6)
   password: string;
 
-  @Column()
-  scopes: string;
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt: Date;
 
-  getScopes(): Array<string> {
-    return this.scopes ? this.scopes.split(",") : [];
-  }
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt: Date;
 
-  hasScope(scopesRef: Array<string>) {
-    return this.getScopes()
-      .some(scope => scopesRef.includes(scope));
+  // eager load scopes
+  @ManyToMany(type => Scope, scope => scope.users, {
+    eager: true,
+    cascade: true
+  })
+  @JoinTable({ name: "user_scope" })
+  scopes: Scope[];
+
+  hasScope(scopeToHave: string[]) {
+    return this.scopes.some(scope => scopeToHave.includes(scope.ref));
   }
 
   async setPassword(password: string) {
@@ -45,6 +52,9 @@ export class User {
   toJSON() {
     const o = Object.assign({}, this);
     delete o.password;
+    delete o.scopes;
+    delete o.createdAt;
+    delete o.updatedAt;
     return o;
   }
 

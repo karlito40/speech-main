@@ -2,7 +2,7 @@ export class Route {
   path: string;
   action: Function;
   actionName: string;
-  middlewares: Array<any>;
+  middlewares: any[];
   method: string;
 
   constructor(method: string, path: string, action: string, middlewares?: Array<any>) {

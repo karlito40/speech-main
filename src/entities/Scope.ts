@@ -1,14 +1,22 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm";
+import { IsString, IsBoolean } from "class-validator";
+import { User } from "./User";
 
-@Entity("scopes")
+@Entity()
 export class Scope {
 
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
+  @IsString()
   ref: string;
 
   @Column()
-  dyn: boolean;
+  @IsBoolean()
+  dyn: boolean = true;
+
+  @ManyToMany(type => User, user => user.scopes)
+  @JoinTable({ name: "user_scope" })
+  users: Promise<User[]>;
 }
