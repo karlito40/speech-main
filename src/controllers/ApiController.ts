@@ -8,12 +8,13 @@ import BaseController from "./BaseController";
 export default class Controller extends BaseController {
 
   async index() {
-    this.res.send("api v1");
+    return this.json({ version: process.env.API_VERSION });
   }
 
   async notFound() {
-    this.res.send("notFound");
+    return this.res.status(404).json({
+      success: false,
+      message: "RESOURCE_NOT_FOUND"
+    });
   }
-
-
 }

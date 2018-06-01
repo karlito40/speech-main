@@ -35,15 +35,16 @@ export default class Controller {
     });
   }
 
-  error(err: Error, code, message: string = "An error occured", ...extras) {
-    logError.apply(null, [ ...[code, err], ...extras ]);
-    return this.res.status(400).json({
+  error(err: Error, code, message: string = "An error occured", status: number = 400) {
+    logError.apply(null, [ ...[code, err] ]);
+    return this.res.status(status).json({
       success: false,
-      message: message,
-      error: {
-        code: code,
-      }
+      error: { message, code }
     });
+  }
+
+  internalError(err: Error, code, message: string = "Internal server error", status: number = 500) {
+    return this.error(err, code, message, 500);
   }
 
 }

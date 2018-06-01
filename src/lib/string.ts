@@ -10,3 +10,7 @@ export function replace(s: string, map: Object) {
 
   return result;
 }
+
+export function ucFirst(s) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}

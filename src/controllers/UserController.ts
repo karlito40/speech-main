@@ -4,6 +4,7 @@ import BaseController from "./BaseController";
 import { isAuthenticated } from "../auth/decorators";
 import { getRepository, Repository } from "typeorm";
 import { page } from "../lib/pagination";
+import { saveEntity } from "../lib/entity";
 
 export default class UserController extends BaseController {
   protected repository: Repository<User>;
@@ -12,24 +13,34 @@ export default class UserController extends BaseController {
     this.repository = getRepository(User);
   }
 
-  @isAuthenticated("show-users")
+  @isAuthenticated("show-users", "show-user-:id")
   async get() {
     const { id } = this.req.params;
-    try {
-      return this.json(await this.repository.findOne(id));
-    } catch (err) {
-      return this.error(err, "USER_GET");
-    }
+    return this.json(await this.repository.findOne(id));
   }
 
   @isAuthenticated("show-users")
   async list() {
-    try {
-      // return this.paginate(await page(this.repository, this.req.query.page, { where : { pseudo: "karlito40" } }));
-      return this.paginate(await page(this.repository, this.req.query.page));
-    } catch (err) {
-      return this.error(err, "USER_PAGINATE");
-    }
+    return this.paginate(await page(this.repository, this.req.query.page));
   }
 
+  @isAuthenticated("create-user")
+  async create() {
+    const { entity, errors } = await saveEntity(User, this.req.body);
+    if (errors.length) {
+      return this.json({ errors }, false);
+    }
+
+    return this.json(entity);
+  }
+
+  @isAuthenticated("create-user", "update-user", "update-user-:id")
+  async update() {
+    const { entity, errors } = await saveEntity(User, this.req.body, this.req.params.id);
+    if (errors.length) {
+      return this.json({ errors }, false);
+    }
+
+    return this.json(entity);
+  }
 }

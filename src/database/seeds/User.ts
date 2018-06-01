@@ -9,7 +9,7 @@ export default async () => {
   let user;
   for (let i = 0; i < 100; i++) {
     user = new User();
-    await user.setPassword("test-password");
+    await user.setAsyncPassword("test-password");
     user.pseudo = faker.internet.userName();
     user.email = faker.internet.email();
     user = await userRepository.save(user);

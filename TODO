@@ -4,9 +4,9 @@
 ☐ Hash password with model user subscriber 
 ☐ Add a model factory
 ☐ Custom logger for typeorm
-☐ Add hidden decorator entity (remove object from toJSON)
 ☐ Add different visualiser/transformer by user role
 ☐ Find a way to use IsUnique without the Entity parameter
+☐ Api rate limiter with blacklist
 // [ ValidationError {
   //   target: User { email: 'testtest.com' },
   //   value: 'testtest.com',
@@ -25,9 +25,7 @@ Errors:
 
 Routes:
   ☐ POST    /login
-  ☐ POST    /user (check unicity email, and class validator)
   ☐ GET     /user/:id (fields options: revealed, pics, ask)
-  ☐ UPDATE  /user/:id
   ☐ DELETE  /user/:id
   ☐ POST    /user/:id/pics
   ☐ POST    /user/:id/ask (conversation-id scope, if corresponding ask = revealed)
@@ -43,6 +41,8 @@ Tests:
   ☐ Database/Entities
 
 Archive:
+  ✔ POST    /user (check unicity email, and class validator) @done(18-06-01 22:14) @project(Routes)
+  ✔ UPDATE  /user/:id @project(Routes)
   ✔ Stop to eager logs the scopes @done(18-06-01 15:45)
   ✔ 404 @done(18-06-01 15:45) @project(Routes)
   ✔ Add unique constraint on user pseudo, mail @done(18-06-01 14:51)

@@ -7,10 +7,10 @@ beforeAll(async () => {
 });
 
 
-describe("GET /api", () => {
+describe("GET /", () => {
   it("should return 200", () => {
     return request(app)
-      .get("/api")
+      .get("/")
       .expect(200);
   });
 });

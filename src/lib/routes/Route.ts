@@ -17,9 +17,13 @@ export class Route {
     const [controllerName, handler] = actionString.split("@");
     const Controller = require(`../../controllers/${controllerName}Controller`).default;
 
-    return (req, res, next) => {
+    return async (req, res, next) => {
       const controller = new Controller(req, res, next, this);
-      return controller[handler]();
+      try {
+        return await controller[handler]();
+      } catch (err) {
+        return controller.internalError(err, "UNKNOWN_ERR0R");
+      }
     };
   }
 }
@@ -35,6 +39,10 @@ export const Facade = {
 
   post(path, action, middlewares?) {
     return this.build("post", path, action, middlewares);
+  },
+
+  put(path, action, middlewares?) {
+    return this.build("put", path, action, middlewares);
   },
 
   all(path, action, middlewares?) {

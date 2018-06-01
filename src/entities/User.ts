@@ -3,9 +3,13 @@ import { IsString, IsEmail, MinLength } from "class-validator";
 import { Scope } from "./Scope";
 import bcrypt from "bcrypt";
 import { IsUnique } from "../validations";
+import { BaseEntity } from "./BaseEntity";
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
+
+  fillable = ["email", "pseudo", "password"];
+  hidden = ["password", "createdAt", "updatedAt"];
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -40,7 +44,7 @@ export class User {
     return this.scopes.some(scope => scopeToHave.includes(scope.ref));
   }
 
-  async setPassword(password: string) {
+  async setAsyncPassword(password: string) {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(password, salt) as string;
     return this.password;
@@ -48,14 +52,6 @@ export class User {
 
   async comparePassword(candidatePassword: string): Promise<boolean> {
     return bcrypt.compare(candidatePassword, this.password);
-  }
-
-  toJSON() {
-    const o = Object.assign({}, this);
-    delete o.password;
-    delete o.createdAt;
-    delete o.updatedAt;
-    return o;
   }
 
 }

@@ -18,7 +18,7 @@ beforeAll(async () => {
 describe("User", () => {
   it("should be able to create and update a user", async (done) => {
     const user = new User();
-    await user.setPassword("test-password");
+    await user.setAsyncPassword("test-password");
     user.pseudo = faker.internet.userName();
     user.email = faker.internet.email();
 
