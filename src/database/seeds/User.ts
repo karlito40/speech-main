@@ -1,6 +1,7 @@
 import { User } from "../../entities/User";
 import { getRepository } from "typeorm";
 import faker from "faker";
+import { validate } from "class-validator";
 
 export default async () => {
   const userRepository = getRepository(User);

@@ -3,7 +3,6 @@ import { User } from "../entities/User";
 import { isScopesAuthorized } from "../policies";
 
 export function isAuthenticated(...scopes) {
-  scopes = [...scopes, "super-admin"];
   return function(target, propertyKey: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
     descriptor.value = function (...originalArgs) {
@@ -14,11 +13,16 @@ export function isAuthenticated(...scopes) {
           return self.error(err, (err) ? "AUTHENTICATED_TOKEN " : info.name);
         }
 
-        let isAuthorized = false;
-        try {
-          isAuthorized = await isScopesAuthorized(scopes, self.req, user);
-        } catch (err) {
-          return self.error(err, "AUTHENTICATED_SCOPE");
+        let isAuthorized = true;
+        if (scopes.length) {
+          try {
+            if (!scopes.includes("super-admin")) {
+              scopes.push("super-admin");
+            }
+            isAuthorized = await isScopesAuthorized(scopes, self.req, user);
+          } catch (err) {
+            return self.error(err, "AUTHENTICATED_SCOPE");
+          }
         }
 
         if (!isAuthorized) {

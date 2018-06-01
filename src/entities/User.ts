@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDa
 import { IsString, IsEmail, MinLength } from "class-validator";
 import { Scope } from "./Scope";
 import bcrypt from "bcrypt";
+import { IsUnique } from "../validations";
 
 @Entity()
 export class User {
@@ -11,10 +12,12 @@ export class User {
 
   @Column()
   @IsEmail()
+  @IsUnique(User)
   email: string;
 
   @Column()
   @MinLength(3)
+  @IsUnique(User)
   pseudo: string;
 
   @Column()

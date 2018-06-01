@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm";
-import { IsString, IsBoolean } from "class-validator";
+import { IsBoolean, IsString } from "class-validator";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
+import { IsUnique } from "../validations";
 
 @Entity()
 export class Scope {
@@ -10,6 +11,7 @@ export class Scope {
 
   @Column()
   @IsString()
+  @IsUnique(Scope)
   ref: string;
 
   @Column()

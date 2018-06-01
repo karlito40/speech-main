@@ -95,5 +95,24 @@ describe("User", () => {
     done();
   });
 
+  it("should return an error with a duplicate pseudo or email", async (done) => {
+    const user = createEntity(User, {
+      password: "test-password",
+      pseudo: faker.internet.userName(),
+      email: faker.internet.email()
+    });
+
+    const insertedUser = await userRepository.save(user);
+
+    const userError = createEntity(User, {
+      password: "test-password",
+      pseudo: user.pseudo,
+      email: user.email
+    });
+
+    const errors = await validate(userError);
+    assert.equal(errors.length, 2);
+    done();
+  });
 
 });

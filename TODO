@@ -3,12 +3,10 @@
 ☐ Route prefix
 ☐ Hash password with model user subscriber 
 ☐ Add a model factory
-☐ Add unique constraint on user pseudo, mail (bdd)
 ☐ Custom logger for typeorm
-☐ Testing proper scope bdd
 ☐ Add hidden decorator entity (remove object from toJSON)
 ☐ Add different visualiser/transformer by user role
-
+☐ Find a way to use IsUnique without the Entity parameter
 // [ ValidationError {
   //   target: User { email: 'testtest.com' },
   //   value: 'testtest.com',
@@ -46,6 +44,8 @@ Tests:
   ☐ Database/Entities
 
 Archive:
+  ✔ Add unique constraint on user pseudo, mail (bdd) @done(18-06-01 14:51)
+  ✔ Testing proper scope bdd @done(18-06-01 12:56)
   ✔ Entity timesteamp created_at updated_at @done(18-06-01 11:57)
   ✔ Add pagination @done(18-05-31 23:05)
   ✔ Add seeding @done(18-05-31 23:04)

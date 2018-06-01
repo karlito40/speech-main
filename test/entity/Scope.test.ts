@@ -38,4 +38,19 @@ describe("Scope", () => {
     done();
   });
 
+  it("should return an error with a duplicate ref", async (done) => {
+    const scope = new Scope();
+    scope.ref = faker.name.firstName();
+
+    const insertedScope = await scopeRepository.save(scope);
+
+    const scopeError = createEntity(Scope, {
+      ref: scope.ref,
+    });
+
+    const errors = await validate(scopeError);
+    assert.equal(errors.length, 1);
+    done();
+  });
+
 });
