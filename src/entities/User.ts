@@ -30,9 +30,7 @@ export class User {
   @UpdateDateColumn({ type: "timestamp" })
   updatedAt: Date;
 
-  // eager load scopes
   @ManyToMany(type => Scope, scope => scope.users, {
-    eager: true,
     cascade: true
   })
   @JoinTable({ name: "user_scope" })
@@ -55,7 +53,6 @@ export class User {
   toJSON() {
     const o = Object.assign({}, this);
     delete o.password;
-    delete o.scopes;
     delete o.createdAt;
     delete o.updatedAt;
     return o;

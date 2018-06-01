@@ -7,16 +7,13 @@ import BaseController from "./BaseController";
 
 export default class Controller extends BaseController {
 
-  async getApi() {
+  async index() {
     this.res.send("api v1");
   }
 
-  async postUser() {
-
+  async notFound() {
+    this.res.send("notFound");
   }
 
-  async getConversation() {
-
-  }
 
 }

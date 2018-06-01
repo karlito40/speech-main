@@ -24,18 +24,17 @@ Errors:
   ☐ default throw in controller/route action   
 
 Routes:
-  ☐ POST /login
-  ☐ POST /user (check unicity email, and class validator)
-  ☐ GET  /user/:id (fields options: revealed, pics, ask)
+  ☐ POST    /login
+  ☐ POST    /user (check unicity email, and class validator)
+  ☐ GET     /user/:id (fields options: revealed, pics, ask)
   ☐ UPDATE  /user/:id
   ☐ DELETE  /user/:id
-  ☐ POST /user/:id/pics
-  ☐ POST /user/:id/ask (conversation-id scope, if corresponding ask = revealed)
-  ☐ GET  /users (paginations, geoloc)
-  ☐ POST /conversation
-  ☐ GET  /conversation/:id
-  ☐ POST /conversation/:id/message
-  ☐ 404
+  ☐ POST    /user/:id/pics
+  ☐ POST    /user/:id/ask (conversation-id scope, if corresponding ask = revealed)
+  ☐ GET     /users (paginations, geoloc)
+  ☐ POST    /conversation
+  ☐ GET     /conversation/:id
+  ☐ POST    /conversation/:id/message
 
 Tests:
   ☐ Authentication
@@ -44,7 +43,9 @@ Tests:
   ☐ Database/Entities
 
 Archive:
-  ✔ Add unique constraint on user pseudo, mail (bdd) @done(18-06-01 14:51)
+  ✔ Stop to eager logs the scopes @done(18-06-01 15:45)
+  ✔ 404 @done(18-06-01 15:45) @project(Routes)
+  ✔ Add unique constraint on user pseudo, mail @done(18-06-01 14:51)
   ✔ Testing proper scope bdd @done(18-06-01 12:56)
   ✔ Entity timesteamp created_at updated_at @done(18-06-01 11:57)
   ✔ Add pagination @done(18-05-31 23:05)

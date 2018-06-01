@@ -6,6 +6,7 @@ import faker from "faker";
 import { validate } from "class-validator";
 import { createEntity } from "../../src/lib/entity";
 import { log } from "../../src/lib/logger";
+import { inspect } from "util";
 
 let app, userRepository;
 beforeAll(async () => {
@@ -22,19 +23,20 @@ describe("User", () => {
     user.email = faker.internet.email();
 
     const errors = await validate(user);
-    assert.ok(!errors.length);
+    assert.ok(!errors.length, inspect(errors));
 
     const insertedUser = await userRepository.save(user);
     assert.equal(user.email, insertedUser.email);
     assert.ok(await insertedUser.comparePassword("test-password"));
-    assert.ok(insertedUser.createdAt);
-    assert.ok(insertedUser.updatedAt);
+    assert.ok(insertedUser.createdAt, inspect(insertedUser));
+    assert.ok(insertedUser.updatedAt, inspect(insertedUser));
 
     const updatedAt = insertedUser.updatedAt;
     insertedUser.pseudo = faker.internet.userName();
     const updatedUser = await userRepository.save(user);
     assert.ok(updatedUser.updatedAt != updatedAt);
-      done();
+
+    done();
   });
 
   it("should return an array of error", async (done) => {
@@ -56,14 +58,14 @@ describe("User", () => {
       password: "totototo",
     });
     let errors = await validate(user);
-    assert.equal(errors.length, 1);
+    assert.equal(errors.length, 1, inspect(errors));
 
     user = createEntity(User, {
       pseudo: "pseudo",
       password: "totototo",
     });
     errors = await validate(user);
-    assert.equal(errors.length, 1);
+    assert.equal(errors.length, 1, inspect(errors));
 
     done();
   });
@@ -74,7 +76,7 @@ describe("User", () => {
       password: "totototo",
     });
     let errors = await validate(user);
-    assert.equal(errors.length, 1);
+    assert.equal(errors.length, 1, inspect(errors));
 
     user = createEntity(User, {
       email: "toto@toto.com",
@@ -90,7 +92,7 @@ describe("User", () => {
       password: "totototo",
     });
     errors = await validate(user);
-    assert.ok(!errors.length);
+    assert.ok(!errors.length, inspect(errors));
 
     done();
   });
@@ -111,7 +113,7 @@ describe("User", () => {
     });
 
     const errors = await validate(userError);
-    assert.equal(errors.length, 2);
+    assert.equal(errors.length, 2, inspect(errors));
     done();
   });
 

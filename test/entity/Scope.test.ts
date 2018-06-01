@@ -5,6 +5,7 @@ import assert from "assert";
 import faker from "faker";
 import { validate } from "class-validator";
 import { createEntity } from "../../src/lib/entity";
+import { inspect } from "util";
 
 let app, scopeRepository;
 beforeAll(async () => {
@@ -19,7 +20,7 @@ describe("Scope", () => {
     scope.ref = faker.name.firstName();
 
     const errors = await validate(scope);
-    assert.ok(!errors.length);
+    assert.ok(!errors.length, inspect(errors));
 
     const insertedScope = await scopeRepository.save(scope);
     assert.equal(scope.ref, insertedScope.ref);
@@ -33,7 +34,7 @@ describe("Scope", () => {
     scope.ref = null;
 
     const errors = await validate(scope);
-    assert.equal(errors.length, 1);
+    assert.equal(errors.length, 1, inspect(errors));
 
     done();
   });
@@ -49,7 +50,7 @@ describe("Scope", () => {
     });
 
     const errors = await validate(scopeError);
-    assert.equal(errors.length, 1);
+    assert.equal(errors.length, 1, inspect(errors));
     done();
   });
 

@@ -1,13 +1,14 @@
 import bootstrap from "../../src/bootstrap";
-import { getRepository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import { Scope } from "../../src/entities/Scope";
 import { User } from "../../src/entities/User";
 import assert from "assert";
 import faker from "faker";
 import { validate } from "class-validator";
 import { createEntity } from "../../src/lib/entity";
+import { log } from "../../src/lib/logger";
 
-let app, scopeRepository, userRepository;
+let app, scopeRepository, userRepository: Repository<User>;
 beforeAll(async () => {
   app = await bootstrap();
   userRepository = getRepository(User);
@@ -27,9 +28,8 @@ describe("UserScope relations", () => {
     });
     user.scopes = [scope];
     const insertedUser = await userRepository.save(user);
-    assert.ok(scope.ref, insertedUser.scopes[0].ref);
 
-    const fetchUser = await userRepository.findOne(insertedUser.id);
+    const fetchUser = await userRepository.findOne(insertedUser.id, {relations: ["scopes"]});
     assert.ok(scope.ref, fetchUser.scopes[0].ref);
 
     done();

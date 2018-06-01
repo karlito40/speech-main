@@ -35,5 +35,9 @@ export const Facade = {
 
   post(path, action, middlewares?) {
     return this.build("post", path, action, middlewares);
-  }
+  },
+
+  all(path, action, middlewares?) {
+    return this.build("all", path, action, middlewares);
+  },
 };
