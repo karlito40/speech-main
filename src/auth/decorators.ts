@@ -13,12 +13,9 @@ export function isAuthenticated(...scopes) {
           return self.error(err, (err) ? "AUTHENTICATED_TOKEN " : info.name);
         }
 
-        let isAuthorized = true;
-        if (scopes.length) {
+        let isAuthorized = user.hasRole(["super-admin"]);
+        if (!isAuthorized) {
           try {
-            if (!scopes.includes("super-admin")) {
-              scopes.push("super-admin");
-            }
             isAuthorized = await isScopesAuthorized(scopes, self.req, user);
           } catch (err) {
             return self.error(err, "AUTHENTICATED_SCOPE");
@@ -26,7 +23,7 @@ export function isAuthenticated(...scopes) {
         }
 
         if (!isAuthorized) {
-          return self.error(new Error("Access forbidden"), "AUTHENTICATED_ACCESS_FORBIDDEN");
+          return self.error(null, "ACCESS_FORBIDDEN");
         }
 
         self.req.login(user, { session: false }, (err) => {

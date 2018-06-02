@@ -32,7 +32,7 @@ export default () => {
   }, async (jwtPayload, done) => {
     const userRepository = getRepository(User);
     try {
-      const user = await userRepository.findOne(jwtPayload.id, { relations: ["scopes"] });
+      const user = await userRepository.findOne(jwtPayload.id, { relations: ["scopes", "roles"] });
       return done(null, user);
     } catch (err) {
       return done(err);

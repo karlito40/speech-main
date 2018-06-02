@@ -4,6 +4,7 @@ import { Scope } from "./Scope";
 import bcrypt from "bcrypt";
 import { IsUnique } from "../validations";
 import { BaseEntity } from "./BaseEntity";
+import { Role } from "./Role";
 
 @Entity()
 export class User extends BaseEntity {
@@ -40,8 +41,24 @@ export class User extends BaseEntity {
   @JoinTable({ name: "user_scope" })
   scopes: Scope[];
 
+  @ManyToMany(type => Role, role => role.users, {
+    cascade: true
+  })
+  @JoinTable({ name: "user_role" })
+  roles: Role[];
+
   hasScope(scopeToHave: string[]) {
+    if (!this.scopes) {
+      throw new Error("User::scopes not loaded through relations");
+    }
     return this.scopes.some(scope => scopeToHave.includes(scope.ref));
+  }
+
+  hasRole(roleToHave: string[]) {
+    if (!this.roles) {
+      throw new Error("User::roles not loaded through relations");
+    }
+    return this.roles.some(role => roleToHave.includes(role.ref));
   }
 
   async setAsyncPassword(password: string) {
@@ -53,5 +70,4 @@ export class User extends BaseEntity {
   async comparePassword(candidatePassword: string): Promise<boolean> {
     return bcrypt.compare(candidatePassword, this.password);
   }
-
 }

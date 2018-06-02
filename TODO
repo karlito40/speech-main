@@ -4,9 +4,15 @@
 ☐ Hash password with model user subscriber 
 ☐ Add a model factory
 ☐ Custom logger for typeorm
-☐ Add different visualiser/transformer by user role
-☐ Find a way to use IsUnique without the Entity parameter
+☐ Use IsUnique without the Entity parameter
 ☐ Api rate limiter with blacklist
+☐ Save every personnal scope on a POST /user (show-users, show-user-:id, update-user-:id")
+☐ Change authenticated error ( shouldn't throw an error when users are not allowed )
+
+Role: 
+  ☐ Add different visualiser/transformer by user role
+  ☐ Hide email item on specific occasion (email other than me & role == common)
+
 // [ ValidationError {
   //   target: User { email: 'testtest.com' },
   //   value: 'testtest.com',
