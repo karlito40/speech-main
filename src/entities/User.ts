@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDa
 import { IsString, IsEmail, MinLength } from "class-validator";
 import { Scope } from "./Scope";
 import bcrypt from "bcrypt";
-import { IsUnique } from "../validations";
+import { IsUnique } from "../lib/validations";
 import { BaseEntity } from "./BaseEntity";
 import { Role } from "./Role";
 
@@ -17,12 +17,12 @@ export class User extends BaseEntity {
 
   @Column()
   @IsEmail()
-  @IsUnique(User)
+  @IsUnique()
   email: string;
 
   @Column()
   @MinLength(3)
-  @IsUnique(User)
+  @IsUnique()
   pseudo: string;
 
   @Column()

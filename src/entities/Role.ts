@@ -1,7 +1,7 @@
 import { IsString, IsNumber } from "class-validator";
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { User } from "./User";
-import { IsUnique } from "../validations";
+import { IsUnique } from "../lib/validations";
 import { BaseEntity } from "./BaseEntity";
 
 @Entity()
@@ -12,7 +12,7 @@ export class Role extends BaseEntity {
 
   @Column()
   @IsString()
-  @IsUnique(Role)
+  @IsUnique()
   ref: string;
 
   @Column()

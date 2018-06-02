@@ -4,7 +4,6 @@
 ☐ Hash password with model user subscriber 
 ☐ Add a model factory
 ☐ Custom logger for typeorm
-☐ Use IsUnique without the Entity parameter
 ☐ Api rate limiter with blacklist
 ☐ Save every personnal scope on a POST /user (show-users, show-user-:id, update-user-:id")
 ☐ Change authenticated error ( shouldn't throw an error when users are not allowed )
@@ -47,6 +46,7 @@ Tests:
   ☐ Database/Entities
 
 Archive:
+  ✔ Use IsUnique without the Entity parameter @done(18-06-02 20:14)
   ✔ Change ManyToMany to ManyToOne user [role_id]. Only one role by user @done(18-06-02 19:44) @project(Role)
   ✔ POST    /user (check unicity email, and class validator) @done(18-06-01 22:14) @project(Routes)
   ✔ UPDATE  /user/:id @project(Routes)

@@ -1,7 +1,7 @@
 import { IsBoolean, IsString } from "class-validator";
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
-import { IsUnique } from "../validations";
+import { IsUnique } from "../lib/validations";
 import { BaseEntity } from "./BaseEntity";
 
 @Entity()
@@ -12,7 +12,7 @@ export class Scope extends BaseEntity {
 
   @Column()
   @IsString()
-  @IsUnique(Scope)
+  @IsUnique()
   ref: string;
 
   @Column()
