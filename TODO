@@ -47,7 +47,7 @@ Tests:
   ☐ Database/Entities
 
 Archive:
-  ✔ Change ManyToMany to OneToOne user [role_id]. Only one role by user @done(18-06-02 19:44) @project(Role)
+  ✔ Change ManyToMany to ManyToOne user [role_id]. Only one role by user @done(18-06-02 19:44) @project(Role)
   ✔ POST    /user (check unicity email, and class validator) @done(18-06-01 22:14) @project(Routes)
   ✔ UPDATE  /user/:id @project(Routes)
   ✔ Stop to eager logs the scopes @done(18-06-01 15:45)

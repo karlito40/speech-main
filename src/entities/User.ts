@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
 import { IsString, IsEmail, MinLength } from "class-validator";
 import { Scope } from "./Scope";
 import bcrypt from "bcrypt";
@@ -41,10 +41,9 @@ export class User extends BaseEntity {
   @JoinTable({ name: "user_scope" })
   scopes: Scope[];
 
-  @OneToOne(type => Role, role => role.users, {
+  @ManyToOne(type => Role, role => role.users, {
     cascade: true
   })
-  @JoinColumn()
   role: Role;
 
   hasScope(scopeToHave: string[]) {
