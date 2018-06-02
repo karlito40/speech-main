@@ -1,5 +1,5 @@
 import { IsString, IsNumber } from "class-validator";
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { User } from "./User";
 import { IsUnique } from "../validations";
 import { BaseEntity } from "./BaseEntity";
@@ -19,7 +19,6 @@ export class Role extends BaseEntity {
   @IsNumber()
   level: boolean = true;
 
-  @ManyToMany(type => User, user => user.roles)
-  @JoinTable({ name: "user_role" })
+  @OneToMany(type => User, user => user.role)
   users: User[];
 }

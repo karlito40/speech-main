@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from "typeorm";
 import { IsString, IsEmail, MinLength } from "class-validator";
 import { Scope } from "./Scope";
 import bcrypt from "bcrypt";
@@ -41,11 +41,11 @@ export class User extends BaseEntity {
   @JoinTable({ name: "user_scope" })
   scopes: Scope[];
 
-  @ManyToMany(type => Role, role => role.users, {
+  @OneToOne(type => Role, role => role.users, {
     cascade: true
   })
-  @JoinTable({ name: "user_role" })
-  roles: Role[];
+  @JoinColumn()
+  role: Role;
 
   hasScope(scopeToHave: string[]) {
     if (!this.scopes) {
@@ -55,10 +55,7 @@ export class User extends BaseEntity {
   }
 
   hasRole(roleToHave: string[]) {
-    if (!this.roles) {
-      throw new Error("User::roles not loaded through relations");
-    }
-    return this.roles.some(role => roleToHave.includes(role.ref));
+    return this.role && roleToHave.includes(this.role.ref);
   }
 
   async setAsyncPassword(password: string) {
