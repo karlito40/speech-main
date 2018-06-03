@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToOne } from "typeorm";
 import { IsString, IsEmail, MinLength } from "class-validator";
 import { Scope } from "./Scope";
 import bcrypt from "bcrypt";
@@ -48,7 +48,6 @@ export class User extends BaseEntity {
   role: Role;
 
   @OneToOne(type => Profile, profile => profile.user)
-  @JoinColumn()
   profile: Profile;
 
   hasScope(scopeToHave: string[]) {

@@ -8,7 +8,7 @@ import BaseController from "./BaseController";
 export default class Controller extends BaseController {
 
   async index() {
-    return this.json({ version: process.env.API_VERSION });
+    return this.res.json({ version: process.env.API_VERSION });
   }
 
   async notFound() {

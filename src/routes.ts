@@ -10,6 +10,8 @@ export default new RouteManager([
   Route.get("/user/:id", "User@get"),
   Route.post("/user", "User@create"),
   Route.put("/user/:id", "User@update"),
+  Route.post("/user/:id/profile", "User@createProfile"),
+  Route.put("/user/:id/profile", "User@updateProfile"),
 
   /**
    * Resource Conversation

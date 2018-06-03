@@ -1,11 +1,14 @@
 import { IsString, IsNumber, MaxLength, IsIn } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
 import { User } from "./User";
 import { BaseEntity } from "./BaseEntity";
 
 
 @Entity()
 export class Profile extends BaseEntity {
+
+  fillable = ["gender", "headline", "content", "user"];
+  hidden = ["user"];
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -27,5 +30,6 @@ export class Profile extends BaseEntity {
   // photos
 
   @OneToOne(type => User, user => user.profile)
+  @JoinColumn()
   user: User;
 }

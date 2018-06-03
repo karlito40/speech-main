@@ -2,7 +2,7 @@
 import { validate } from "class-validator";
 import { getRepository, getMetadataArgsStorage, PromiseUtils } from "typeorm";
 import { getManager, getConnection } from "typeorm";
-import { User } from "../entities/User";
+import { BaseEntity } from "../entities/BaseEntity";
 
 export function createEntity(Entity, data) {
   const entity = new Entity();
@@ -14,15 +14,20 @@ export function createEntity(Entity, data) {
 }
 
 
-export async function saveEntity(EntityClass, inputs: Object, id?: number) {
+export async function saveEntity(entityOrClass, inputs: Object, id?: number) {
   // const { propertiesMap } = getConnection().getMetadata(EntityClass);
-  const repository = getRepository(EntityClass);
-
-  let entity = new EntityClass();
-  if(id) {
-    entity = await repository.findOneOrFail(id);
+  let repository;
+  let entity = entityOrClass;
+  if(entityOrClass instanceof BaseEntity) {
+    repository = getRepository(entity.constructor.name);
+  } else {
+    repository = getRepository(entityOrClass);
+    entity = new entityOrClass();
+    if(id) {
+      entity = await repository.findOneOrFail(id);
+    }
   }
-
+  
   const fill = async () => {
     const promises = [];
     for (const [key, value] of Object.entries(inputs)) {
