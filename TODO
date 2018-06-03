@@ -7,9 +7,8 @@
 ☐ Api rate limiter with blacklist
 ☐ Save every personnal scope on a POST /user (show-users, show-user-:id, update-user-:id")
 ☐ Change authenticated error ( shouldn't throw an error when users are not allowed )
-☐ Add profile
 ☐ Add profile photos
-☐ Filter users list by gender & profile active
+☐ Filter profile list by gender
 
 Role: 
   ☐ Add different visualiser/transformer by user role
@@ -43,12 +42,14 @@ Routes:
   ☐ POST    /conversation/:id/message
 
 Tests:
+  ☐ Fix entities change (user pseudo, ...)
   ☐ Authentication
   ☐ Routes
   ☐ Authenticated decorator
   ☐ Database/Entities
 
 Archive:
+  ✔ Add profile @done(18-06-03 19:34)
   ✔ Use IsUnique without the Entity parameter @done(18-06-02 20:14)
   ✔ Change ManyToMany to ManyToOne user [role_id]. Only one role by user @done(18-06-02 19:44) @project(Role)
   ✔ POST    /user (check unicity email, and class validator) @done(18-06-01 22:14) @project(Routes)

@@ -10,7 +10,7 @@ import { Profile } from "./Profile";
 @Entity()
 export class User extends BaseEntity {
 
-  fillable = ["email", "pseudo", "password"];
+  fillable = ["email", "password"];
   hidden = ["password", "createdAt", "updatedAt"];
 
   @PrimaryGeneratedColumn()
@@ -20,11 +20,6 @@ export class User extends BaseEntity {
   @IsEmail()
   @IsUnique()
   email: string;
-
-  @Column()
-  @MinLength(3)
-  @IsUnique()
-  pseudo: string;
 
   @Column()
   @MinLength(6)

@@ -17,7 +17,7 @@ export async function isScopesAuthorized(scopes: Array<string>, req: Request, us
     return true;
   }
 
-  const placeholders = {...req.params, ...{ me: user.id }};
+  const placeholders = { ...req.params, ...{ me: user.id } };
   scopes = scopes.map(scope => replace(scope, placeholders));
 
   return (
