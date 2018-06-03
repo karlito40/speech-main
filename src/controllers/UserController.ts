@@ -3,7 +3,6 @@ import { User } from "../entities/User";
 import BaseController from "./BaseController";
 import { isAuthenticated } from "../auth/decorators";
 import { getRepository, Repository } from "typeorm";
-import { page } from "../lib/pagination";
 import { saveEntity } from "../lib/entity";
 
 export default class UserController extends BaseController {
@@ -16,12 +15,12 @@ export default class UserController extends BaseController {
   @isAuthenticated("show-users", "show-user-:id")
   async get() {
     const { id } = this.req.params;
-    return this.json(await this.repository.findOne(id));
+    return this.json(await this.repository.findOne(id, { relations: ["profile"] }));
   }
 
   @isAuthenticated("show-users")
   async list() {
-    return this.paginate(await page(this.repository, this.req.query.page));
+    return await this.paginate(this.repository, { relations: ["profile"] });
   }
 
   @isAuthenticated("create-user")

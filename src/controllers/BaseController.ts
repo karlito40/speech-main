@@ -3,6 +3,7 @@ import { IVerifyOptions } from "passport-local";
 import { logError } from "../lib/logger";
 import { isProduction } from "../lib/env";
 import { Route } from "../lib/routes";
+import { page } from "../lib/pagination";
 
 export default class Controller {
 
@@ -16,14 +17,15 @@ export default class Controller {
 
   boot() {}
 
-  paginate(page, success: boolean = true) {
+  async paginate(repository, options?) {
+    const result = await page(repository, this.req.query.page, options);
     return this.res.json({
-      success: success,
-      data: page.data || null,
+      success: true,
+      data: result.data || null,
       meta: {
-        total: page.total,
-        per_page: page.perPage,
-        last_page: page.lastPage,
+        total: result.total,
+        per_page: result.perPage,
+        last_page: result.lastPage,
       }
     });
   }

@@ -17,7 +17,7 @@ export class Role extends BaseEntity {
 
   @Column()
   @IsNumber()
-  level: boolean = true;
+  level: number;
 
   @OneToMany(type => User, user => user.role)
   users: User[];

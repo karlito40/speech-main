@@ -7,6 +7,9 @@
 ☐ Api rate limiter with blacklist
 ☐ Save every personnal scope on a POST /user (show-users, show-user-:id, update-user-:id")
 ☐ Change authenticated error ( shouldn't throw an error when users are not allowed )
+☐ Add profile
+☐ Add profile photos
+☐ Filter users list by gender & profile active
 
 Role: 
   ☐ Add different visualiser/transformer by user role
