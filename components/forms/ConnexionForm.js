@@ -1,6 +1,5 @@
 import { Component } from 'react';
-import Input from '../controls/Input';
-import Button from '../controls/Button';
+import { Input, Button } from '../controls';
 
 export default class extends Component {
 

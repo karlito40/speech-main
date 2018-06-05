@@ -1,9 +1,8 @@
 import { Component } from 'react';
-import css from 'styled-jsx/css';
 import DatePicker from 'react-datepicker';
 import datePickerCSS from '../../styles/vendor/react-datepicker/react-datepicker';
 
-export default class extends Component {
+export class Input extends Component {
 
   constructor(props) {
     super(props);
@@ -17,8 +16,6 @@ export default class extends Component {
       isEmpty: true,
       datepickerFallback: false
     };
-
-
   }
 
   handleChange({target: { value }}) {
@@ -53,6 +50,21 @@ export default class extends Component {
   generateBaseInput() {
     const { name, type } = this.props;
 
+    if(type && type == "select") {
+      return (
+        <select className="form-control select-sp"
+          name={ name }
+          onChange={ this.handleChange }
+          onFocus={ this.handleFocus }
+          onBlur={ this.handleBlur }>
+          <option value="0">{ this.props.label }</option>
+          {this.props.values && this.props.values.map((v, index) => (
+            <option key={index} value={v.val}>{v.label}</option>
+          ))}
+        </select>
+      );
+    }
+
     return <input
       className="form-control input-sp"
       type={ type || 'text' }
@@ -85,25 +97,26 @@ export default class extends Component {
   render() {
     const { name, label, type, error, className, ico } = this.props;
     const { isEmpty, datepickerFallback } = this.state;
-    
+    const inputType = type || "text";
+
     return (
       <div className={`form-group ${className} ${(!isEmpty) ? 'not-empty' : ''}`}>
-        <label htmlFor={ name }>{ label }</label>
+        <div className="body-form-group">
+          { inputType != "select" && <label htmlFor={ name }>{ label }</label> }
 
-        <div className="form-input">
-          { datepickerFallback ? this.generateDatePickerFallback() : this.generateBaseInput() }
-          { ico && (
-            <div className={`ico fi flaticon-${ico}`}></div>
-          )}
+          <div className="form-input">
+            { datepickerFallback ? this.generateDatePickerFallback() : this.generateBaseInput() }
+            { ico && (
+              <div className={`ico fi flaticon-${ico}`}></div>
+            )}
+          </div>
         </div>
 
-        { error &&  <p className="form-error txt-danger">{ error }</p> }
+        { error &&  <div className="form-error txt-danger">{ error }</div> }
 
         <style jsx>{`
           .not-empty :global(input[type="date"] + .ico) { display: none; }
         `}</style>
-
-
 
       </div>
     );

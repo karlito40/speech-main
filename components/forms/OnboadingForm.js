@@ -1,36 +1,62 @@
 import { Component } from 'react';
-import Input from '../controls/Input';
-import Button from '../controls/Button';
+import { Input, Button } from '../controls';
+import { Field, reduxForm } from 'redux-form'
+import Form, { IsIn, IsDate } from '../../lib/validator';
 
-export default class extends Component {
-  submit() {
+const genders = [
+  { label: 'Homme', val: 'M' },
+  { label: 'Femme', val: 'W' }
+];
 
-  }
+const renderInput = ({
+  input,
+  label,
+  meta: { touched, error },
+  ...custom
+}) => (
+  <Input
+    label={label}
+    error={touched && error}
+    {...input}
+    {...custom}
+  />
+);
 
+class OnboardingForm extends Component {
+  showValues = (values) => console.log('submit', values);
 
   render() {
+    const { handleSubmit } = this.props;
     return (
-      <form className="form-onboarding" method="post">
-        <Input
+      <form className="form-onboarding" onSubmit={handleSubmit(this.showValues)}>
+        <Field
           className="full-width"
           label="Je suis"
-          name="my_gender"
-          ico="user-avatar"/>
+          name="gender"
+          ico="user-avatar"
+          type="select"
+          values={genders}
+          component={renderInput}
+        />
 
-        <Input
+        <Field
           className="full-width"
           label="Je cherche"
-          name="search_gender"
-          ico="white-t-shirt"/>
+          name="forGender"
+          ico="white-t-shirt"
+          type="select"
+          values={genders}
+          component={renderInput}/>
 
-        <Input
+        <Field
           className="full-width"
           label="Je suis née le"
-          name="birthdate"
+          name="birthDate"
           type="date"
-          ico="wristwatch"/>
+          ico="wristwatch"
+          component={renderInput}/>
 
-        <Button className="block full-width primary" onClick={ this.submit.bind(this) }>
+        <Button className="block full-width primary">
           Créer mon profil
         </Button>
 
@@ -52,5 +78,14 @@ export default class extends Component {
       </form>
     );
   }
-
 }
+
+
+export default reduxForm({
+  form: 'onboardingForm',
+  validate: Form({
+    gender: [{ constraint: IsIn(['M', 'W']), message: "Champ invalide." }],
+    forGender: IsIn(['M', 'W']),
+    birthDate: IsDate()
+  })
+})(OnboardingForm)

@@ -34,11 +34,6 @@ app.prepare()
       return app.render(req, res, '/test/posts', { id: req.params.id })
     });
 
-    server.post('/api/user', (req, res, next) => {
-      req.headers['authorization'] = `Bearer ${process.env.SUPERADMIN_TOKEN}`;
-      next();
-    });
-
     server.all('/api*', apiLimiter, (req, res) => {
       const method = req.method.toLowerCase();
       request[method]({

@@ -4,10 +4,13 @@ export default css`
   @import 'core/index';
 
   @mixin createInputColor($color, $toColor) {
-    & { color: $color; }
-    input { border-bottom: 1px solid $color; }
+    .body-form-group {
+      & { color: $color; }
+      &:after { background: $toColor; }
+      input, select { border-bottom: 1px solid $color; }
+    }
+
     &.size-2 input { border-bottom: 2px solid $color; }
-    &:after { background: $toColor; }
     &.not-empty .ico { color: $toColor; }
   }
 
@@ -20,25 +23,32 @@ export default css`
     }
   }
 
-  input.input-sp {
-    & { border: 0; border-bottom: 1px solid $colorDeepBlack; padding: 2px 0px; background: transparent; }
+  input.input-sp, select.select-sp {
+    & { appearance: none; border-radius: 0; border: 0; border-bottom: 1px solid $colorDeepBlack; padding: 2px 0px; background: transparent; }
     &:focus { outline: 0; }
   }
 
   .form-group {
     & { position: relative; font-size: $font18pt; }
-    &:after { content: ''; display: block; width: 0; height: 2px; position: absolute; bottom: 0; transition: 0.25s all ease; }
-    label { position: absolute; bottom: 2px; pointer-events: none; transition: 0.25s all; }
-    .ico { position: absolute; right: 0; bottom: 2px; pointer-events: none; transition: 0.1s color 0.15s;}
-    input { padding-bottom: 4px; }
+    .body-form-group {
+      & { position: relative; }
+      &:after { content: ''; display: block; width: 0; height: 2px; position: absolute; bottom: 0; transition: 0.25s all ease; }
+      label { position: absolute; bottom: 2px; pointer-events: none; transition: 0.25s all; }
+      .ico { position: absolute; right: 0; bottom: 2px; pointer-events: none; transition: 0.1s color 0.15s;}
+      input, select { padding-bottom: 4px; }
+    }
+
     &.size-2 {
-      &:after { height:2px; }
-      input { border-bottom: 2px solid $colorDeepBlack; }
+      .body-form-group {
+        &:after { height:2px; }
+        input { border-bottom: 2px solid $colorDeepBlack; }
+      }
+
     }
 
     &.full-width {
       & { width: auto; }
-      input { width: 100%; }
+      input, select { width: 100%; }
     }
 
     @include createInputColor($colorDeepBlack, black);
@@ -50,10 +60,14 @@ export default css`
     }
 
     &.not-empty {
-      &:after { width: 100%; }
-      label { opacity: 0; transform: translateX(10px); }
+      .body-form-group {
+        &:after { width: 100%; }
+        label { opacity: 0; transform: translateX(10px); }
+      }
     }
   }
+
+  .form-error { margin: 5px 0; }
 
   button.btn-sp {
     & { box-sizing: border-box; }
