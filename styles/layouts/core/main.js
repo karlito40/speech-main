@@ -44,4 +44,12 @@ export default css`
     }
 
   }
+
+  .modal-container {
+    & { background-color: rgba(255, 255, 255, 0.65); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .modal {
+      & { min-width: 340px; padding: 30px; box-sizing: border-box; background-color: white; box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35); outline: 0; }
+      h2 { text-align: center; margin-bottom: 20px; font-size: $font36pt; }
+    }
+  }
 `;
