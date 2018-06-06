@@ -23,15 +23,18 @@ export default () => {
     const auth = bootstrapAuth();
 
     app.set("port", process.env.PORT || 3100);
-    app.set("trust proxy", 1);
 
+    app.enable("trust proxy");
     app.disable("x-powered-by");
 
     app.use(helmet());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(auth.initialize());
-
+    app.use((req, res, next) => {
+      log("debug", req.url);
+      next();
+    });
     routes.initialize(app);
 
     return app;

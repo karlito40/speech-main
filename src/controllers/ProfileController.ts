@@ -35,7 +35,7 @@ export default class ProfileController extends BaseController {
 
     const { entity, errors } = await saveEntity(Profile, inputs);
     if (errors.length) {
-      return this.json({ errors }, false);
+      return this.error(null, errors);
     }
 
     return this.json(entity);

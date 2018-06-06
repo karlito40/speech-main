@@ -11,7 +11,14 @@ export function isAuthenticated(...scopes) {
       return new Promise<any>( (resolve, reject) => {
         passport.authenticate("jwt", { session: false }, async function(err: Error, user: User, info) {
           if (err || !user) {
-            return self.error(err, (err) ? "AUTHENTICATED_TOKEN " : info.name);
+            return resolve(self.res.status(401).json({
+              success: false,
+              error: {
+                code: "AUTHENTICATED_TOKEN",
+                message: (!err) ? info.message : err.message,
+                info: info
+              }
+            }));
           }
 
           let isAuthorized = user.hasRole(["super-admin"]);
@@ -19,23 +26,23 @@ export function isAuthenticated(...scopes) {
             try {
               isAuthorized = await isScopesAuthorized(scopes, self.req, user);
             } catch (err) {
-              return self.error(err, "AUTHENTICATED_SCOPE");
+              return resolve(self.error(err, "AUTHENTICATED_SCOPE"));
             }
           }
 
           if (!isAuthorized) {
-            return self.error(null, "ACCESS_FORBIDDEN");
+            return resolve(self.error(null, "ACCESS_FORBIDDEN"));
           }
 
           self.req.login(user, { session: false }, async (err) => {
             if (err) {
-              return self.error(err, "AUTHENTICATED_LOGIN");
+              return resolve(self.error(err, "AUTHENTICATED_LOGIN"));
             }
 
             try {
-              resolve(await originalMethod.apply(self, originalArgs));
+              return resolve(await originalMethod.apply(self, originalArgs));
             } catch (err) {
-              reject(err);
+              return reject(err);
             }
           });
         })(self.req, self.res, self.next);

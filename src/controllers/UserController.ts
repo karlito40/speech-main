@@ -23,21 +23,25 @@ export default class UserController extends BaseController {
     return await this.paginate(this.repository, { relations: ["profile"] });
   }
 
-  @isAuthenticated("create-user")
   async create() {
-    const { entity, errors } = await saveEntity(User, this.req.body);
+    const inputs = this.req.body;
+    if (inputs.email) {
+      inputs.email = inputs.email.toLowerCase();
+    }
+
+    const { entity, errors } = await saveEntity(User, inputs);
     if (errors.length) {
-      return this.json({ errors }, false);
+      return this.error(null, errors);
     }
 
     return this.json(entity);
   }
 
-  @isAuthenticated("create-user", "update-user", "update-user-:id")
+  @isAuthenticated("update-user", "update-user-:id")
   async update() {
     const { entity, errors } = await saveEntity(User, this.req.body, this.req.params.id);
     if (errors.length) {
-      return this.json({ errors }, false);
+      return this.error(null, errors);
     }
 
     return this.json(entity);

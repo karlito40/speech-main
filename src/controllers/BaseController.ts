@@ -37,11 +37,15 @@ export default class Controller {
     });
   }
 
-  error(err: Error, code, message: string = "An error occured", status: number = 400) {
-    logError.apply(null, [ ...[code, err] ]);
+  error(err: Error, toReturn, message: string = "An error occured", status: number = 400) {
+    if (typeof toReturn != "object") {
+      toReturn = { code: toReturn, message };
+    }
+
+    logError.apply(null, [ ...[toReturn.code, err] ]);
     return this.res.status(status).json({
       success: false,
-      error: { message, code }
+      error: toReturn
     });
   }
 
