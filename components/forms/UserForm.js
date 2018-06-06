@@ -4,14 +4,15 @@ import { reduxForm } from 'redux-form';
 import Form, { IsEmail, MinLength } from '../../lib/validator';
 import { Field } from '../controls';
 import { connect } from 'react-redux';
-import { createUser } from '../../store/actions';
+import { actions as actionsApi } from '../../store/api';
 import { SubmissionError } from 'redux-form';
 
 class UserForm extends Component {
   createUser = (user) => {
     return this.props.onUserSubmit(user)
       .then(res => this.props.onUserCreated && this.props.onUserCreated())
-      .catch(errors => {
+      .catch(error => {
+        const errors = error.response.data.error;
         let submissionErr = {};
         for(const error of errors) {
           submissionErr[error.property] = '';
@@ -29,7 +30,6 @@ class UserForm extends Component {
     return (
       <Fragment>
         <h2>Inscription</h2>
-        {JSON.stringify(errors)}
         <form className="form-user" onSubmit={handleSubmit(this.createUser)}>
           <Field
             className="full-width"
@@ -64,7 +64,7 @@ class UserForm extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onUserSubmit: (user) => dispatch(createUser(user))
+    onUserSubmit: (user) => dispatch(actionsApi.postUser(user))
   };
 };
 
