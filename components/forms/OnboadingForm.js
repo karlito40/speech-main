@@ -3,33 +3,66 @@ import { Button } from '../controls';
 import { reduxForm } from 'redux-form';
 import Form, { IsIn, IsDate } from '../../lib/validator';
 import Modal from '../Modal';
-import { Field } from "../controls";
-import UserForm from "./UserForm";
+import { Field } from '../controls';
+import UserForm from './UserForm';
+import { connect } from 'react-redux';
+import { setErrorForm } from '../../store/actions';
+import moment from "moment";
+import { actions as actionsApi } from '../../store/api';
+import { getConstraints, getServerError } from '../../lib/error';
 
 const genders = [
   { label: 'Homme', val: 'M' },
-  { label: 'Femme', val: 'W' }
+  { label: 'Femme', val: 'F' }
 ];
 
 
 class OnboardingForm extends Component {
   state = { showUserForm: false };
 
-  showValues = (values) => console.log('submit', values);
-  toggleActive = () => this.setState({showUserForm: !this.state.showUserForm});
-  closeUserForm = () => this.setState({showUserForm: false});
-  
+  toggleActive = () => this.setState({ showUserForm: !this.state.showUserForm });
+  closeUserForm = () => this.setState({ showUserForm: false });
+
+  showUserForm = () => this.setState({ showUserForm: true });
+
+  onProfileSubmit = (profileForm) => {
+    this.profileForm = profileForm;
+
+    if(!this.user) {
+      return this.showUserForm();
+    }
+
+    this.submitProfile();
+  }
+
+  onUserCreated = (user) => {
+    this.user = user;
+    this.closeUserForm();
+    this.submitProfile();
+  };
+
+  submitProfile = () => {
+    this.profileForm.userId = this.user.id;
+    this.profileForm.birthDate = moment(this.profileForm.birthDate, "YYYY-MM-DD");
+    this.props.onProfileSubmit(this.profileForm)
+      .then(res => console.log('res', res))
+      .catch(server => {
+        console.log('err server', server);
+        this.props.onServerFormError(getConstraints(getServerError(server)));
+      });
+  };
+
   render() {
     const { handleSubmit } = this.props;
     return (
       <>
         <Modal
           active={this.state.showUserForm}
-          onClose={this.toggleActive}>
-          <UserForm onUserCreated={this.closeUserForm}/>
+          onClose={this.closeUserForm}>
+          <UserForm onUserCreated={this.onUserCreated}/>
         </Modal>
-        <form className="form-onboarding" onSubmit={handleSubmit(this.showValues)}>
-          <button onClick={this.toggleActive}>CLICK</button>
+
+        <form className="form-onboarding" onSubmit={handleSubmit(this.onProfileSubmit)}>
 
           <Field
             className="full-width"
@@ -83,12 +116,27 @@ class OnboardingForm extends Component {
   }
 }
 
+const mapStateToProps = ({profileIsLoading}) => {
+  return {
+    profileIsLoading
+  };
+}
 
-export default reduxForm({
-  form: 'onboardingForm',
-  validate: Form({
-    gender: [{ constraint: IsIn(['M', 'W']), message: "Champ invalide." }],
-    forGender: IsIn(['M', 'W']),
-    birthDate: IsDate()
-  })
-})(OnboardingForm)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onServerFormError: (errors) => {
+      return dispatch(setErrorForm('onboardingForm', errors));
+    },
+    onProfileSubmit: (profile) => dispatch(actionsApi.postProfile(profile))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)
+  (reduxForm({
+    form: 'onboardingForm',
+    validate: Form({
+      gender: [{ constraint: IsIn(['M', 'F']), message: "Champ invalide." }],
+      forGender: IsIn(['M', 'F']),
+      birthDate: IsDate()
+    })
+  })(OnboardingForm));

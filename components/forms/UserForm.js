@@ -1,32 +1,20 @@
 import { Component, Fragment } from 'react';
 import { Button } from '../controls';
 import { reduxForm } from 'redux-form';
-import Form, { IsEmail, MinLength } from '../../lib/validator';
+import Form, { IsEmail, MinLength, handleServerError } from '../../lib/validator';
 import { Field } from '../controls';
 import { connect } from 'react-redux';
 import { actions as actionsApi } from '../../store/api';
-import { SubmissionError } from 'redux-form';
 
 class UserForm extends Component {
-  createUser = (user) => {
-    return this.props.onUserSubmit(user)
-      .then(res => this.props.onUserCreated && this.props.onUserCreated())
-      .catch(error => {
-        const errors = error.response.data.error;
-        let submissionErr = {};
-        for(const error of errors) {
-          submissionErr[error.property] = '';
-          for(const message of Object.values(error.constraints)) {
-            submissionErr[error.property] += message;
-          }
-        }
-
-        throw new SubmissionError(submissionErr);
-      });
+  createUser = (form) => {
+    return this.props.onUserSubmit(form)
+      .then(res => this.props.onUserCreated && this.props.onUserCreated(res.data))
+      .catch(handleServerError);
   };
 
   render() {
-    const { handleSubmit, errors } = this.props;
+    const { handleSubmit, userIsLoading } = this.props;
     return (
       <Fragment>
         <h2>Inscription</h2>
@@ -46,9 +34,13 @@ class UserForm extends Component {
             ico="locked-padlock"
           />
 
-          <Button className="block full-width primary">
-            Confirmer
-          </Button>
+          {userIsLoading
+            ? <div>Chargement...</div>
+            :(
+            <Button className="block full-width primary">
+              Confirmer
+            </Button>
+          )}
 
         </form>
         <style jsx>{`
@@ -62,13 +54,19 @@ class UserForm extends Component {
   }
 }
 
+const mapStateToProps = ({userIsLoading}) => {
+  return {
+    userIsLoading
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onUserSubmit: (user) => dispatch(actionsApi.postUser(user))
   };
 };
 
-export default connect(null, mapDispatchToProps)
+export default connect(mapStateToProps, mapDispatchToProps)
   (reduxForm({
     form: 'userForm',
     validate: Form({
