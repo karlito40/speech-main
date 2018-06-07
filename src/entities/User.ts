@@ -11,7 +11,7 @@ import jwt from "jsonwebtoken";
 @Entity()
 export class User extends BaseEntity {
 
-  static givenScopes = ["show-profiles", "update-user-:me", "update-profile-:me"];
+  static givenScopes = ["show-profiles", "update-user-:me", "create-profile-:me", "update-profile-:me"];
 
   fillable = ["email", "password"];
   hidden = ["password", "createdAt", "updatedAt"];

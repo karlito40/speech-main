@@ -24,7 +24,7 @@ export default class ProfileController extends BaseController {
     return await this.paginate(this.repository);
   }
 
-  @isAuthenticated("create-profile")
+  @isAuthenticated("create-profile", "create-profile-:me")
   async create() {
     const user = await getRepository(User).findOneOrFail(this.req.body.userId, { relations: ["profile"] });
     if (user.profile) {

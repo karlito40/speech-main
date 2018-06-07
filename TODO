@@ -10,6 +10,7 @@
 ☐ Add profile photos
 ☐ Filter profile list by gender
 ☐ Refactor the givenScope insertion on post user + transaction + errors
+☐ Check birthDate front & back (>100 ans)
 
 Role: 
   ☐ Add different visualiser/transformer by user role
