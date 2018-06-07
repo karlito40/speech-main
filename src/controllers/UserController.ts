@@ -1,9 +1,11 @@
 import passport from "passport";
 import { User } from "../entities/User";
+import { Scope } from "../entities/Scope";
 import BaseController from "./BaseController";
 import { isAuthenticated } from "../auth/decorators";
 import { getRepository, Repository } from "typeorm";
 import { saveEntity } from "../lib/entity";
+import { replace } from "../lib/string";
 
 export default class UserController extends BaseController {
   protected repository: Repository<User>;
@@ -24,17 +26,30 @@ export default class UserController extends BaseController {
   }
 
   async create() {
-    const inputs = this.req.body;
-    if (inputs.email) {
-      inputs.email = inputs.email.toLowerCase();
-    }
-
-    const { entity, errors } = await saveEntity(User, inputs);
+    const { entity, errors } = await saveEntity(User, this.req.body);
     if (errors.length) {
       return this.error(null, errors);
     }
 
-    return this.json(entity);
+    let user = entity;
+    const basisScopes = await getRepository(Scope).find({ dyn: false });
+    const basisScopesByRef = {};
+    basisScopes.forEach(scope => basisScopesByRef[scope.ref] = scope);
+
+    user.scopes = User.givenScopes.map(scopeRef => {
+      if (basisScopesByRef[scopeRef]) {
+        return basisScopesByRef[scopeRef];
+      }
+
+      const scope = new Scope();
+      scope.ref = replace(scopeRef, { me: user.id });
+      scope.dyn = true;
+      return scope;
+    });
+
+    user = await this.repository.save(user);
+
+    return this.json({ ...entity.toJSON(), ...{ token: entity.createToken() }});
   }
 
   @isAuthenticated("update-user", "update-user-:id")

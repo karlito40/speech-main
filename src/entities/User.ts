@@ -6,9 +6,12 @@ import { IsUnique } from "../lib/validations";
 import { BaseEntity } from "./BaseEntity";
 import { Role } from "./Role";
 import { Profile } from "./Profile";
+import jwt from "jsonwebtoken";
 
 @Entity()
 export class User extends BaseEntity {
+
+  static givenScopes = ["show-profiles", "update-user-:me", "update-profile-:me"];
 
   fillable = ["email", "password"];
   hidden = ["password", "createdAt", "updatedAt"];
@@ -54,6 +57,15 @@ export class User extends BaseEntity {
 
   hasRole(roleToHave: string[]) {
     return this.role && roleToHave.includes(this.role.ref);
+  }
+
+  createToken() {
+    const options = !this.hasScope(["super-admin"]) ? { expiresIn: "30d" } : null;
+    return jwt.sign(this.toJSON(), process.env.JWT_SECRET_KEY, options);
+  }
+
+  setEmail(email) {
+    this.email = email.toLowerCase();
   }
 
   async setAsyncPassword(password: string) {

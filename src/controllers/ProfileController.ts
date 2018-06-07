@@ -13,18 +13,18 @@ export default class ProfileController extends BaseController {
     this.repository = getRepository(Profile);
   }
 
-  @isAuthenticated("show-profile")
+  @isAuthenticated("show-profiles")
   async get() {
     const { id } = this.req.params;
     return this.json(await this.repository.findOne(id));
   }
 
-  @isAuthenticated("show-profile")
+  @isAuthenticated("show-profiles")
   async list() {
     return await this.paginate(this.repository);
   }
 
-  @isAuthenticated("create-profile", "create-profile-:me")
+  @isAuthenticated("create-profile")
   async create() {
     const user = await getRepository(User).findOneOrFail(this.req.body.userId, { relations: ["profile"] });
     if (user.profile) {
@@ -32,7 +32,6 @@ export default class ProfileController extends BaseController {
     }
 
     const inputs = { ...this.req.body, ...{ user }};
-
     const { entity, errors } = await saveEntity(Profile, inputs);
     if (errors.length) {
       return this.error(null, errors);
@@ -41,7 +40,7 @@ export default class ProfileController extends BaseController {
     return this.json(entity);
   }
 
-  @isAuthenticated("create-profile", "create-profile-:me")
+  @isAuthenticated("create-profile", "update-profile-:me")
   async update() {
     const { entity, errors } = await saveEntity(Profile, this.req.body, this.req.params.id);
     if (errors.length) {
