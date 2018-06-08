@@ -5,7 +5,7 @@ import { inspect } from "util";
 import { isProduction } from "./env";
 
 const options = {
-  timestamp: () => "[" + moment().format("DD/MM/YYYY HH:kk:mm") + "]",
+  timestamp: () => "[" + moment().format("DD/MM/YYYY HH:mm:ss") + "]",
   colorize: true,
   prettyPrint: true,
   formatter: (options) => {

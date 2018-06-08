@@ -7,6 +7,7 @@ export default new RouteManager([
    * Resource User
    */
   Route.get("/users", "User@list"),
+  Route.get("/me", "User@getMe"),
   Route.get("/user/:id", "User@get"),
   Route.post("/user", "User@create"),
   Route.put("/user/:id", "User@update"),

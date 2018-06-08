@@ -20,6 +20,11 @@ export default class UserController extends BaseController {
     return this.json(await this.repository.findOne(id, { relations: ["profile"] }));
   }
 
+  @isAuthenticated("show-user-:me")
+  async getMe() {
+    return this.json(await this.repository.findOne(this.req.user.id, { relations: ["profile"] }));
+  }
+
   @isAuthenticated("show-users")
   async list() {
     return await this.paginate(this.repository, { relations: ["profile"] });
