@@ -1,7 +1,8 @@
 import { Component, Fragment } from 'react';
 import { Button } from '../controls';
 import { reduxForm } from 'redux-form';
-import Form, { IsEmail, MinLength, handleServerError } from '../../lib/validator';
+import Form, { IsEmail, MinLength } from '../../lib/validator';
+import { handleServerError } from '../../lib/error';
 import { Field } from '../controls';
 import { connect } from 'react-redux';
 import { actions as actionsApi } from '../../store/api';

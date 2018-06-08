@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const request = require('request');
 const dotenv = require('dotenv');
 const RateLimit = require('express-rate-limit');
+const cookieParser = require('cookie-parser');
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -27,6 +28,7 @@ app.prepare()
     server.enable('trust proxy');
 
     server.use(helmet());
+    server.use(cookieParser());
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
 

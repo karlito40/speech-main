@@ -5,9 +5,28 @@ import * as layoutCSS from '../../styles/layouts/facade';
 import ConnexionForm from '../forms/ConnexionForm';
 import FacadeHeader from '../headers/FacadeHeader';
 import BaseLayout from './BaseLayout';
-
+import Router from 'next/router';
 
 export default class extends BaseLayout {
+
+  static async getInitialProps({ reduxStore: { getState }, res }) {
+    const { user } = getState();
+    const props = {};
+
+    if(!user) {
+      return props;
+    }
+
+    if (res) {
+      res.writeHead(302, { Location: '/d'});
+      res.end();
+    } else {
+      Router.push('/d');
+    }
+
+    return props;
+  }
+
   handleConnexionLink(e) {
     if(!this.state.showSidebar) {
       this.setState({ showSidebar: true });

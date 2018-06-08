@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { ucFirst } from '../lib/string';
+import { ucFirst, replace } from '../lib/string';
 
 const routes = [
+  { method: 'GET', path: '/me', as: 'me' },
   { method: 'POST', path: '/user', as: 'user' },
   { method: 'POST', path: '/profile', as: 'profile' }
 ];
@@ -14,26 +15,40 @@ routes.forEach(({ method, path, as }) => {
   const typeRoot = method.toUpperCase() + '_' + as.toUpperCase();
 
   actions[actionMethodName] = (data) => (dispatch, getState) => {
-    const { user } = getState();
-    let options = { headers: {} };
 
-    if(user) {
-      options.headers['Authorization'] = `Bearer ${user.token}`;
+    path = (data && data._params) ? replace(path, data._params) : path;
+    let token = (data && data._token) ? data._token : null;
+    let options = {
+      headers: {},
+      url: (data && data._isServer)
+        ? process.env.API_HOST + path
+        : '/api' + path
+    };
+
+    delete data._params;
+    delete data._token;
+
+    if(!token) {
+      const { user } = getState();
+      token = user && user.token;
+    }
+
+    if(token) {
+      options.headers['Authorization'] = `Bearer ${token}`;
     }
 
     dispatch({ type: `${typeRoot}_INIT` });
     return axios({
       ...{
         method: method.toLowerCase(),
-        url: '/api' + path,
         data: data
       }, ...options})
       .then(response => {
         return dispatch({ type: `${typeRoot}_SUCCEEDED`, data: response.data.data });
       })
       .catch(function (error) {
-        dispatch({ type: `${typeRoot}_FAILED`, error: error });
-        throw error;
+        dispatch({ type: `${typeRoot}_FAILED`, error: error.response.data });
+        throw error.response.data;
       });
   }
 

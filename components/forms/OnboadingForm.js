@@ -10,12 +10,12 @@ import { setErrorForm } from '../../store/actions';
 import moment from "moment";
 import { actions as actionsApi } from '../../store/api';
 import { getConstraints, getServerError } from '../../lib/error';
+import { setCookie } from '../../lib/cookie';
 
 const genders = [
   { label: 'Homme', val: 'M' },
   { label: 'Femme', val: 'F' }
 ];
-
 
 class OnboardingForm extends Component {
   state = { showUserForm: false };
@@ -37,6 +37,8 @@ class OnboardingForm extends Component {
 
   onUserCreated = (user) => {
     this.user = user;
+    setCookie('token', user.token, 30);
+
     this.closeUserForm();
     this.submitProfile();
   };
@@ -46,9 +48,8 @@ class OnboardingForm extends Component {
     this.profileForm.birthDate = moment(this.profileForm.birthDate, "YYYY-MM-DD");
     this.props.onProfileSubmit(this.profileForm)
       .then(res => console.log('res', res))
-      .catch(server => {
-        console.log('err server', server);
-        this.props.onServerFormError(getConstraints(getServerError(server)));
+      .catch(data => {
+        this.props.onServerFormError(getConstraints(getServerError(data)));
       });
   };
 
@@ -135,7 +136,7 @@ export default connect(mapStateToProps, mapDispatchToProps)
   (reduxForm({
     form: 'onboardingForm',
     validate: Form({
-      gender: [{ constraint: IsIn(['M', 'F']), message: "Champ invalide." }],
+      gender: [{ constraint: IsIn(['M', 'F']), message: "Champs invalide." }],
       forGender: IsIn(['M', 'F']),
       birthDate: IsDate()
     })
