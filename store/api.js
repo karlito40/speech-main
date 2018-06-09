@@ -3,16 +3,18 @@ import { ucFirst, replace } from '../lib/string';
 
 const routes = [
   { method: 'GET', path: '/me', as: 'me' },
-  { method: 'POST', path: '/user', as: 'user' },
-  { method: 'POST', path: '/profile', as: 'profile' }
+  { method: 'POST', path: '/user', as: ['me', 'user'] },
+  { method: 'POST', path: '/profile', as: ['profileApp', 'profile'] },
+  { method: 'POST', path: '/token', as: 'token' },
 ];
 
 let actions = {};
 let reducers = {};
 
-routes.forEach(({ method, path, as }) => {
-  const actionMethodName = method.toLowerCase() + ucFirst(as);
-  const typeRoot = method.toUpperCase() + '_' + as.toUpperCase();
+function handleRoute({method, path, actionType}) {
+
+  const actionMethodName = method.toLowerCase() + ucFirst(actionType);
+  const typeRoot = method.toUpperCase() + '_' + actionType.toUpperCase();
 
   actions[actionMethodName] = (data) => (dispatch, getState) => {
 
@@ -29,8 +31,8 @@ routes.forEach(({ method, path, as }) => {
     delete data._token;
 
     if(!token) {
-      const { user } = getState();
-      token = user && user.token;
+      const { userApp } = getState();
+      token = userApp && userApp.token;
     }
 
     if(token) {
@@ -52,8 +54,8 @@ routes.forEach(({ method, path, as }) => {
       });
   }
 
-  if(!reducers[`${as}IsLoading`]) {
-    reducers[`${as}IsLoading`] = (state = false, action) => {
+  if(!reducers[`${actionType}IsLoading`]) {
+    reducers[`${actionType}IsLoading`] = (state = false, action) => {
       switch (action.type) {
         case `${typeRoot}_FAILED`:
         case `${typeRoot}_SUCCEEDED`:
@@ -67,6 +69,11 @@ routes.forEach(({ method, path, as }) => {
     }
   }
 
+}
+
+routes.forEach(route => {
+  const as = (!Array.isArray(route.as)) ? [route.as] : route.as;
+  as.forEach(actionType => handleRoute({ ...route, ...{ actionType } }));
 });
 
 export { actions, reducers };

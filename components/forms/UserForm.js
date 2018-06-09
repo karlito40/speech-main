@@ -15,7 +15,7 @@ class UserForm extends Component {
   };
 
   render() {
-    const { handleSubmit, userIsLoading } = this.props;
+    const { handleSubmit, meIsLoading } = this.props;
     return (
       <Fragment>
         <h2>Inscription</h2>
@@ -35,13 +35,14 @@ class UserForm extends Component {
             ico="locked-padlock"
           />
 
-          {userIsLoading
+          {meIsLoading
             ? <div>Chargement...</div>
-            :(
-            <Button className="block full-width primary">
-              Confirmer
-            </Button>
-          )}
+            : (
+              <Button className="block full-width primary">
+                Confirmer
+              </Button>
+            )
+          }
 
         </form>
         <style jsx>{`
@@ -55,15 +56,15 @@ class UserForm extends Component {
   }
 }
 
-const mapStateToProps = ({userIsLoading}) => {
+const mapStateToProps = ({meIsLoading}) => {
   return {
-    userIsLoading
+    meIsLoading
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onUserSubmit: (user) => dispatch(actionsApi.postUser(user))
+    onUserSubmit: (user) => dispatch(actionsApi.postMe(user))
   };
 };
 

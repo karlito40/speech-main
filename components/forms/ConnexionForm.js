@@ -1,51 +1,92 @@
 import { Component } from 'react';
-import { Input, Button } from '../controls';
+import { Field, Button } from '../controls';
+import { reduxForm } from 'redux-form';
+import Form, { IsEmail, MinLength } from '../../lib/validator';
+import { handleServerError } from '../../lib/error';
+import { connect } from 'react-redux';
+import { actions as actionsApi } from '../../store/api';
+import Router from 'next/router';
 
-export default class extends Component {
+class ConnexionForm extends Component {
 
-  validate(value, name) {
-    console.log('validate', value, name);
-  }
+  state = { messageError: false };
 
-  submit() {
+  handleLostPassword = () => {};
 
-  }
+  handleConnexion = (form) => {
+    return this.props.onConnexionSubmit(form)
+      .then(res => Router.push('/d'))
+      .catch((data) => {
+        const error = data.error;
+        if(error.code.startsWith('LOGIN_AUTH')) {
+          return this.setState({ messageError: error.message });
+        }
 
-  handleLostPassword() {
-
-  }
+        return handlerServerError(data);
+      });
+  };
 
   render() {
-    const { className } = this.props;
+    const { className, handleSubmit, tokenIsLoading } = this.props;
+    const { messageError } = this.state;
 
     return (
       <div className={`form-connexion-container ${className || ''}`}>
-        <form className="form-connexion" method="post" action="/connexion">
-          <Input
+        <form className="form-connexion" onSubmit={handleSubmit(this.handleConnexion)}>
+          <Field
             className="c-dark-grey full-width size-2"
             label="Email"
             name="email"
             ico="envelope"
-            onChange={ this.validate.bind(this) }/>
+          />
 
-          <Input
+          <Field
             className="c-dark-grey full-width size-2"
             label="Mot de passe"
             name="password"
             type="password"
             ico="locked-padlock"
-            onChange={ this.validate.bind(this) }/>
+          />
 
-          <Button className="c-dark-grey outlined block full-width" onClick={ this.submit.bind(this) }>
-            Connexion
-          </Button>
+          {tokenIsLoading
+            ? <div className="txt-center">Chargement...</div>
+            : (
+              <Button className="c-dark-grey outlined block full-width">
+                Connexion
+              </Button>
+            )
+          }
+
+          {messageError && <div className="form-error txt-center txt-danger">{messageError}</div>}
         </form>
 
         <div className="horiz-center">
-            <div className="link" onClick={ this.handleLostPassword.bind(this) }>Mot de passe perdu</div>
+            <div className="link" onClick={ this.handleLostPassword }>Mot de passe perdu</div>
         </div>
       </div>
     );
   }
 
 }
+
+
+const mapStateToProps = ({tokenIsLoading}) => {
+  return {
+    tokenIsLoading
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onConnexionSubmit: (form) => dispatch(actionsApi.postToken(form))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)
+  (reduxForm({
+    form: 'connexionForm',
+    validate: Form({
+      email: IsEmail(),
+      password: MinLength(6),
+    })
+  })(ConnexionForm));

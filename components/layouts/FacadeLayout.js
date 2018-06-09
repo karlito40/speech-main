@@ -10,10 +10,10 @@ import Router from 'next/router';
 export default class extends BaseLayout {
 
   static async getInitialProps({ reduxStore: { getState }, res }) {
-    const { user } = getState();
+    const { userApp } = getState();
     const props = {};
 
-    if(!user) {
+    if(!userApp) {
       return props;
     }
 

@@ -7,10 +7,10 @@ const dotenv = require('dotenv');
 const RateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
 
-const port = parseInt(process.env.PORT, 10) || 3000
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handle = app.getRequestHandler()
+const port = parseInt(process.env.PORT, 10) || 3000;
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
 dotenv.config({ path: ".env" });
 
@@ -33,7 +33,7 @@ app.prepare()
     server.use(bodyParser.urlencoded({ extended: true }));
 
     server.get('/posts/:id', (req, res) => {
-      return app.render(req, res, '/test/posts', { id: req.params.id })
+      return app.render(req, res, '/test/posts', { id: req.params.id });
     });
 
     server.all('/api*', apiLimiter, (req, res) => {
@@ -46,11 +46,11 @@ app.prepare()
     });
 
     server.get('*', (req, res) => {
-      return handle(req, res)
+      return handle(req, res);
     });
 
     server.listen(port, (err) => {
-      if (err) throw err
-      console.log(`> Ready on http://localhost:${port}`)
+      if (err) throw err;
+      console.log(`> Ready on http://localhost:${port}`);
     });
   })

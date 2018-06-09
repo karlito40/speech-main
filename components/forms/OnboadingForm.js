@@ -1,16 +1,15 @@
 import { Component } from 'react';
-import { Button } from '../controls';
 import { reduxForm } from 'redux-form';
 import Form, { IsIn, IsDate } from '../../lib/validator';
 import Modal from '../Modal';
-import { Field } from '../controls';
+import { Field, Button } from '../controls';
 import UserForm from './UserForm';
 import { connect } from 'react-redux';
 import { setErrorForm } from '../../store/actions';
 import moment from "moment";
 import { actions as actionsApi } from '../../store/api';
 import { getConstraints, getServerError } from '../../lib/error';
-import { setCookie } from '../../lib/cookie';
+import Router from 'next/router';
 
 const genders = [
   { label: 'Homme', val: 'M' },
@@ -37,7 +36,6 @@ class OnboardingForm extends Component {
 
   onUserCreated = (user) => {
     this.user = user;
-    setCookie('token', user.token, 30);
 
     this.closeUserForm();
     this.submitProfile();
@@ -47,7 +45,7 @@ class OnboardingForm extends Component {
     this.profileForm.userId = this.user.id;
     this.profileForm.birthDate = moment(this.profileForm.birthDate, "YYYY-MM-DD");
     this.props.onProfileSubmit(this.profileForm)
-      .then(res => console.log('res', res))
+      .then(res => Router.push('/d'))
       .catch(data => {
         this.props.onServerFormError(getConstraints(getServerError(data)));
       });
@@ -128,7 +126,7 @@ const mapDispatchToProps = (dispatch) => {
     onServerFormError: (errors) => {
       return dispatch(setErrorForm('onboardingForm', errors));
     },
-    onProfileSubmit: (profile) => dispatch(actionsApi.postProfile(profile))
+    onProfileSubmit: (profile) => dispatch(actionsApi.postProfileApp(profile))
   };
 };
 
