@@ -1,7 +1,7 @@
 import { Facade as Route, RouteManager } from "./lib/routes";
 
 export default new RouteManager([
-  Route.post("/token", "Token@get"),
+  Route.post("/token", "Token@login"),
 
   /**
    * Resource User
