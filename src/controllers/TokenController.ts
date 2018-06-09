@@ -16,7 +16,7 @@ export default class TokenController extends BaseController {
           return this.error(err, "LOGIN_AUTH_2");
         }
 
-        return this.res.json({ ...user.toJSON(), ...{ token: user.createToken() }});
+        return this.json({ ...user.toJSON(), ...{ token: user.createToken() }});
       });
     })(this.req, this.res, this.next);
   }
