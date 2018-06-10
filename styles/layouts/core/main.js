@@ -24,7 +24,8 @@ export default css`
             &:after { content: ''; display: block; position: absolute; bottom: -2px; height: 2px; background: $colorDeepBlack; width: 0; transition: 0.2s all; }
           }
           &:hover .nav-label:after { width: 100%; }
-          .ico { margin-left: 10px; }
+          .ico, .counter { margin-left: 10px; }
+          .counter { font-size: $font16pt; }
         }
       }
     }

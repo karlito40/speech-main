@@ -8,6 +8,7 @@ export default css`
   .txt-right { text-align: right; }
   .txt-danger { color: $colorNotif; }
 
+  .counter { background-color: $colorNotif; border-radius: 50%; color: white; padding: 2px; display: table-cell; text-align: center; vertical-align: middle; min-width: 18px; min-height: 18px;}
   .full-width { width: 100%; }
   .block { display: block; }
 
