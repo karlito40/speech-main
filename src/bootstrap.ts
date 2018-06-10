@@ -6,7 +6,6 @@ import dotenv from "dotenv";
 import passport from "passport";
 import bootstrapAuth from "./auth/passport";
 import { log } from "./lib/logger";
-import RateLimit from "express-rate-limit";
 import helmet from "helmet";
 import "reflect-metadata";
 
