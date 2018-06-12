@@ -18,21 +18,35 @@ export class Input extends Component {
     };
   }
 
-  handleChange({target: { value }}) {
+  handleChange(e) {
+    const { target: { value } } = e;
+
     this.setValue(value);
+
+    if(this.props.onChange) {
+      this.props.onChange(e);
+    }
   }
 
   handleDate(date) {
     this.setValue(date);
   }
 
-  handleFocus() {
+  handleFocus(e) {
     this.setState({ isEmpty: false });
+
+    if(this.props.onFocus) {
+      this.props.onFocus(e);
+    }
   }
 
-  handleBlur() {
+  handleBlur(e) {
     if(!this.value) {
       this.setState({ isEmpty: true });
+    }
+
+    if(this.props.onBlur) {
+      this.props.onBlur(e);
     }
   }
 
@@ -41,22 +55,23 @@ export class Input extends Component {
     if(this.value) {
       this.setState({ isEmpty: false });
     }
-
-    if(this.props.onChange) {
-      this.props.onChange(value, name);
-    }
   }
 
   generateBaseInput() {
     const { name, type } = this.props;
+    const events = {
+      onChange: this.handleChange,
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+      onDrop: this.props.onDrop,
+      onDragStart: this.props.onDragStart
+    };
 
     if(type && type == "select") {
       return (
         <select className="form-control select-sp"
           name={ name }
-          onChange={ this.handleChange }
-          onFocus={ this.handleFocus }
-          onBlur={ this.handleBlur }>
+          { ...events }>
           <option value="0">{ this.props.label }</option>
           {this.props.values && this.props.values.map((v, index) => (
             <option key={index} value={v.val}>{v.label}</option>
@@ -69,9 +84,7 @@ export class Input extends Component {
       className="form-control input-sp"
       type={ type || 'text' }
       name={ name }
-      onChange={ this.handleChange }
-      onFocus={ this.handleFocus }
-      onBlur={ this.handleBlur }
+      {... events }
     />;
   }
 
