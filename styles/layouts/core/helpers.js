@@ -17,4 +17,21 @@ export default css`
   .ico-close { width: 22px; height: 22px; background: url('/static/img/icos/multiply.svg'); }
 
   .wrapper { max-width: $desktopMainWidth; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
+
+  .columns {
+    & { display: flex; }
+    &.full-width .column { flex: 1 };
+    .column {
+      & { margin-left: 40px; }
+      &:first-child { margin-left: 0 }
+      &.is-small { flex: 0 0 320px; }
+    }
+  }
+
+  .module {
+    & { border-top: 1px solid $colorDeepBlack; padding-top: 10px; padding-bottom: 30px; }
+
+    .module-label { font-size: $font18pt; }
+    .module-header { margin-bottom: 25px; }
+  }
 `;

@@ -6,9 +6,7 @@ export default class Index extends AccountLayout {
   renderBody() {
     return (
       <React.Fragment>
-        <section className="scene scene-1">
-          lallas
-        </section>
+        <section className="test">Index page</section>
       </React.Fragment>
     );
   }

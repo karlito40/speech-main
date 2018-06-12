@@ -5,26 +5,18 @@ import * as layoutCSS from '../../styles/layouts/facade';
 import ConnexionForm from '../forms/ConnexionForm';
 import FacadeHeader from '../headers/FacadeHeader';
 import BaseLayout from './BaseLayout';
-import Router from 'next/router';
+import { redirect } from '../../lib/route';
 
 export default class extends BaseLayout {
 
   static async getInitialProps({ reduxStore: { getState }, res }) {
     const { userApp } = getState();
-    const props = {};
 
-    if(!userApp) {
-      return props;
+    if(userApp) {
+      redirect(res, '/d');
     }
 
-    if (res) {
-      res.writeHead(302, { Location: '/d'});
-      res.end();
-    } else {
-      Router.push('/d');
-    }
-
-    return props;
+    return {};
   }
 
   handleConnexionLink(e) {
