@@ -5,7 +5,7 @@ import BaseController from "./BaseController";
 import { isAuthenticated } from "../auth/decorators";
 import { getRepository, Repository } from "typeorm";
 import { saveEntity } from "../lib/entity";
-import { replace } from "../lib/string";
+import { placeholder } from "../lib/string";
 
 export default class UserController extends BaseController {
   protected repository: Repository<User>;
@@ -47,7 +47,7 @@ export default class UserController extends BaseController {
       }
 
       const scope = new Scope();
-      scope.ref = replace(scopeRef, { me: user.id });
+      scope.ref = placeholder(scopeRef, { me: user.id });
       scope.dyn = true;
       return scope;
     });

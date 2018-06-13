@@ -2,7 +2,7 @@ import ShowConversationFriendGate from "./auth/gates/ShowConversationFriendGate"
 import { GateManager } from "./lib/gates";
 import { Request } from "express";
 import { User } from "./entities/user";
-import { replace } from "./lib/string";
+import { placeholder } from "./lib/string";
 
 export const policies = [
   { scope: "show-conversation-friend", gate: ShowConversationFriendGate }
@@ -18,7 +18,7 @@ export async function isScopesAuthorized(scopes: Array<string>, req: Request, us
   }
 
   const placeholders = { ...req.params, ...{ me: user.id } };
-  scopes = scopes.map(scope => replace(scope, placeholders));
+  scopes = scopes.map(scope => placeholder(scope, placeholders));
 
   return (
     await createGateManager(req, user, scopes).isAuthorized()
