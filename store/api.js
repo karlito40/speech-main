@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { ucFirst, replace } from '../lib/string';
+import { ucFirst, placeholder } from '../lib/string';
+import { getCookie } from '../lib/cookie';
 
 const routes = [
   { method: 'GET', path: '/me', as: 'me' },
   { method: 'POST', path: '/user', as: ['me', 'user'] },
   { method: 'POST', path: '/profile', as: ['profileApp', 'profile'] },
+  { method: 'PUT', path: '/profile/:id', as: ['profileApp', 'profile'] },
   { method: 'POST', path: '/token', as: 'token' },
 ];
 
@@ -17,8 +19,7 @@ function handleRoute({method, path, actionType}) {
   const typeRoot = method.toUpperCase() + '_' + actionType.toUpperCase();
 
   actions[actionMethodName] = (data) => (dispatch, getState) => {
-
-    path = (data && data._params) ? replace(path, data._params) : path;
+    path = (data && data._params) ? placeholder(path, data._params) : path;
     let token = (data && data._token) ? data._token : null;
     let options = {
       headers: {},
@@ -31,8 +32,7 @@ function handleRoute({method, path, actionType}) {
     delete data._token;
 
     if(!token) {
-      const { userApp } = getState();
-      token = userApp && userApp.token;
+      token = getCookie('token');
     }
 
     if(token) {

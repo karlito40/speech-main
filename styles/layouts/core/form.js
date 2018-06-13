@@ -23,7 +23,7 @@ export default css`
     }
   }
 
-  input.input-sp, select.select-sp {
+  input.input-sp, select.select-sp, textarea.input-sp {
     & { appearance: none; border-radius: 0; border: 0; border-bottom: 1px solid $colorDeepBlack; padding: 2px 0px; background: transparent; }
     &:focus { outline: 0; }
   }
@@ -35,7 +35,7 @@ export default css`
       &:after { content: ''; display: block; width: 0; height: 2px; position: absolute; bottom: 0; transition: 0.25s all ease; }
       label { position: absolute; bottom: 2px; pointer-events: none; transition: 0.25s all; }
       .ico { position: absolute; right: 0; bottom: 2px; pointer-events: none; transition: 0.1s color 0.15s;}
-      input, select { padding-bottom: 4px; }
+      input, select, textarea { padding-bottom: 4px; }
     }
 
     &.size-2 {
@@ -47,8 +47,27 @@ export default css`
     }
 
     &.full-width {
-      & { width: auto; }
-      input, select { width: 100%; }
+      & { width: auto; margin-bottom: 20px; }
+      input, select, textarea { width: 100%; }
+    }
+
+    &.txt-input {
+      & { padding-top: 7px; }
+      .body-form-group {
+        label { font-style: italic; color: $colorDarkGrey; top: 4px; bottom: auto; }
+        input, textarea { border: 0; }
+        &:after { display: none; }
+      }
+
+      &:hover {
+        label { color: $colorNotif; }
+      }
+
+      &.not-empty {
+        .body-form-group {
+          label { transform: translateX(0px) translateY(-20px); opacity: 1; font-size:  $font16pt; }
+        }
+      }
     }
 
     @include createInputColor($colorDeepBlack, black);

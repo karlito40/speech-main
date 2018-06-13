@@ -13,8 +13,8 @@ export default class Settings extends AccountLayout {
             <EditProfile/>
           </div>
           <div className="column is-small">
-            <EditProfile/>
-            <EditProfile/>
+            {/* <EditProfile/> */}
+            {/* <EditProfile/> */}
           </div>
         </div>
       </React.Fragment>

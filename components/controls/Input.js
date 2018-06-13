@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import datePickerCSS from '../../styles/vendor/react-datepicker/react-datepicker';
+import Textarea from "react-textarea-autosize";
 
 export class Input extends Component {
 
@@ -13,7 +14,7 @@ export class Input extends Component {
     this.handleBlur = this.handleBlur.bind(this);
 
     this.state = {
-      isEmpty: true,
+      isActive: false,
       datepickerFallback: false
     };
   }
@@ -33,7 +34,7 @@ export class Input extends Component {
   }
 
   handleFocus(e) {
-    this.setState({ isEmpty: false });
+    this.setState({ isActive: true });
 
     if(this.props.onFocus) {
       this.props.onFocus(e);
@@ -41,8 +42,8 @@ export class Input extends Component {
   }
 
   handleBlur(e) {
-    if(!this.value) {
-      this.setState({ isEmpty: true });
+    if(!this.props.value) {
+      this.setState({ isActive: false });
     }
 
     if(this.props.onBlur) {
@@ -53,12 +54,12 @@ export class Input extends Component {
   setValue(value) {
     this.value = value;
     if(this.value) {
-      this.setState({ isEmpty: false });
+      this.setState({ isActive: true });
     }
   }
 
   generateBaseInput() {
-    const { name, type } = this.props;
+    const { name, type, value } = this.props;
     const events = {
       onChange: this.handleChange,
       onFocus: this.handleFocus,
@@ -70,6 +71,7 @@ export class Input extends Component {
     if(type && type == "select") {
       return (
         <select className="form-control select-sp"
+          defaultValue={ value }
           name={ name }
           { ...events }>
           <option value="0">{ this.props.label }</option>
@@ -80,10 +82,20 @@ export class Input extends Component {
       );
     }
 
+    if(type && type == "textarea") {
+      return (
+        <Textarea className="form-control input-sp"
+          name={ name }
+          defaultValue={ value }
+          { ...events }/>
+      );
+    }
+
     return <input
       className="form-control input-sp"
       type={ type || 'text' }
       name={ name }
+      defaultValue={ value }
       {... events }
     />;
   }
@@ -100,7 +112,7 @@ export class Input extends Component {
   }
 
   componentDidMount() {
-    const { name, type } = this.props;
+    const { name, type, value } = this.props;
     let Modernizr = (typeof window != "undefined" && window.Modernizr) ? window.Modernizr : null;
     if(type == 'date' && Modernizr && !Modernizr.inputtypes.date) {
       this.setState({ datepickerFallback: true });
@@ -109,11 +121,12 @@ export class Input extends Component {
 
   render() {
     const { name, label, type, error, className, ico } = this.props;
-    const { isEmpty, datepickerFallback } = this.state;
+    const { isActive, datepickerFallback } = this.state;
     const inputType = type || "text";
-
+    const notEmpty = isActive || this.props.value;
+    
     return (
-      <div className={`form-group ${className} ${(!isEmpty) ? 'not-empty' : ''}`}>
+      <div className={`form-group ${className} ${(notEmpty) ? 'not-empty' : ''}`}>
         <div className="body-form-group">
           { inputType != "select" && <label htmlFor={ name }>{ label }</label> }
 
