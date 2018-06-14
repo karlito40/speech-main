@@ -9,7 +9,7 @@ import moment from "moment";
 @Entity()
 export class Profile extends BaseEntity {
 
-  fillable = ["pseudo", "gender", "forGender", "birthDate", "headline", "content", "user"];
+  fillable = ["pseudo", "gender", "forGender", "city", "birthDate", "headline", "content", "user"];
   hidden = ["user"];
 
   @PrimaryGeneratedColumn()
@@ -28,6 +28,11 @@ export class Profile extends BaseEntity {
   @Column()
   @IsIn(["M", "F"])
   forGender: string;
+
+  @Column()
+  @ValidateIf(o => o.city)
+  @IsString()
+  city: string;
 
   @Column()
   @IsDate()
