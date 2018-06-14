@@ -38,7 +38,7 @@ class UserForm extends Component {
           {meIsLoading
             ? <div>Chargement...</div>
             : (
-              <Button className="block full-width primary">
+              <Button className="block full-width btn-primary">
                 Confirmer
               </Button>
             )

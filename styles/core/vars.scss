@@ -58,6 +58,14 @@ $fontSizeHeadlineBase: 28px;
 $fontSizeHeadlineStep: 2px;
 $headlineFontFamily: $fontFamilyHeadline;
 
+$fonts: (
+  size-36pt: $font36pt,
+  size-24pt: $font24pt,
+  size-20pt: $font20pt,
+  size-18pt: $font18pt,
+  size-16pt: $font16pt,
+);
+
 // Layout:=================================================================
 $desktopMainWidth: 960px;
 $desktopContentWidth: 700px;

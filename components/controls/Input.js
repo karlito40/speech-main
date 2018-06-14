@@ -2,6 +2,7 @@ import { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import datePickerCSS from '../../styles/vendor/react-datepicker/react-datepicker';
 import Textarea from "react-textarea-autosize";
+import moment from "moment";
 
 export class Input extends Component {
 
@@ -91,11 +92,16 @@ export class Input extends Component {
       );
     }
 
+    let defaultValue = value;
+    if(type == 'date' && typeof value == "string") {
+      defaultValue = moment(value).format("YYYY-MM-DD");
+    }
+    
     return <input
       className="form-control input-sp"
       type={ type || 'text' }
       name={ name }
-      defaultValue={ value }
+      defaultValue={ defaultValue }
       {... events }
     />;
   }
@@ -120,15 +126,15 @@ export class Input extends Component {
   }
 
   render() {
-    const { name, label, type, error, className, ico } = this.props;
+    const { name, label, type, error, className, ico, hideLabel } = this.props;
     const { isActive, datepickerFallback } = this.state;
     const inputType = type || "text";
     const notEmpty = isActive || this.props.value;
-    
+
     return (
       <div className={`form-group ${className} ${(notEmpty) ? 'not-empty' : ''}`}>
         <div className="body-form-group">
-          { inputType != "select" && <label htmlFor={ name }>{ label }</label> }
+          { !hideLabel && <label htmlFor={ name }>{ label }</label> }
 
           <div className="form-input">
             { datepickerFallback ? this.generateDatePickerFallback() : this.generateBaseInput() }

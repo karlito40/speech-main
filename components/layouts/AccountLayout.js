@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import * as layoutCSS from '../../styles/layouts/account';
 import ConnexionForm from '../forms/ConnexionForm';
-import AccountHeader from '../headers/AccountHeader';
+import MemberHeader from '../headers/MemberHeader';
 import BaseLayout from './BaseLayout';
 import { redirect } from '../../lib/route';
 
@@ -17,14 +17,14 @@ export default class extends BaseLayout {
       props.isAuthorized = false;
       redirect(res, '/');
     } else if(
-      asPath != '/d/settings'
+      asPath != '/member/settings'
       && (!profileApp
         || !profileApp.headline
         || !profileApp.content
         || !profileApp.pseudo
       )
     ) {
-      redirect(res, '/d/settings');
+      redirect(res, '/member/settings');
     }
 
     return props;
@@ -32,7 +32,7 @@ export default class extends BaseLayout {
 
 
   renderHeader() {
-    return <AccountHeader/>;
+    return <MemberHeader/>;
   }
 
 

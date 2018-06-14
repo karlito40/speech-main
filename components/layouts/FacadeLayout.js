@@ -13,7 +13,7 @@ export default class extends BaseLayout {
     const { userApp } = getState();
 
     if(userApp) {
-      redirect(res, '/d');
+      redirect(res, '/member');
     }
 
     return {};

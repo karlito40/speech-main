@@ -45,7 +45,7 @@ class OnboardingForm extends Component {
     this.profileForm.userId = this.user.id;
     this.profileForm.birthDate = moment(this.profileForm.birthDate, "YYYY-MM-DD");
     this.props.onProfileSubmit(this.profileForm)
-      .then(res => Router.push('/d'))
+      .then(res => Router.push('/member'))
       .catch(data => {
         this.props.onServerFormError(getConstraints(getServerError(data)));
       });
@@ -69,6 +69,7 @@ class OnboardingForm extends Component {
             name="gender"
             ico="user-avatar"
             type="select"
+            hideLabel={true}
             values={genders}
           />
 
@@ -78,6 +79,7 @@ class OnboardingForm extends Component {
             name="forGender"
             ico="white-t-shirt"
             type="select"
+            hideLabel={true}
             values={genders}
           />
 
@@ -89,7 +91,7 @@ class OnboardingForm extends Component {
             ico="wristwatch"
           />
 
-          <Button className="block full-width primary">
+          <Button className="block full-width btn-primary">
             Créer mon profil
           </Button>
 

@@ -32,6 +32,15 @@ export default css`
     & { border-top: 1px solid $colorDeepBlack; padding-top: 10px; padding-bottom: 30px; }
 
     .module-label { font-size: $font18pt; }
-    .module-header { margin-bottom: 25px; }
+    .module-header { margin-bottom: 20px; }
   }
+
+  @each $name, $value in $fonts {
+    &.is-#{$name} {
+      font-size: $value;
+    }
+  }
+
+  .is-round { border-radius: 5px; }
+
 `;

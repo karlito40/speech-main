@@ -9,7 +9,7 @@ export default class extends React.Component {
         <Logo dim="min"/>
         <ul className="navbar-nav">
           <li className="nav-item">
-            <Link href="/d/visited">
+            <Link href="/member/visited">
               <a className="nav-link">
                 <div className="nav-label">Visites</div>
               </a>
@@ -17,7 +17,7 @@ export default class extends React.Component {
           </li>
 
           <li className="nav-item">
-            <Link href="/d/conversations">
+            <Link href="/member/conversations">
               <a className="nav-link">
                 <div className="nav-label">Messages</div>
               </a>
@@ -25,7 +25,7 @@ export default class extends React.Component {
           </li>
 
           <li className="nav-item">
-            <Link href="/d/revealed">
+            <Link href="/member/revealed">
               <a className="nav-link">
                 <div className="nav-label">Révélations</div>
                 <div className="counter">8</div>
@@ -34,7 +34,7 @@ export default class extends React.Component {
           </li>
 
           <li className="nav-item">
-            <Link href="/d/favs">
+            <Link href="/member/favs">
               <a className="nav-link">
                 <div className="nav-label">Favoris</div>
               </a>
@@ -42,7 +42,7 @@ export default class extends React.Component {
           </li>
 
           <li className="nav-item">
-            <Link href="/d/settings">
+            <Link href="/member/settings">
               <a className="nav-link">
                 <div className="nav-label">
                   <i className="fi flaticon-setting-tool"></i>
@@ -53,7 +53,7 @@ export default class extends React.Component {
 
 
           <li className="nav-item">
-            <Link href="/d/search">
+            <Link href="/member/search">
               <a className="nav-link">
                 <div className="nav-label">
                   <i className="fi flaticon-zoom-tool"></i>

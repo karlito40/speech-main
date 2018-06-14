@@ -55,7 +55,7 @@ export default css`
       & { padding-top: 7px; }
       .body-form-group {
         label { font-style: italic; color: $colorDarkGrey; top: 4px; bottom: auto; }
-        input, textarea { border: 0; }
+        input, select, textarea { border: 0; }
         &:after { display: none; }
       }
 
@@ -105,7 +105,7 @@ export default css`
     }
 
     @include createButtonColor($colorDeepBlack, $colorDeepBlack);
-    &.primary {
+    &.btn-primary {
       &:before { border: 0; right: 0; width: 100%; left: auto; background-color: $colorDeepBlack;}
       &:after { border: 0; }
       &:hover {
@@ -118,7 +118,11 @@ export default css`
       }
     }
 
-
+    &.is-basis {
+      border-radius: 5px;
+      font-size: $font18pt;
+      padding: 1px 15px 3px 15px;
+    }
 
     @each $name, $value in $colors {
       &.c-#{$name} {

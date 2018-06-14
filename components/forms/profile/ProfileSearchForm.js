@@ -1,13 +1,18 @@
 import { Component } from 'react';
 import { Field } from '../../controls';
 import { reduxForm } from 'redux-form';
-import Form, { IsEmail, MinLength, Required, validateChange } from '../../../lib/validator';
+import Form, { IsIn, IsDate, validateChange } from '../../../lib/validator';
 import { handleServerError } from '../../../lib/error';
 import { connect } from 'react-redux';
 import { actions as actionsApi } from '../../../store/api';
 import { debounce } from "lodash";
 
-class ProfileForm extends Component {
+const genders = [
+  { label: 'Homme', val: 'M' },
+  { label: 'Femme', val: 'F' }
+];
+
+class ProfileSearchForm extends Component {
   state = {}
 
   constructor(props){
@@ -27,65 +32,57 @@ class ProfileForm extends Component {
 
   render() {
     const { profileAppIsLoading } = this.props;
-    const { pseudoError, cityError, headerError, contentError } = this.state;
+    const { genderError, forGenderError, birthDateError } = this.state;
 
     return (
       <form className="form-profile">
+
         <Field
           className="txt-input full-width"
-          label="Mon pseudo..."
-          name="pseudo"
-          error={pseudoError}
+          label="Je suis..."
+          name="gender"
+          type="select"
+          values={genders}
+          error={genderError}
           onChange= { validateChange.bind(this, {
-            name: 'pseudo',
-            validator: MinLength(3),
+            name: 'gender',
+            validator: IsIn(['M', 'F']),
             onValidate: this.saveField
           }) }
         />
 
         <Field
           className="txt-input full-width"
-          label="Ma ville..."
-          name="city"
-          error={cityError}
+          label="Je cherche..."
+          name="forGender"
+          type="select"
+          values={genders}
+          error={forGenderError}
           onChange= { validateChange.bind(this, {
-            name: 'city',
-            validator: Required(),
+            name: 'forGender',
+            validator: IsIn(['M', 'F']),
             onValidate: this.saveField
           }) }
         />
 
         <Field
           className="txt-input full-width"
-          label="Accroche..."
-          name="headline"
-          type="textarea"
-          error={headerError}
+          label="Je suis née le..."
+          name="birthDate"
+          type="date"
+          error={birthDateError}
           onChange= { validateChange.bind(this, {
-            name: 'headline',
-            validator: Required(),
+            name: 'birthDate',
+            validator: IsDate(),
             onValidate: this.saveField
           }) }
         />
 
-        <Field
-          className="txt-input full-width"
-          label="Mon histoire..."
-          name="content"
-          type="textarea"
-          error={contentError}
-          onChange= { validateChange.bind(this, {
-            name: 'content',
-            validator: Required(),
-            onValidate: this.saveField
-          }) }
-        />
       </form>
     );
   }
 
 }
-
 
 const mapStateToProps = ({profileAppIsLoading, profileApp}) => {
   return {
@@ -104,5 +101,5 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)
   (reduxForm({
-    form: 'profileForm',
-  })(ProfileForm));
+    form: 'profileSearchForm',
+  })(ProfileSearchForm));
