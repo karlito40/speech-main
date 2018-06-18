@@ -13,18 +13,19 @@ export default class extends BaseLayout {
     const { userApp, profileApp } = getState();
     const props = { isAuthorized: true };
 
+    const hasProfileCompleted = (
+      profileApp
+      && profileApp.headline
+      && profileApp.content
+      && profileApp.pseudo
+    );
     if(!userApp) {
       props.isAuthorized = false;
       redirect(res, '/');
-    } else if(
-      asPath != '/member/settings'
-      && (!profileApp
-        || !profileApp.headline
-        || !profileApp.content
-        || !profileApp.pseudo
-      )
-    ) {
-      redirect(res, '/member/settings');
+    } else if(asPath != '/member/complete' && !hasProfileCompleted) {
+      redirect(res, '/member/complete');
+    } else if(asPath == '/member/complete' && hasProfileCompleted) {
+      redirect(res, '/member');
     }
 
     return props;

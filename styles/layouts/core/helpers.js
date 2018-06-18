@@ -43,4 +43,21 @@ export default css`
 
   .is-round { border-radius: 5px; }
 
+  .menu {
+    & { display: flex; padding: 0; }
+
+    a {
+      & { cursor: pointer; border: 0; display: block; position: relative; color: $colorDarkGrey; font-style: italic; }
+      &.is-active, &.is-activeable { color: $colorDeepBlack; font-style: normal; }
+      &:after { content: ''; display: block; position: absolute; bottom: -2px; height: 2px; background: $colorDeepBlack; width: 0; transition: 0.2s all; }
+      &:hover:after { width: 100%; }
+    }
+
+    .menu-item {
+      & { margin-left: 25px; }
+      &:first-child { margin-left: 0; }
+    }
+
+  }
+
 `;

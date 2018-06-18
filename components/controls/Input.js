@@ -96,7 +96,7 @@ export class Input extends Component {
     if(type == 'date' && typeof value == "string") {
       defaultValue = moment(value).format("YYYY-MM-DD");
     }
-    
+
     return <input
       className="form-control input-sp"
       type={ type || 'text' }

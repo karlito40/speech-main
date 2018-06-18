@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Field, Button } from '../../controls';
 import { reduxForm } from 'redux-form';
 import { handleServerError } from '../../../lib/error';
+import { getFieldsComponent } from '../../../lib/form';
 import { connect } from 'react-redux';
 import { actions as actionsApi } from '../../../store/api';
 import { debounce } from "lodash";
@@ -24,14 +25,36 @@ class ProfilePicsForm extends Component {
     });
   }
 
+  onSubmit = (form) => {
+    if(this.props.onSave) {
+      this.props.onSave();
+    }
+  }
+
+  addPhoto = (e) => {
+    e.preventDefault();
+  }
+
   render() {
-    const { profileAppIsLoading } = this.props;
+    const { profileAppIsLoading, onSave, handleSubmit } = this.props;
 
     return (
-      <form className="form-pics-profile">
-        <Button className="btn-primary is-basis">
+      <form className="form-pics-profile" onSubmit={handleSubmit(this.onSubmit)}>
+        <Button
+          className={`btn-primary ${onSave ? 'block full-width outlined' : 'is-basis'}`}
+          onClick={this.addPhoto}
+          >
           Ajouter
         </Button>
+
+        {onSave &&
+          <Button className="block full-width btn-primary">
+            Valider
+          </Button>
+        }
+        <style jsx>{`
+          .form-pics-profile :global(button:last-child) { margin-top: 10px; }
+        `}</style>
       </form>
     );
   }

@@ -1,11 +1,19 @@
 import { Component } from 'react';
-import { Field } from '../../controls';
+import { Field, Button } from '../../controls';
 import { reduxForm } from 'redux-form';
-import Form, { validateChange } from '../../../lib/validator';
+import Form, { validateChange, Passed } from '../../../lib/validator';
+import { getFieldsComponent } from '../../../lib/form';
+
 import { handleServerError } from '../../../lib/error';
 import { connect } from 'react-redux';
 import { actions as actionsApi } from '../../../store/api';
 import { debounce } from "lodash";
+
+const fieldList = [
+  { label: 'Mes films préférés...', name: 'movies', validator: Passed() },
+  { label: 'Mes hobbies...', name: 'hobbies', validator: Passed() },
+  { label: 'Mon caractère...', name: 'trait', validator: Passed() },
+];
 
 class ProfileDescriptionForm extends Component {
   state = {}
@@ -25,31 +33,36 @@ class ProfileDescriptionForm extends Component {
     });
   }
 
+  onSubmit = (form) => {
+    if(this.props.onSave) {
+      this.props.onSave();
+    }
+  }
+
   render() {
-    const { profileAppIsLoading } = this.props;
+    const { profileAppIsLoading, inputTheme, onSave, handleSubmit } = this.props;
+
+    const useInputTheme = (typeof inputTheme != "undefined") ? inputTheme : 'txt-input';
+
+    const fields = getFieldsComponent(this, fieldList, {
+      useDynamicField: onSave ? false : true,
+      onValidate: this.saveField,
+      props: {
+        className: `${useInputTheme} full-width`
+      }
+    });
 
     return (
-      <form className="form-description-profile">
-        <Field
-          className="txt-input full-width"
-          label="Mes films préférés..."
-          name="movies"
-          onChange= { (e) => this.saveField('movies', e.target.value) }
-        />
+      <form className="form-description-profile" onSubmit={handleSubmit(this.onSubmit)}>
+        {fields.map((field, i) =>
+          <React.Fragment key={i}>
+            {field}
+          </React.Fragment>
+        )}
 
-        <Field
-          className="txt-input full-width"
-          label="Mes hobbies..."
-          name="hobbiers"
-          onChange= { (e) => this.saveField('hobbies', e.target.value) }
-        />
-
-        <Field
-          className="txt-input full-width"
-          label="Mon caractère..."
-          name="trait"
-          onChange= { (e) => this.saveField('trait', e.target.value) }
-        />
+        {onSave && <Button className="block full-width btn-primary">
+          Valider
+        </Button>}
 
       </form>
     );

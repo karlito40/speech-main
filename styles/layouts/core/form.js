@@ -7,10 +7,10 @@ export default css`
     .body-form-group {
       & { color: $color; }
       &:after { background: $toColor; }
-      input, select { border-bottom: 1px solid $color; }
+      .form-input { border-bottom: 1px solid $color; }
     }
 
-    &.size-2 input { border-bottom: 2px solid $color; }
+    &.size-2 .form-input { border-bottom: 2px solid $color; }
     &.not-empty .ico { color: $toColor; }
   }
 
@@ -24,10 +24,11 @@ export default css`
   }
 
   input.input-sp, select.select-sp, textarea.input-sp {
-    & { appearance: none; border-radius: 0; border: 0; border-bottom: 1px solid $colorDeepBlack; padding: 2px 0px; background: transparent; }
+    & { appearance: none; border-radius: 0; border: 0; padding: 2px 0px; background: transparent; }
     &:focus { outline: 0; }
   }
 
+  .form-input { border-bottom: 1px solid $colorDeepBlack; }
   .form-group {
     & { position: relative; font-size: $font18pt; }
     .body-form-group {
@@ -41,7 +42,7 @@ export default css`
     &.size-2 {
       .body-form-group {
         &:after { height:2px; }
-        input { border-bottom: 2px solid $colorDeepBlack; }
+        .form-input { border-bottom: 2px solid $colorDeepBlack; }
       }
 
     }
@@ -55,6 +56,7 @@ export default css`
       & { padding-top: 7px; }
       .body-form-group {
         label { font-style: italic; color: $colorDarkGrey; top: 4px; bottom: auto; }
+        .form-input { border: 0; } 
         input, select, textarea { border: 0; }
         &:after { display: none; }
       }
@@ -130,7 +132,10 @@ export default css`
       }
     }
 
-    &.outlined { background: transparent; }
+    &.outlined {
+      & { background: transparent; }
+      &.btn-primary { color: $colorDeepBlack; }
+    }
   }
 
 

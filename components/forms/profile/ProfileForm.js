@@ -1,11 +1,19 @@
 import { Component } from 'react';
-import { Field } from '../../controls';
+import { Field, Button } from '../../controls';
 import { reduxForm } from 'redux-form';
 import Form, { IsEmail, MinLength, Required, validateChange } from '../../../lib/validator';
 import { handleServerError } from '../../../lib/error';
+import { getFieldsComponent } from '../../../lib/form';
 import { connect } from 'react-redux';
 import { actions as actionsApi } from '../../../store/api';
 import { debounce } from "lodash";
+
+const fieldList = [
+  { label: 'Mon pseudo', name: 'pseudo', validator: MinLength(3) },
+  { label: 'Ma ville...', name: 'city', validator: Required() },
+  { label: 'Accroche...', name: 'headline', type: 'textarea', validator: Required() },
+  { label: 'Mon histoire...', name: 'content', type: 'textarea', validator: Required() },
+];
 
 class ProfileForm extends Component {
   state = {}
@@ -25,61 +33,41 @@ class ProfileForm extends Component {
     });
   }
 
+  onSubmit = (form) => {
+    if(this.props.onSave) {
+      const { id } = this.props.profileApp;
+
+      delete form.id;
+      this.props.onEdit({
+        ...form,
+        ...{ _params: { id } }
+      }).then(this.props.onSave);
+    }
+  }
+
   render() {
-    const { profileAppIsLoading } = this.props;
-    const { pseudoError, cityError, headerError, contentError } = this.state;
+    const { profileAppIsLoading, handleSubmit, onSave, inputTheme } = this.props;
+    const useInputTheme = (typeof inputTheme != "undefined") ? inputTheme : 'txt-input';
+
+    const fields = getFieldsComponent(this, fieldList, {
+      useDynamicField: onSave ? false : true,
+      onValidate: this.saveField,
+      props: {
+        className: `${useInputTheme} full-width`
+      }
+    });
 
     return (
-      <form className="form-profile">
-        <Field
-          className="txt-input full-width"
-          label="Mon pseudo..."
-          name="pseudo"
-          error={pseudoError}
-          onChange= { validateChange.bind(this, {
-            name: 'pseudo',
-            validator: MinLength(3),
-            onValidate: this.saveField
-          }) }
-        />
+      <form className="form-profile" onSubmit={handleSubmit(this.onSubmit)}>
+        {fields.map((field, i) =>
+          <React.Fragment key={i}>
+            {field}
+          </React.Fragment>
+        )}
 
-        <Field
-          className="txt-input full-width"
-          label="Ma ville..."
-          name="city"
-          error={cityError}
-          onChange= { validateChange.bind(this, {
-            name: 'city',
-            validator: Required(),
-            onValidate: this.saveField
-          }) }
-        />
-
-        <Field
-          className="txt-input full-width"
-          label="Accroche..."
-          name="headline"
-          type="textarea"
-          error={headerError}
-          onChange= { validateChange.bind(this, {
-            name: 'headline',
-            validator: Required(),
-            onValidate: this.saveField
-          }) }
-        />
-
-        <Field
-          className="txt-input full-width"
-          label="Mon histoire..."
-          name="content"
-          type="textarea"
-          error={contentError}
-          onChange= { validateChange.bind(this, {
-            name: 'content',
-            validator: Required(),
-            onValidate: this.saveField
-          }) }
-        />
+        {onSave && <Button className="block full-width btn-primary">
+          Valider
+        </Button>}
       </form>
     );
   }
@@ -105,4 +93,10 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)
   (reduxForm({
     form: 'profileForm',
+    validate: Form({
+      pseudo: MinLength(3),
+      city: Required(),
+      headline: Required(),
+      content: Required()
+    })
   })(ProfileForm));
