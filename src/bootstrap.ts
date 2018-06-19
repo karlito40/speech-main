@@ -1,12 +1,12 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import bodyParser from "body-parser";
 import { createConnection } from "typeorm";
 import routes from "./routes";
 import dotenv from "dotenv";
-import passport from "passport";
 import bootstrapAuth from "./auth/passport";
 import { log } from "./lib/logger";
 import helmet from "helmet";
+import fileUpload from "express-fileupload";
 import "reflect-metadata";
 
 if (process.env.NODE_ENV == "test") {
@@ -29,11 +29,13 @@ export default () => {
     app.use(helmet());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(fileUpload());
     app.use(auth.initialize());
     app.use((req, res, next) => {
       log("debug", req.url);
       next();
     });
+    app.use(express.static("public"));
     routes.initialize(app);
 
     return app;

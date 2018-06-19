@@ -16,6 +16,7 @@ export default new RouteManager([
   Route.get("/profile/:id", "Profile@get"),
   Route.post("/profile", "Profile@create"),
   Route.put("/profile/:id", "Profile@update"),
+  Route.post("/profile/:id/pics", "Profile@createPics"),
 
   /**
    * Resource Conversation
