@@ -18,6 +18,8 @@ export default css`
 
   .wrapper { max-width: $desktopMainWidth; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
 
+  .hide { display: none; }
+
   .columns {
     & { display: flex; }
     &.full-width .column { flex: 1 };

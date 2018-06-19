@@ -7,6 +7,7 @@ const routes = [
   { method: 'POST', path: '/user', as: ['me', 'user'] },
   { method: 'POST', path: '/profile', as: ['profileApp', 'profile'] },
   { method: 'PUT', path: '/profile/:id', as: ['profileApp', 'profile'] },
+  { method: 'POST', path: '/profile/:id/pics', as: ['profilePicsApp', 'profilePics'] },
   { method: 'POST', path: '/token', as: 'token' },
 ];
 
@@ -18,14 +19,15 @@ function handleRoute({method, path, actionType}) {
   const actionMethodName = method.toLowerCase() + ucFirst(actionType);
   const typeRoot = method.toUpperCase() + '_' + actionType.toUpperCase();
 
-  actions[actionMethodName] = (data) => (dispatch, getState) => {
+  actions[actionMethodName] = (data, customize = {}) => (dispatch, getState) => {
     path = (data && data._params) ? placeholder(path, data._params) : path;
     let token = (data && data._token) ? data._token : null;
     let options = {
       headers: {},
       url: (data && data._isServer)
         ? process.env.API_HOST + path
-        : '/api' + path
+        : '/api' + path,
+      ...customize
     };
 
     delete data._params;
@@ -39,12 +41,15 @@ function handleRoute({method, path, actionType}) {
       options.headers['Authorization'] = `Bearer ${token}`;
     }
 
+    const form = data.formData || data;
     dispatch({ type: `${typeRoot}_INIT` });
     return axios({
-      ...{
-        method: method.toLowerCase(),
-        data: data
-      }, ...options})
+        ...{
+          method: method.toLowerCase(),
+          data: form
+        },
+        ...options
+      })
       .then(response => {
         return dispatch({ type: `${typeRoot}_SUCCEEDED`, data: response.data.data });
       })

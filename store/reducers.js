@@ -26,8 +26,14 @@ export const profileApp = (state = null, action) => {
     case 'GET_ME_SUCCEEDED':
       return { ...action.data.profile };
 
+    case 'PUT_PROFILEAPP_SUCCEEDED':
     case 'POST_PROFILEAPP_SUCCEEDED':
       return { ...action.data };
+
+    case 'POST_PROFILEPICSAPP_SUCCEEDED':
+      const profile = {pics: [], ...state};
+      profile.pics = profile.pics.concat([{ ...action.data }]);
+      return profile;
 
     default:
       return state;

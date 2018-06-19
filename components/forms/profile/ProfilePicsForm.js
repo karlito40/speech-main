@@ -31,18 +31,53 @@ class ProfilePicsForm extends Component {
     }
   }
 
-  addPhoto = (e) => {
+  fireFileInput = (e) => {
     e.preventDefault();
+    if(this.fileNode) {
+      this.fileNode.click();
+    }
+
+  }
+
+  addPhoto = (e) => {
+    const file = e.target.files[0];
+    if(!file) {
+      return;
+    }
+
+    const { id } = this.props.profileApp;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    this.props.onEdit({
+        formData,
+        ...{ _params: { id } }
+      }, {
+        onUploadProgress: progressEvent => {
+          console.log('onUploadProgress', progressEvent.loaded / progressEvent.total);
+        }
+      }
+    );
+
   }
 
   render() {
-    const { profileAppIsLoading, onSave, handleSubmit } = this.props;
+    const { profileApp, profileAppIsLoading, onSave, handleSubmit } = this.props;
 
     return (
       <form className="form-pics-profile" onSubmit={handleSubmit(this.onSubmit)}>
+        {profileApp.pics.map((photo, i) => <img key={i} src={`/api${photo.url}`} width="50"/>)}
+        <input
+          className="hide"
+          ref={(node) => this.fileNode = node }
+          type="file"
+          onChange={this.addPhoto}
+        />
+
         <Button
           className={`btn-primary ${onSave ? 'block full-width outlined' : 'is-basis'}`}
-          onClick={this.addPhoto}
+          onClick={this.fireFileInput}
           >
           Ajouter
         </Button>
@@ -72,7 +107,7 @@ const mapStateToProps = ({profileAppIsLoading, profileApp}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onEdit: (data) => dispatch(actionsApi.putProfileApp(data))
+    onEdit: (data, customize) => dispatch(actionsApi.postProfilePicsApp(data, customize))
   };
 };
 
