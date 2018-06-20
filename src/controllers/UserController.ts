@@ -14,15 +14,15 @@ export default class UserController extends BaseController {
     this.repository = getRepository(User);
   }
 
-  @isAuthenticated("show-users", "show-user-:id")
+  @isAuthenticated("show-users", "manage-user-self")
   async get() {
     const { id } = this.req.params;
     return this.json(await this.repository.findOne(id, { relations: ["profile"] }));
   }
 
-  @isAuthenticated("show-user-:me")
+  @isAuthenticated()
   async getMe() {
-    return this.json(await this.repository.findOne(this.req.user.id, { relations: ["profile" , "profile.pics"] }));
+    return this.json(await this.repository.findOne(this.req.user.id, { relations: ["profile" , "profile.photos"] }));
   }
 
   @isAuthenticated("show-users")
@@ -57,7 +57,7 @@ export default class UserController extends BaseController {
     return this.json({ ...entity.toJSON(), ...{ token: entity.createToken() }});
   }
 
-  @isAuthenticated("update-user", "update-user-:id")
+  @isAuthenticated("manage-user", "manage-user-self")
   async update() {
     const { entity, errors } = await saveEntity(User, this.req.body, this.req.params.id);
     if (errors.length) {

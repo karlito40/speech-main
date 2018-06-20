@@ -4,7 +4,7 @@ import { Profile } from "./Profile";
 import { BaseEntity } from "./BaseEntity";
 
 @Entity()
-export class ProfilePics extends BaseEntity {
+export class ProfilePhoto extends BaseEntity {
 
   fillable = ["src"];
   hidden = ["profile"];
@@ -22,7 +22,7 @@ export class ProfilePics extends BaseEntity {
   @UpdateDateColumn({ type: "timestamp" })
   updatedAt: Date;
 
-  @ManyToOne(type => Profile, profile => profile.pics, {
+  @ManyToOne(type => Profile, profile => profile.photos, {
     cascade: true
   })
   profile: Profile;

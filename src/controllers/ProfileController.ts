@@ -1,5 +1,5 @@
 import { Profile } from "../entities/Profile";
-import { ProfilePics } from "../entities/ProfilePics";
+import { ProfilePhoto } from "../entities/ProfilePhoto";
 import { User } from "../entities/User";
 import BaseController from "./BaseController";
 import { isAuthenticated } from "../auth/decorators";
@@ -25,7 +25,7 @@ export default class ProfileController extends BaseController {
     return await this.paginate(this.repository);
   }
 
-  @isAuthenticated("create-profile", "create-profile-:me")
+  @isAuthenticated("manage-profile", ["manage-profile-self", { userIdRef: "userId" } ])
   async create() {
     const user = await getRepository(User).findOneOrFail(this.req.body.userId, { relations: ["profile"] });
     if (user.profile) {
@@ -41,7 +41,7 @@ export default class ProfileController extends BaseController {
     return this.json(entity);
   }
 
-  @isAuthenticated("create-profile", "create-profile-:me", "update-profile-:me")
+  @isAuthenticated("manage-profile", "manage-profile-self")
   async update() {
     const { entity, errors } = await saveEntity(Profile, this.req.body, this.req.params.id);
     if (errors.length) {
@@ -52,31 +52,41 @@ export default class ProfileController extends BaseController {
   }
 
 
-  @isAuthenticated("create-profile", "create-profile-:me")
-  async createPics() {
+  @isAuthenticated("manage-profile", "manage-profile-self")
+  async createPhoto() {
     const files = (this.req as any).files;
     if (!files || !files.image) {
       return this.error(null, "UNKNOW_SRC_FILE");
     }
+
     const file = files.image;
     const ext = file.name.split(".").pop();
-    const profile = await this.repository.findOneOrFail(this.req.params.id, { relations: ["user", "pics"] });
-    const lastPics = profile.pics[profile.pics.length - 1];
-    const imageNameId = lastPics ? lastPics.id + 1 : 1;
+    const profile = await this.repository.findOneOrFail(this.req.params.id, { relations: ["user"] });
 
     const rootPath = `/users/${profile.user.id}/profile`;
     const folder = `./public${rootPath}`;
     await mkdirp(folder);
-    const newName = `${imageNameId}.${ext}`;
+    const newName = `${Date.now()}.${ext}`;
     await file.mv(`${folder}/${newName}`);
 
     const url = `${rootPath}/${newName}`;
     const inputs = { url, profile };
-    const { entity, errors } = await saveEntity(ProfilePics, inputs);
+    const { entity, errors } = await saveEntity(ProfilePhoto, inputs);
     if (errors.length) {
       return this.error(null, errors);
     }
 
     return this.json(entity);
+  }
+
+  @isAuthenticated("manage-profile", "manage-profile-self")
+  async deletePhoto() {
+    const repository = getRepository(ProfilePhoto);
+    const photo = await repository.findOneOrFail(this.req.params.photoId);
+
+    const { id } = photo;
+    await repository.remove(photo);
+
+    return this.json({ id });
   }
 }

@@ -45,6 +45,10 @@ export const Facade = {
     return this.build("put", path, action, middlewares);
   },
 
+  delete(path, action, middlewares?) {
+    return this.build("delete", path, action, middlewares);
+  },
+
   all(path, action, middlewares?) {
     return this.build("all", path, action, middlewares);
   },

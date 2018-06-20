@@ -2,7 +2,7 @@ import { IsString, IsNumber, MaxLength, MinLength, IsIn, IsDate, ValidateIf } fr
 import { Column, Entity, PrimaryGeneratedColumn, OneToOne, OneToMany, JoinColumn } from "typeorm";
 import { IsUnique } from "../lib/validations";
 import { User } from "./User";
-import { ProfilePics } from "./ProfilePics";
+import { ProfilePhoto } from "./ProfilePhoto";
 import { BaseEntity } from "./BaseEntity";
 import moment from "moment";
 
@@ -57,8 +57,8 @@ export class Profile extends BaseEntity {
   @JoinColumn()
   user: User;
 
-  @OneToMany(type => ProfilePics, profilePics => profilePics.profile)
-  pics: ProfilePics[];
+  @OneToMany(type => ProfilePhoto, profilePhoto => profilePhoto.profile)
+  photos: ProfilePhoto[];
 
   setBirthDate(birthDate) {
     this.birthDate = moment(birthDate, "YYYY-MM-DD").toDate();

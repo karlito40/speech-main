@@ -6,12 +6,12 @@ import BaseController from "./BaseController";
 export default class TokenController extends BaseController {
 
   async login() {
-    passport.authenticate("local", { session: false }, (err: Error, user: User, info) => {
+    passport.authenticate("local", { session: false }, (err, user: User, info) => {
       if (err || !user) {
         return this.error(err, "LOGIN_AUTH_1", info ? info.message : err.message);
       }
 
-      this.req.login(user, { session: false }, (err: Error) => {
+      this.req.login(user, { session: false }, (err) => {
         if (err) {
           return this.error(err, "LOGIN_AUTH_2");
         }

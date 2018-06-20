@@ -15,7 +15,7 @@ export default () => {
   }, async (email, password, done) => {
     const userRepository = getRepository(User);
     try {
-      const user = await userRepository.findOne({ email: email.toLowerCase() }, { relations: ["scopes"] });
+      const user = await userRepository.findOne({ email: email.toLowerCase() }, { relations: ["scopes", "role"] });
       if (!user || !await user.comparePassword(password)) {
         return done(null, false, { message: "Incorrect email or password." });
       }

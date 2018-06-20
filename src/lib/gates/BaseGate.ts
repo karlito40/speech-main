@@ -2,12 +2,12 @@ import { User } from "../../entities/User";
 import { Request } from "express";
 
 export abstract class BaseGate {
-  user: User;
-  req: Request;
 
-  constructor(req: Request, user: User) {
-    this.user = user;
-    this.req = req;
+  constructor(
+    protected req: Request,
+    protected user: User,
+    protected options: any) {
+
   }
 
   abstract async isAuthorized(): Promise<boolean>;

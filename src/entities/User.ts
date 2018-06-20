@@ -11,7 +11,7 @@ import jwt from "jsonwebtoken";
 @Entity()
 export class User extends BaseEntity {
 
-  static givenScopes = ["show-profiles", "show-user-:me", "update-user-:me", "create-profile-:me", "update-profile-:me"];
+  static givenScopes = ["show-profiles"];
 
   fillable = ["email", "password"];
   hidden = ["password", "createdAt", "updatedAt"];
@@ -60,8 +60,12 @@ export class User extends BaseEntity {
   }
 
   createToken() {
-    const options = !this.hasScope(["super-admin"]) ? { expiresIn: "30d" } : null;
+    const options = !this.hasRole(["super-admin"]) ? { expiresIn: "30d" } : null;
     return jwt.sign(this.toJSON(), process.env.JWT_SECRET_KEY, options);
+  }
+
+  isAdmin() {
+    return this.hasRole(["super-admin"]);
   }
 
   setEmail(email) {
