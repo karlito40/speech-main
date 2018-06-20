@@ -1,5 +1,5 @@
 import BaseModule from '../BaseModule';
-import ProfilePicsForm from '../../forms/profile/ProfilePicsForm';
+import ProfilePhotoForm from '../../forms/profile/ProfilePhotoForm';
 
 export default class EditPicsProfile extends BaseModule {
   renderHeader() {
@@ -9,6 +9,6 @@ export default class EditPicsProfile extends BaseModule {
   }
 
   renderBody() {
-    return <ProfilePicsForm/>
+    return <ProfilePhotoForm/>
   }
 }

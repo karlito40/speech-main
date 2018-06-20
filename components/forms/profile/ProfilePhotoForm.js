@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { actions as actionsApi } from '../../../store/api';
 import { debounce } from "lodash";
 
-class ProfilePicsForm extends Component {
+class ProfilePhotoForm extends Component {
   state = {}
 
   constructor(props){
@@ -39,6 +39,15 @@ class ProfilePicsForm extends Component {
 
   }
 
+  deletePhoto = (photo) => {
+    this.props.onDelete({
+      _params: {
+        id: this.props.profileApp.id,
+        photoId: photo.id,
+      }
+    });
+  }
+
   addPhoto = (e) => {
     const file = e.target.files[0];
     if(!file) {
@@ -67,7 +76,9 @@ class ProfilePicsForm extends Component {
 
     return (
       <form className="form-pics-profile" onSubmit={handleSubmit(this.onSubmit)}>
-        {profileApp.pics.map((photo, i) => <img key={i} src={`/api${photo.url}`} width="50"/>)}
+        {profileApp.photos.map((photo) =>
+          <img key={photo.id} src={`/serve${photo.url}`} width="50" onClick={() => this.deletePhoto(photo)} />
+        )}
         <input
           className="hide"
           ref={(node) => this.fileNode = node }
@@ -107,12 +118,13 @@ const mapStateToProps = ({profileAppIsLoading, profileApp}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onEdit: (data, customize) => dispatch(actionsApi.postProfilePicsApp(data, customize))
+    onEdit: (data, customize) => dispatch(actionsApi.postProfilePhotosApp(data, customize)),
+    onDelete: (data) => dispatch(actionsApi.deleteProfilePhotosApp(data))
   };
 };
 
 
 export default connect(mapStateToProps, mapDispatchToProps)
   (reduxForm({
-    form: 'profilePicsForm',
-  })(ProfilePicsForm));
+    form: 'profilePhotoForm',
+  })(ProfilePhotoForm));

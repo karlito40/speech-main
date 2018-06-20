@@ -1,7 +1,7 @@
 import React from 'react';
 import AccountLayout from '../../components/layouts/AccountLayout';
 import ProfileForm from '../../components/forms/profile/ProfileForm';
-import ProfilePicsForm from '../../components/forms/profile/ProfilePicsForm';
+import ProfilePhotoForm from '../../components/forms/profile/ProfilePhotoForm';
 import ProfileDescriptionForm from '../../components/forms/profile/ProfileDescriptionForm';
 import { redirect } from '../../lib/route';
 
@@ -32,7 +32,7 @@ export default class Complete extends AccountLayout {
 
     const formMap = {};
     formMap[0] = <ProfileForm {...propsForm} />
-    formMap[1] = <ProfilePicsForm {...propsForm} />
+    formMap[1] = <ProfilePhotoForm {...propsForm} />
     formMap[2] = <ProfileDescriptionForm inputTheme="" onSave={this.completeHandler} />
 
     const menuMap = [ 'Moi', 'Photos', 'Précision'];

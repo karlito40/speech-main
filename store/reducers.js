@@ -30,10 +30,18 @@ export const profileApp = (state = null, action) => {
     case 'POST_PROFILEAPP_SUCCEEDED':
       return { ...action.data };
 
-    case 'POST_PROFILEPICSAPP_SUCCEEDED':
-      const profile = {pics: [], ...state};
-      profile.pics = profile.pics.concat([{ ...action.data }]);
-      return profile;
+    case 'POST_PROFILEPHOTOSAPP_SUCCEEDED':
+      const profilePostPhoto = {pics: [], ...state};
+      profilePostPhoto.photos = profilePostPhoto.photos.concat([{ ...action.data }]);
+      return profilePostPhoto;
+
+    case 'DELETE_PROFILEPHOTOSAPP_SUCCEEDED':
+      const profileDeletePhoto = {...state};
+      if(profileDeletePhoto.photos) {
+        profileDeletePhoto.photos = profileDeletePhoto.photos.filter(photo => photo.id != action.data.id);
+      }
+
+      return profileDeletePhoto;
 
     default:
       return state;

@@ -32,6 +32,11 @@ app.prepare()
       return app.render(req, res, '/test/posts', { id: req.params.id });
     });
 
+    server.all('/serve*', (req, res) => {
+      req.pipe(request(process.env.API_HOST + req.params[0]))
+        .pipe(res);
+    });
+
     server.all('/api*', apiLimiter, (req, res) => {
       req.pipe(request(process.env.API_HOST + req.params[0]))
         .pipe(res);
