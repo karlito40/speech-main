@@ -81,7 +81,7 @@ const mapStateToProps = ({profileAppIsLoading, profileApp}) => {
     profileApp,
     initialValues: profileApp
   };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {

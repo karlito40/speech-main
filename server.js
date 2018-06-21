@@ -5,6 +5,8 @@ const request = require('request');
 const dotenv = require('dotenv');
 const RateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
+const queryString = require('query-string');
+
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -38,7 +40,12 @@ app.prepare()
     });
 
     server.all('/api*', apiLimiter, (req, res) => {
-      req.pipe(request(process.env.API_HOST + req.params[0]))
+      let url = process.env.API_HOST + req.params[0];
+      if(req.query) {
+        url += '?' + queryString.stringify(req.query);
+      }
+
+      req.pipe(request(url))
         .pipe(res);
     });
 

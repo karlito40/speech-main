@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { ucFirst, placeholder } from '../lib/string';
 import { getCookie } from '../lib/cookie';
+import { delProperties } from '../lib/object';
+import queryString from 'query-string';
 
 const routes = [
   { method: 'GET', path: '/me', as: 'me' },
   { method: 'POST', path: '/user', as: ['me', 'user'] },
   { method: 'POST', path: '/profile', as: ['profileApp', 'profile'] },
   { method: 'PUT', path: '/profile/:id', as: ['profileApp', 'profile'] },
+  { method: 'GET', path: '/profile/:id/for', as: ['forProfiles'], listing: true },
   { method: 'POST', path: '/profile/:id/photo', as: ['profilePhotosApp'] },
   { method: 'DELETE', path: '/profile/:id/photo/:photoId', as: ['profilePhotosApp'] },
   { method: 'POST', path: '/token', as: 'token' },
@@ -15,7 +18,7 @@ const routes = [
 let actions = {};
 let reducers = {};
 
-function handleRoute({method, path, actionType}) {
+function handleRoute({method, path, actionType, listing}) {
 
   const actionMethodName = method.toLowerCase() + ucFirst(actionType);
   const typeRoot = method.toUpperCase() + '_' + actionType.toUpperCase();
@@ -31,8 +34,12 @@ function handleRoute({method, path, actionType}) {
       ...customize
     };
 
-    delete data._params;
-    delete data._token;
+    if(data && data._query) {
+      options.url += '?' + queryString.stringify(data._query);
+    }
+
+    delProperties(data, ['_params', '_token', '_query']);
+
 
     if(!token) {
       token = getCookie('token');
@@ -52,7 +59,10 @@ function handleRoute({method, path, actionType}) {
         ...options
       })
       .then(response => {
-        return dispatch({ type: `${typeRoot}_SUCCEEDED`, data: response.data.data });
+        return dispatch({
+          type: `${typeRoot}_SUCCEEDED`,
+          data: (listing) ? response.data : response.data.data
+        });
       })
       .catch(function (error) {
         dispatch({ type: `${typeRoot}_FAILED`, error: error.response.data });

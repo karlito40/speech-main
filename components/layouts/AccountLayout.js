@@ -19,6 +19,9 @@ export default class extends BaseLayout {
       && profileApp.content
       && profileApp.pseudo
     );
+
+    props.hasProfileCompleted = hasProfileCompleted;
+
     if(!userApp) {
       props.isAuthorized = false;
       redirect(res, '/');

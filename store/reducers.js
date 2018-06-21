@@ -48,21 +48,18 @@ export const profileApp = (state = null, action) => {
   }
 }
 
-export const user = (state = null, action) => {
+export const forProfiles = (state = null, action) => {
   switch (action.type) {
-    case 'GET_USER_SUCCEEDED':
-    case 'POST_USER_SUCCEEDED':
-      return { ...action.data };
+    case 'GET_FORPROFILES_SUCCEEDED':
+      let list = (state && state.data) ? state.data : [];
+      list = list.concat(action.data.data);
+      const hasMore = list.length < action.data.meta.total;
 
-    default:
-      return state;
-  }
-}
-
-export const profile = (state = null, action) => {
-  switch (action.type) {
-    case 'POST_PROFILE_SUCCEEDED':
-      return { ...action.data };
+      return {
+        data: list,
+        meta: action.data.meta,
+        hasMore
+      };
 
     default:
       return state;
