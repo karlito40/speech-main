@@ -80,6 +80,21 @@ export default class ProfileController extends BaseController {
   }
 
   @isAuthenticated("manage-profile", "manage-profile-self")
+  async getCorrespondingProfiles() {
+    const profile = await this.repository.findOneOrFail(this.req.params.id);
+    if (!profile) {
+      return this.json([]);
+    }
+
+    return await this.paginate(this.repository, {
+      where: {
+        gender: profile.forGender,
+        forGender: profile.gender
+      }
+    });
+  }
+
+  @isAuthenticated("manage-profile", "manage-profile-self")
   async deletePhoto() {
     const repository = getRepository(ProfilePhoto);
     const photo = await repository.findOneOrFail(this.req.params.photoId);

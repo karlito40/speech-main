@@ -14,6 +14,7 @@ export default new RouteManager([
 
   Route.get("/profiles", "Profile@list"),
   Route.get("/profile/:id", "Profile@get"),
+  Route.get("/profile/:id/for", "Profile@getCorrespondingProfiles"),
   Route.post("/profile", "Profile@create"),
   Route.put("/profile/:id", "Profile@update"),
   Route.post("/profile/:id/photo", "Profile@createPhoto"),
