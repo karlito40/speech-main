@@ -6,6 +6,7 @@ import { isAuthenticated } from "../auth/decorators";
 import { getRepository, Repository } from "typeorm";
 import { saveEntity } from "../lib/entity";
 import mkdirp from "mkdirp-promise";
+import { Not, IsNull } from "typeorm";
 
 export default class ProfileController extends BaseController {
   protected repository: Repository<Profile>;
@@ -88,6 +89,8 @@ export default class ProfileController extends BaseController {
 
     return await this.paginate(this.repository, {
       where: {
+        headline: Not(IsNull()),
+        content: Not(IsNull()),
         gender: profile.forGender,
         forGender: profile.gender
       }

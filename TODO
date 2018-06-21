@@ -10,7 +10,9 @@
 ☐ Add auth on image dispatch
 ☐ Refactor the givenScope insertion on post user + transaction + errors
 ☐ Check birthDate front & back (>100 ans)
-☐ handle socket hang up on proxy
+☐ Handle socket hang up on proxy
+☐ Handle geoloc and forProfiles localisation
+☐ Handle age on forProfiles localisation
 
 Role: 
   ☐ Add different visualiser/transformer by user role
