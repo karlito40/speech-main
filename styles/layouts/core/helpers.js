@@ -34,12 +34,21 @@ export default css`
     & { border-top: 1px solid $colorDeepBlack; padding-top: 10px; padding-bottom: 30px; }
 
     .module-label { font-size: $font18pt; }
-    .module-header { margin-bottom: 20px; }
+    .module-header {
+      & { margin-bottom: 20px; }
+      h3 { margin-bottom: 6px; font-weight: normal; }
+    }
   }
 
   @each $name, $value in $fonts {
     &.is-#{$name} {
       font-size: $value;
+    }
+  }
+
+  @each $name, $value in $colors {
+    &.is-color-#{$name} {
+      color: $value;
     }
   }
 
