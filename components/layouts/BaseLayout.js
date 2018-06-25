@@ -3,12 +3,8 @@ import Head from 'next/head';
 import * as layoutCSS from '../../styles/layouts/core';
 
 export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showSidebar: false
-    };
-  }
+
+  state = { showSidebar: false };
 
   renderHeader() {}
   renderBody() {}
@@ -33,21 +29,37 @@ export default class extends React.Component {
     }
   }
 
+  getClassNameTransitions() {
+    const classNameTransitions = [];
+    if(!this.disableEnterTransition) {
+      classNameTransitions.push('active-enter-transition');
+    }
+
+    if(!this.disableExitTransition) {
+      classNameTransitions.push('active-exit-transition');
+    }
+
+    return classNameTransitions.join(' ');
+  }
+
   render() {
-    const { showSidebar } = this.state;
+    const { showSidebar, loaded } = this.state;
+
+
 
     return (
       <React.Fragment>
         <Head>
           <meta name="viewport" content="width=device-width,initial-scale=1"/>
           <script src="/static/js/modernizr/modernizr-custom.js"></script>
+          <link rel="stylesheet" type="text/css" href="/static/css/ngprogress.css"/>
         </Head>
 
         <main className={`main-app ${showSidebar ? 'has-sidebar' : ''}`}>
           <header className="header-app">
             { this.renderHeader() }
           </header>
-          <div className="body-app">
+          <div className={`body-app ${this.getClassNameTransitions()}`}>
             { this.renderBody() }
           </div>
           <footer className="footer-app">

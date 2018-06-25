@@ -7,6 +7,10 @@ import css from '../styles/pages/home';
 
 export default class Index extends FacadeLayout {
 
+  constructor(props) {
+    super(props);
+    this.disableEnterTransition = true;
+  }
   renderBody() {
     return (
       <React.Fragment>

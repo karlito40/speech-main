@@ -14,7 +14,7 @@ export class Index extends AccountLayout {
     }
 
     const { reduxStore, req } = props;
-    const { profileApp } = reduxStore.getState();
+    const { profileApp, forProfiles } = reduxStore.getState();
     const isServer = !!req;
 
     if(isServer && req.cookies.token) {
@@ -22,6 +22,10 @@ export class Index extends AccountLayout {
         _params: { id: profileApp.id },
         _isServer: isServer,
         _token: req.cookies.token
+      }));
+    } else if(!isServer && !forProfiles) {
+      await reduxStore.dispatch(actionsApi.getForProfiles({
+        _params: { id: profileApp.id }
       }));
     }
 
@@ -67,7 +71,7 @@ export class Index extends AccountLayout {
             useWindow={true}
           >
             {profiles.map((profile, i) =>
-              <Link href={`/member/${profile.id}`}>
+              <Link key={profile.id} href={`/member/${profile.id}`}>
                 <a className="module-link">
                   <ProfileEssence
                     key={profile.id}
