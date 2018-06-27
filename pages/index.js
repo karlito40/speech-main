@@ -5,7 +5,7 @@ import ProfileScene from '../components/scenes/home/ProfileScene';
 import DiscoverScene from '../components/scenes/home/DiscoverScene';
 import css from '../styles/pages/home';
 
-export default class Index extends FacadeLayout {
+export default class IndexPage extends FacadeLayout {
 
   constructor(props) {
     super(props);

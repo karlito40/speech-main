@@ -48,6 +48,16 @@ export const profileApp = (state = null, action) => {
   }
 }
 
+export const profileDisplay = (state = null, action) => {
+  switch (action.type) {
+    case 'GET_PROFILEDISPLAY_SUCCEEDED':
+      return { ...action.data };
+
+    default:
+      return state;
+  }
+}
+
 export const forProfiles = (state = null, action) => {
   switch (action.type) {
     case 'GET_FORPROFILES_SUCCEEDED':

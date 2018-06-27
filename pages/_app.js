@@ -20,12 +20,8 @@ class MyApp extends App {
 
     const { ctx: { reduxStore, req } } = props;
 
-    const isServer = !!req;
-    if(isServer && req.cookies.token) {
-      await reduxStore.dispatch(actions.getMe({
-        _token: req.cookies.token,
-        _isServer: isServer
-      }));
+    if(req) {
+      await reduxStore.dispatch(actions.getMe({_req: req}));
     }
 
     const appProps = await super.getInitialProps(props);

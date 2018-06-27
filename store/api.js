@@ -8,7 +8,8 @@ const routes = [
   { method: 'GET', path: '/me', as: 'me' },
   { method: 'POST', path: '/user', as: ['me', 'user'] },
   { method: 'POST', path: '/profile', as: ['profileApp', 'profile'] },
-  { method: 'PUT', path: '/profile/:id', as: ['profileApp', 'profile'] },
+  { method: 'GET', path: '/profile/:id', as: ['profileDisplay'] },
+  { method: 'PUT', path: '/profile/:id', as: ['profileApp'] },
   { method: 'GET', path: '/profile/:id/for', as: ['forProfiles'], listing: true },
   { method: 'POST', path: '/profile/:id/photo', as: ['profilePhotosApp'] },
   { method: 'DELETE', path: '/profile/:id/photo/:photoId', as: ['profilePhotosApp'] },
@@ -24,13 +25,20 @@ function handleRoute({method, path, actionType, listing}) {
   const typeRoot = method.toUpperCase() + '_' + actionType.toUpperCase();
 
   actions[actionMethodName] = (data = {}, customize = {}) => (dispatch, getState) => {
+    const isServer = (data && data._req);
     const realPath = (data && data._params) ? placeholder(path, data._params) : path;
     let token = (data && data._token) ? data._token : null;
+    if(!token && isServer) {
+      token = data._req.cookies.token;
+    }
+
+    if(!token) {
+      token = getCookie('token');
+    }
+
     let options = {
       headers: {},
-      url: (data && data._isServer)
-        ? process.env.API_HOST + realPath
-        : '/api' + realPath,
+      url: (isServer) ? process.env.API_HOST + realPath : '/api' + realPath,
       ...customize
     };
 
@@ -38,12 +46,7 @@ function handleRoute({method, path, actionType, listing}) {
       options.url += '?' + queryString.stringify(data._query);
     }
 
-    delProperties(data, ['_params', '_token', '_query']);
-
-
-    if(!token) {
-      token = getCookie('token');
-    }
+    delProperties(data, ['_params', '_token', '_query', '_req']);
 
     if(token) {
       options.headers['Authorization'] = `Bearer ${token}`;

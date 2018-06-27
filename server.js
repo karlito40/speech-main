@@ -30,8 +30,8 @@ app.prepare()
     server.use(helmet());
     server.use(cookieParser());
 
-    server.get('/posts/:id', (req, res) => {
-      return app.render(req, res, '/test/posts', { id: req.params.id });
+    server.get('/member/profile/:id', (req, res) => {
+      return app.render(req, res, '/member/member', { id: req.params.id });
     });
 
     server.all('/serve*', (req, res) => {

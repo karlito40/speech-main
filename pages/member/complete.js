@@ -5,7 +5,7 @@ import ProfilePhotoForm from '../../components/forms/profile/ProfilePhotoForm';
 import ProfileDescriptionForm from '../../components/forms/profile/ProfileDescriptionForm';
 import { redirect } from '../../lib/route';
 
-export default class Complete extends AccountLayout {
+export default class CompletePage extends AccountLayout {
   maxMenu = 0;
   state = { iMenu: 0 };
 

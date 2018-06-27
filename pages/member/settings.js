@@ -6,7 +6,7 @@ import EditDescriptionProfile from '../../components/modules/profile/EditDescrip
 import EditSearchProfile from '../../components/modules/profile/EditSearchProfile';
 
 
-export default class Settings extends AccountLayout {
+export default class SettingPage extends AccountLayout {
 
   renderBody() {
     return (

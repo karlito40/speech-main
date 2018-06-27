@@ -6,30 +6,24 @@ import { actions as actionsApi } from '../../store/api';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 
-export class Index extends AccountLayout {
+export class IndexPage extends AccountLayout {
   static async getInitialProps(props) {
-    const propsLayout = await super.getInitialProps(props);
-    if(!propsLayout.hasProfileCompleted) {
-      return propsLayout;
+    const propsComponent = await super.getInitialProps(props);
+    if(!propsComponent.hasProfileCompleted) {
+      return propsComponent;
     }
 
     const { reduxStore, req } = props;
     const { profileApp, forProfiles } = reduxStore.getState();
-    const isServer = !!req;
 
-    if(isServer && req.cookies.token) {
+    if(!forProfiles) {
       await reduxStore.dispatch(actionsApi.getForProfiles({
         _params: { id: profileApp.id },
-        _isServer: isServer,
-        _token: req.cookies.token
-      }));
-    } else if(!isServer && !forProfiles) {
-      await reduxStore.dispatch(actionsApi.getForProfiles({
-        _params: { id: profileApp.id }
+        _req: req
       }));
     }
 
-    return propsLayout;
+    return propsComponent;
   }
 
   state = { display: 'min' }
@@ -71,7 +65,7 @@ export class Index extends AccountLayout {
             useWindow={true}
           >
             {profiles.map((profile, i) =>
-              <Link key={profile.id} href={`/member/${profile.id}`}>
+              <Link key={profile.id} href={`/member/profile/${profile.id}`}>
                 <a className="module-link">
                   <ProfileEssence
                     key={profile.id}
@@ -127,4 +121,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Index)
+export default connect(mapStateToProps, mapDispatchToProps)(IndexPage)
