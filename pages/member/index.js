@@ -65,7 +65,7 @@ export class IndexPage extends AccountLayout {
             useWindow={true}
           >
             {profiles.map((profile, i) =>
-              <Link key={profile.id} href={`/member/profile/${profile.id}`}>
+              <Link key={profile.id} href={{pathname: '/member/member', query: { id: profile.id }}} as={`/member/profile/${profile.id}`}>
                 <a className="module-link">
                   <ProfileEssence
                     key={profile.id}
