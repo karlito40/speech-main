@@ -4,6 +4,7 @@ import { IsUnique } from "../lib/validations";
 import { User } from "./User";
 import { ProfilePhoto } from "./ProfilePhoto";
 import { BaseEntity } from "./BaseEntity";
+import { Ask } from "./Ask";
 import moment from "moment";
 
 
@@ -51,7 +52,11 @@ export class Profile extends BaseEntity {
   @MaxLength(2000)
   content: string;
 
-  // photos
+  @OneToMany(type => Ask, ask => ask.from)
+  askFor: Ask[];
+
+  @OneToMany(type => Ask, ask => ask.to)
+  askReceived: Ask[];
 
   @OneToOne(type => User, user => user.profile)
   @JoinColumn()

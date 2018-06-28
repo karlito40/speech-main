@@ -1,4 +1,3 @@
-import passport from "passport";
 import { User } from "../entities/User";
 import { Scope } from "../entities/Scope";
 import BaseController from "./BaseController";
@@ -17,7 +16,7 @@ export default class UserController extends BaseController {
   @isAuthenticated("show-users", "manage-user-self")
   async get() {
     const { id } = this.req.params;
-    return this.json(await this.repository.findOne(id, { relations: ["profile"] }));
+    return this.json(await this.repository.findOne(id, { relations: ["profile", "profile.photos"]}));
   }
 
   @isAuthenticated()
