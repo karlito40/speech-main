@@ -21,7 +21,14 @@ export default class UserController extends BaseController {
 
   @isAuthenticated()
   async getMe() {
-    return this.json(await this.repository.findOne(this.req.user.id, { relations: ["profile" , "profile.photos"] }));
+    return this.json(await this.repository.findOne(this.req.user.id, { relations: [
+      "profile",
+      "profile.photos",
+      "profile.askFor",
+      "profile.askFor.to",
+      "profile.askReceived",
+      "profile.askReceived.from"
+    ]}));
   }
 
   @isAuthenticated("show-users")

@@ -18,12 +18,7 @@ export default class ProfileController extends BaseController {
   @isAuthenticated("show-profiles")
   async get() {
     const { id } = this.req.params;
-    return this.json(await this.repository.findOne(id, { relations: [
-      "askFor",
-      "askFor.to",
-      "askReceived",
-      "askReceived.from"
-    ]}));
+    return this.json(await this.repository.findOne(id));
   }
 
   @isAuthenticated("show-profiles")
