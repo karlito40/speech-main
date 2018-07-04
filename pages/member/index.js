@@ -6,7 +6,7 @@ import { actions as actionsApi } from '../../store/api';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 
-export class IndexPage extends AccountLayout {
+class IndexPage extends AccountLayout {
   static async getInitialProps(props) {
     const propsComponent = await super.getInitialProps(props);
     if(!propsComponent.hasProfileCompleted) {

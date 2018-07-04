@@ -21,7 +21,6 @@ class OnboardingForm extends Component {
 
   toggleActive = () => this.setState({ showUserForm: !this.state.showUserForm });
   closeUserForm = () => this.setState({ showUserForm: false });
-
   showUserForm = () => this.setState({ showUserForm: true });
 
   onProfileSubmit = (profileForm) => {
@@ -53,6 +52,7 @@ class OnboardingForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+
     return (
       <>
         <Modal

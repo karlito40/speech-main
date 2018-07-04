@@ -1,9 +1,12 @@
 import React from 'react';
 import Logo from '../sprites/Logo';
 import Link from 'next/link';
+import { connect } from 'react-redux';
 
-export default class extends React.Component {
+class MemberHeader extends React.Component {
   render() {
+    const {profileApp} = this.props;
+
     return (
       <nav className="navbar">
         <Logo dim="min"/>
@@ -28,7 +31,9 @@ export default class extends React.Component {
             <Link href="/member/revealed">
               <a className="nav-link">
                 <div className="nav-label">Révélations</div>
-                <div className="counter">8</div>
+                {profileApp.askReceived.length &&
+                  <div className="counter">{profileApp.askReceived.length}</div>
+                }
               </a>
             </Link>
           </li>
@@ -67,3 +72,11 @@ export default class extends React.Component {
     );
   }
 }
+
+const mapStateToProps = ({profileApp}) => {
+  return {
+    profileApp
+  };
+};
+
+export default connect(mapStateToProps)(MemberHeader);

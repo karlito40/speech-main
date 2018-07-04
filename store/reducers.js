@@ -28,10 +28,15 @@ export const profileApp = (state = null, action) => {
 
     case 'PUT_PROFILEAPP_SUCCEEDED':
     case 'POST_PROFILEAPP_SUCCEEDED':
-      return { ...action.data };
+      return {
+        askFor: [],
+        askReceived: [],
+        photos: [], 
+        ...action.data
+      };
 
     case 'POST_PROFILEPHOTOSAPP_SUCCEEDED':
-      const profilePostPhoto = {pics: [], ...state};
+      const profilePostPhoto = {photos: [], ...state};
       profilePostPhoto.photos = profilePostPhoto.photos.concat([{ ...action.data }]);
       return profilePostPhoto;
 

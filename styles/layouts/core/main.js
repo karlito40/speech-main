@@ -52,5 +52,30 @@ export default css`
       & { min-width: 340px; padding: 30px; box-sizing: border-box; background-color: white; box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35); outline: 0; }
       h2 { text-align: center; margin-bottom: 20px; font-size: $font36pt; }
     }
+
+    &.modal-container-appear,
+    &.modal-container-enter {
+      & { opacity: 0; }
+      .modal { transform: scale(0); }
+      .modal-body { opacity: 0; transform: translateY(20px); }
+    }
+
+    &.modal-container-appear-active,
+    &.modal-container-enter-active {
+      & { opacity: 1; transition: opacity 100ms; }
+      .modal { transform: scale(1); transition: transform 225ms ease-in 75ms; }
+      .modal-body { opacity: 1; transform: translateY(0px); transition: opacity 170ms ease-in 350ms, transform 350ms ease-out 350ms; }
+    }
+
+    &.modal-container-exit {
+      & { opacity: 1; }
+      .modal { transform: scale(1); }
+      .modal-body { opacity: 1; transform: translateY(0px); }
+    }
+
+    &.modal-container-exit-active {
+      & { opacity: 0; transition: opacity 100ms ease-in 150ms;}
+      .modal { transform: translateY(-30px); transition: transform 250ms ease-out; }
+    }
   }
 `;

@@ -20,7 +20,7 @@ class MyApp extends App {
 
     const { ctx: { reduxStore, req } } = props;
 
-    if(req) {
+    if(req && req.cookies.token) {
       await reduxStore.dispatch(actions.getMe({_req: req}));
     }
 
