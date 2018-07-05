@@ -6,6 +6,7 @@ import ConnexionForm from '../forms/ConnexionForm';
 import MemberHeader from '../headers/MemberHeader';
 import BaseLayout from './BaseLayout';
 import { redirect } from '../../lib/route';
+import { init as SocketInitializer } from '../../lib/socket';
 
 export default class extends BaseLayout {
 
@@ -34,6 +35,9 @@ export default class extends BaseLayout {
     return props;
   }
 
+  componentDidMount() {
+    SocketInitializer();
+  }
 
   renderHeader() {
     return <MemberHeader/>;

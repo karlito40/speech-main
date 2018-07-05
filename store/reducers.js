@@ -28,10 +28,12 @@ export const profileApp = (state = null, action) => {
 
     case 'PUT_PROFILEAPP_SUCCEEDED':
     case 'POST_PROFILEAPP_SUCCEEDED':
+      const oldData = state || {};
       return {
         askFor: [],
         askReceived: [],
-        photos: [], 
+        photos: [],
+        ...oldData,
         ...action.data
       };
 

@@ -45,8 +45,6 @@ export default class extends React.Component {
   render() {
     const { showSidebar, loaded } = this.state;
 
-
-
     return (
       <React.Fragment>
         <Head>

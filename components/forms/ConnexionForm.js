@@ -15,7 +15,7 @@ class ConnexionForm extends Component {
 
   handleConnexion = (form) => {
     return this.props.onConnexionSubmit(form)
-      .then(res => Router.push('/d'))
+      .then(res => Router.push('/member'))
       .catch((data) => {
         const error = data.error;
         if(error.code.startsWith('LOGIN_AUTH')) {
