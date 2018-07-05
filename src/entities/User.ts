@@ -7,6 +7,7 @@ import { BaseEntity } from "./BaseEntity";
 import { Role } from "./Role";
 import { Profile } from "./Profile";
 import jwt from "jsonwebtoken";
+import * as notify from "../lib/notifier";
 
 @Entity()
 export class User extends BaseEntity {
@@ -62,6 +63,10 @@ export class User extends BaseEntity {
   createToken() {
     const options = !this.hasRole(["super-admin"]) ? { expiresIn: "30d" } : null;
     return jwt.sign(this.toJSON(), process.env.JWT_SECRET_KEY, options);
+  }
+
+  notify(...args) {
+    return notify.user.apply(null, [this].concat(args));
   }
 
   isAdmin() {

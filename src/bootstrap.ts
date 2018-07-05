@@ -1,13 +1,4 @@
-import express from "express";
-import bodyParser from "body-parser";
-import { createConnection } from "typeorm";
-import routes from "./routes";
 import dotenv from "dotenv";
-import bootstrapAuth from "./auth/passport";
-import { log } from "./lib/logger";
-import helmet from "helmet";
-import fileUpload from "express-fileupload";
-import "reflect-metadata";
 
 if (process.env.NODE_ENV == "test") {
   dotenv.config({ path: ".env.test" });
@@ -15,8 +6,21 @@ if (process.env.NODE_ENV == "test") {
   dotenv.config({ path: ".env" });
 }
 
+import express from "express";
+import bodyParser from "body-parser";
+import { createConnection } from "typeorm";
+import routes from "./routes";
+import bootstrapAuth from "./auth/passport";
+import { log } from "./lib/logger";
+import helmet from "helmet";
+import fileUpload from "express-fileupload";
+import { init as NotifierInit } from "./lib/notifier";
+import "reflect-metadata";
+
 export default () => {
   return createConnection().then(connection => {
+    NotifierInit();
+
     const app = express();
 
     const auth = bootstrapAuth();
