@@ -6,12 +6,13 @@ const dotenv = require('dotenv');
 const RateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
 const queryString = require('query-string');
+
+dotenv.config({ path: '.env' });
+
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-
-dotenv.config({ path: ".env" });
 
 var apiLimiter = new RateLimit({
   windowMs: 60*1000,

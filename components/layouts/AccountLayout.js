@@ -7,6 +7,7 @@ import MemberHeader from '../headers/MemberHeader';
 import BaseLayout from './BaseLayout';
 import { redirect } from '../../lib/route';
 import { init as SocketInitializer } from '../../lib/socket';
+import { getCookie } from '../../lib/cookie';
 
 export default class extends BaseLayout {
 
@@ -36,7 +37,7 @@ export default class extends BaseLayout {
   }
 
   componentDidMount() {
-    SocketInitializer();
+    SocketInitializer(getCookie('token'));
   }
 
   renderHeader() {
