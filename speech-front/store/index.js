@@ -5,7 +5,7 @@ import * as reducers from './reducers';
 import { reducer as formReducer } from 'redux-form'
 import { reducers as apiReducers } from './api';
 
-const store = null;
+let store = null;
 export function initializeStore(initialState) {
   store = createStore(combineReducers({
     ...reducers,
