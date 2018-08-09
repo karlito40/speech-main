@@ -1,0 +1,71 @@
+☐ BDD structure (scopes table, ...)
+☐ Route group middleware
+☐ Route prefix
+☐ Hash password with model user subscriber 
+☐ Add a model factory
+☐ Custom logger for typeorm
+☐ Save every personnal scope on a POST /user (show-users, show-user-:id, update-user-:id")
+☐ Change authenticated error ( shouldn't throw an error when users are not allowed )
+☐ Filter profile list by gender
+☐ Add auth on image dispatch
+☐ Refactor the givenScope insertion on post user + transaction + errors
+☐ Check birthDate front & back (>100 ans)
+☐ Handle socket hang up on proxy
+☐ Handle geoloc and forProfiles localisation
+☐ Handle age on forProfiles localisation
+
+Role: 
+  ☐ Add different visualiser/transformer by user role
+  ☐ Hide email item on specific occasion (email other than me & role == common)
+
+// [ ValidationError {
+  //   target: User { email: 'testtest.com' },
+  //   value: 'testtest.com',
+  //   property: 'email',
+  //   children: [],
+  //   constraints: { isEmail: 'email must be an email' } },
+  // ValidationError {
+  //   target: User { email: 'testtest.com' },
+  //   value: undefined,
+  //   property: 'password',
+  //   children: [],
+  //    { minLength: 'password must be longer than or equal to 6 characters' } } ]
+Errors:
+  ☐ Token (expiration..)
+  ☐ default throw in controller/route action   
+
+Routes:
+  ☐ POST    /login
+  ☐ GET     /user/:id (fields options: revealed, pics, ask)
+  ☐ DELETE  /user/:id
+  ☐ POST    /user/:id/pics
+  ☐ POST    /user/:id/ask (conversation-id scope, if corresponding ask = revealed)
+  ☐ GET     /users (paginations, geoloc)
+  ☐ POST    /conversation
+  ☐ GET     /conversation/:id
+  ☐ POST    /conversation/:id/message
+
+Tests:
+  ☐ Fix entities change (user pseudo, ...)
+  ☐ Authentication
+  ☐ Routes
+  ☐ Authenticated decorator
+  ☐ Database/Entities
+
+Archive:
+  ✔ Add profile photos @done(18-06-20 17:05)
+  ✔ Add profile @done(18-06-03 19:34)
+  ✔ Use IsUnique without the Entity parameter @done(18-06-02 20:14)
+  ✔ Change ManyToMany to ManyToOne user [role_id]. Only one role by user @done(18-06-02 19:44) @project(Role)
+  ✔ POST    /user (check unicity email, and class validator) @done(18-06-01 22:14) @project(Routes)
+  ✔ UPDATE  /user/:id @project(Routes)
+  ✔ Stop to eager logs the scopes @done(18-06-01 15:45)
+  ✔ 404 @done(18-06-01 15:45) @project(Routes)
+  ✔ Add unique constraint on user pseudo, mail @done(18-06-01 14:51)
+  ✔ Testing proper scope bdd @done(18-06-01 12:56)
+  ✔ Entity timesteamp created_at updated_at @done(18-06-01 11:57)
+  ✔ Add pagination @done(18-05-31 23:05)
+  ✔ Add seeding @done(18-05-31 23:04)
+  ✔ Entity validation @done(18-05-31 19:16)
+  ✔ Setup test @done(18-05-30 18:34) @project(Tests)
+  
