@@ -5,10 +5,17 @@ import * as reducers from './reducers';
 import { reducer as formReducer } from 'redux-form'
 import { reducers as apiReducers } from './api';
 
-export function initializeStore (initialState) {
-  return createStore(combineReducers({
+const store = null;
+export function initializeStore(initialState) {
+  store = createStore(combineReducers({
     ...reducers,
     ...{ form: formReducer },
     ...apiReducers
-  }), initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+  }), initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+
+  return store;
+}
+
+export function getStore() {
+  return store;
 }

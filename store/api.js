@@ -3,6 +3,7 @@ import { ucFirst, placeholder } from '../lib/string';
 import { getCookie } from '../lib/cookie';
 import { delProperties } from '../lib/object';
 import queryString from 'query-string';
+import { getStore } from './index';
 
 const routes = [
   { method: 'GET', path: '/me', as: 'me' },
@@ -81,7 +82,6 @@ function handleRoute({method, path, actionType, listing}) {
           return false;
         case `${typeRoot}_INIT`:
           return true;
-
         default:
           return state;
       }
@@ -90,9 +90,23 @@ function handleRoute({method, path, actionType, listing}) {
 
 }
 
+export function withSocket(socket) {
+  socket.on('api', (res) => {
+    return getStore().dispatch({
+      type: `${res.eventName.toUpperCase()}_SCK`,
+      data: res.data
+    });
+  });
+}
+
+const routesWithAction = [];
 routes.forEach(route => {
   const as = (!Array.isArray(route.as)) ? [route.as] : route.as;
-  as.forEach(actionType => handleRoute({ ...route, ...{ actionType } }));
+  as.forEach(actionType => {
+    const routeWithAction = { ...route, actionType };
+    routesWithAction.push(routeWithAction);
+    handleRoute(routeWithAction);
+  });
 });
 
-export { actions, reducers };
+export { actions, reducers, routes, routesWithAction };
