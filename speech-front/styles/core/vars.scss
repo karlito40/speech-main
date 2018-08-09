@@ -1,0 +1,88 @@
+// Colors:==================================================================
+$colorWhiteSmoke: #f5f5f5;
+$colorGainsboro: #eee;
+$colorLighterGrey: #ddd;
+$colorLightGrey: #ccc;
+$colorGrey: #bbb;
+$colorDarkGrey: #999;
+$colorDimGrey: #666;
+$colorLightBlack: #555;
+$colorDeepBlack: #222;
+$colorRed: #ff2a2a;
+$colorBlue: #0684bd;
+$colorDeepBlue: #262a30;
+$colorHighlight: #e313a1;
+$colorNotif: #fa4f55;
+
+$colors: (
+  white-smoke: $colorWhiteSmoke,
+  lighter-grey: $colorLightGrey,
+  light-grey: $colorLightGrey,
+  grey: $colorGrey,
+  dark-grey: $colorDarkGrey,
+  dim-grey: $colorDimGrey,
+  light-black: $colorLightBlack,
+  deep-black: $colorDeepBlack,
+  red: $colorRed,
+  blue: $colorBlue,
+  deep-blue: $colorDeepBlue,
+  highlight: $colorHighlight,
+  notif: $colorNotif
+);
+
+$baseTextColor: $colorLightBlack;
+$baseLinkColor: $colorDeepBlack;
+$baseLinkHoverColor: $colorDeepBlack;
+$baseLinkDecorationColor: $colorLightGrey;
+$baseLinkHoverDecorationColor: $colorDeepBlack;
+$baseBorderColor: $colorLightGrey;
+$bodyBackgroundColor: white;
+$contentBackgroundColor: white;
+$sidebarBackgroundColor: white;
+$sidebarHighlightBlue: #87daff;
+
+// Fonts ==================================================================
+$fontFamilySans: "Avenir Next", Avenir, "Tahoma", "Vendana", sans-serif;
+$fontFamilySerif: "PT Serif", "Cambria", Georgia, "Times New Roman", serif;
+$fontFamilyMono: "PT Mono", consolas, Monaco, Menlo, monospace;
+$fontFamilyHeadline: "PT Serif", "Cambria", Georgia, "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", "Times New Roman", serif;
+$fontFamilyPost: "Lato", "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+$fontFamilyBase: $fontFamilyPost;
+$fontSizeBase: 16px;
+$font36pt: 23px;
+$font24pt: 17px;
+$font22pt: 16px;
+$font20pt: 15px;
+$font18pt: 14px;
+$font16pt: 12px;
+$fontLineHeightBase: 1.5;
+$fontSizeHeadlineBase: 28px;
+$fontSizeHeadlineStep: 2px;
+$headlineFontFamily: $fontFamilyHeadline;
+
+$fonts: (
+  size-36pt: $font36pt,
+  size-24pt: $font24pt,
+  size-22pt: $font22pt,
+  size-20pt: $font20pt,
+  size-18pt: $font18pt,
+  size-16pt: $font16pt,
+);
+
+// Layout:=================================================================
+$desktopMainWidth: 960px;
+$desktopContentWidth: 700px;
+$desktopSidebarWidth: 240px;
+$tabletBreakpoint: 991px;
+$mobileBreakpoint: 767px;
+
+// Layout:=================================================================
+$brandTextColor: white;
+$brandBackground: $colorDeepBlack;
+
+// Theme:==================================================================
+$brandWidth: 60px;
+$logoWidth: 12px;
+$logoHeight: 20px;
+$logoBackgroundColor: white;
+$menuItemRightMargin: 10px;

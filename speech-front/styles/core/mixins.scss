@@ -1,0 +1,15 @@
+@mixin my-padding-mixin($some-number) {
+  padding: $some-number;
+}
+
+@mixin tablet() {
+   @media (max-width: $tabletBreakpoint) {
+     @content;
+   }
+}
+
+@mixin mobile() {
+   @media (max-width: $mobileBreakpoint) {
+     @content;
+   }
+}
